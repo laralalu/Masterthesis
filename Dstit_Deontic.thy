@@ -1,0 +1,131 @@
+theory Dstit_Deontic (*Combi Dstit deontic logic, neutral temporal deontic stit*)
+  imports Main
+begin 
+
+typedecl i (*Type for possible worlds.*) 
+type_synonym \<sigma> = "(i\<Rightarrow>bool)"
+type_synonym \<gamma> = "\<sigma>\<Rightarrow>\<sigma>" 
+type_synonym \<rho> = "\<sigma>\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>"
+type_synonym \<delta> = "i\<Rightarrow>i\<Rightarrow>bool" (* type of accessibility relations between worlds *)
+
+datatype ag = a1 | a2 | a3 | a4  (* dataype of mutually different agents; we provide 4, more can be added as needed *)
+
+type_synonym \<omega> = "ag\<Rightarrow>i\<Rightarrow>i\<Rightarrow>bool"   (* type of agent dependent accessibility relations between worlds *)
+type_synonym \<nu> = "(ag\<Rightarrow>bool)\<Rightarrow>i\<Rightarrow>i\<Rightarrow>bool" (* type of set-of-agents dependent accessibility relations between worlds *)
+
+consts 
+  cw::i (*current world*)
+  (*accessibility relations DStit*)
+  RBox::\<delta> (*worlds that are alternatives to each other: if (w, w1) then w1 is an alternative to w*)
+  R_ag::\<omega> (*worlds that are actual choices for agent a, set of alternatives that are forced by agents i choice or action at world w*)
+  R_set::\<nu> (*worlds that are actual choices for the set of Agents Agt*)
+  R_ag_ought::\<omega> (*set of alternatives that agent a ought to chose at moment m*)
+ 
+  RG::\<delta> (*all worlds that are the strict future of world w: (w, w1) means that w1 is the strict future of w*)
+  RH::\<delta> (*all worlds that are the strict past of world w: (w, w1) means that w1 is the strict past of w*)
+
+definition Inv::"\<delta> \<Rightarrow> \<delta>" ("Inv _") where 
+  "Inv R \<equiv> \<lambda>y x. R x y" 
+abbreviation intersect::"\<sigma>\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" (infix "\<inter>" 99) where "S1 \<inter> S2 \<equiv> (\<lambda>x. S1 x \<and> S2 x)"
+abbreviation emptyset::"\<sigma>" ("{}") where "{} \<equiv> (\<lambda>x. False)"
+abbreviation (input) big_intersection_rel::"((i\<Rightarrow>bool)\<Rightarrow>bool)\<Rightarrow>(i\<Rightarrow>bool)" ("\<^bold>\<Inter>") where "\<^bold>\<Inter> S \<equiv> \<lambda>v. \<forall>R. (S R) \<longrightarrow> (R v)"
+abbreviation subseteq1::"\<sigma>\<Rightarrow>\<sigma>\<Rightarrow>bool" (infixl "\<subseteq>" 99) where "S1 \<subseteq> S2 \<equiv> (\<forall>x. S1 x \<longrightarrow> S2 x)"
+abbreviation subseteq2::"\<delta>\<Rightarrow>\<delta>\<Rightarrow>bool" (infixl "\<subseteq>" 99) where "S1 \<subseteq> S2 \<equiv> (\<forall>x y. S1 x y \<longrightarrow> S2 x y)"
+abbreviation isin::"i\<Rightarrow>i\<Rightarrow>\<delta>\<Rightarrow>bool" ("[_,_] \<in> _") where "[w1,w2] \<in> R \<equiv> R w1 w2"
+
+lemma True nitpick [satisfy, user_axioms, show_all] oops (*empty assignment*) 
+
+axiomatization where
+ (*Dstit*)
+ (*reflexivity, symmetry, and transitivity for all equivalence relations*)
+  accReR_ag:  "\<forall>a w. (R_ag a) w w" and
+  accSymR_ag: "\<forall>a w v. (R_ag a) w v \<longrightarrow> (R_ag a) v w" and
+  accTraR_ag: "\<forall>a w v u. ((R_ag a) w v \<and> (R_ag a) v u) \<longrightarrow> (R_ag a) w u" and
+
+  accReRBox:  "\<forall>w. RBox w w" and
+  accSymRBox: "\<forall>w v. RBox w v \<longrightarrow> RBox v w" and
+  accTraRBox: "\<forall>w v u. (RBox w v \<and> RBox v u) \<longrightarrow> RBox w u" and
+
+  accReR_set:  "\<forall>s w. (R_set s) w w" and
+  accSymR_set: "\<forall>s w v. (R_set s) w v \<longrightarrow> (R_set s) v w" and
+  accTraR_set: "\<forall>s w v u. ((R_set s) w v \<and> (R_set s) v u) \<longrightarrow> (R_set s) w u" and
+
+  (*axioms for RBox, Ri, Rj, and RAgt*)
+  C1: "\<forall>a w1 w2. (R_ag a) w1 w2 \<longrightarrow> RBox w1 w2" and (*agents can only choose between alternatives*) 
+  (*I assume this axiom C2 is not expressed correctly:*)
+  C2: "\<forall>w1 w2. (RBox w1 w2) \<longrightarrow> (\<exists>w. \<forall>a. (R_ag a) w1 w)" and
+  (*independence of agents/choices \<rightarrow> if w1 and w2 are alternatives to each other, there exists a world w which is 
+  part of the actual choice of all agents*)
+  C3: "\<forall>S w1 w2. ((R_set S) w1 w2) \<longleftrightarrow> (\<forall>a. S a \<longrightarrow> (R_ag a) w1 w2)" and (*choices of agents in group Agt are 
+  made up of the choices of the intersection of choices of each individual agent*) 
+
+  (*axioms for RG and RH*)
+  RG_serial: "(\<forall>x. (\<exists>y. (RG x y)))" and (*seriality of RG*)
+  RG_trans: "(\<forall>x y z. (RG x y) \<and> (RG y z) \<longrightarrow> (RG x z))" and (*transitivity of RG*)
+  Inv: "(Inv RG) = RH" and (*RH is the inverse of RG*)
+  
+  C4: "\<forall>u v w. ((RG w u) \<and> (RG w v)) \<longrightarrow> ((RG v u) \<or> (RG u v) \<or> u = v)" and (*future*)
+  C5: "\<forall>u v w. ((RH w u) \<and> (RH w v)) \<longrightarrow> ((RH v u) \<or> (RH u v) \<or> u = v)" and (*past*)
+  (* If v is in the future of w and u and v are in the same moment,  then there exists an alternative z 
+  in the collective choice of all agents at w such that u is in the future of z.*)
+  C6: "\<forall>v w u S. (RG w v) \<and> (RBox v u) \<longrightarrow> (\<exists>z. ((R_set S) w z) \<and> (RG z u))" and 
+  C7: "\<forall>w v. ((RBox w v)) \<longrightarrow> \<not>(RG w v)" and (*if worlds are in the same moment, they can't be in each others future*)
+
+  (*Neutral Temporal Deontic Stit van Berkel & Lyon chapter 2, p. 3*)
+  (*if agent a ought to do sth, it is possible, the world must be an alternative*)
+  D8: "\<forall>a. \<forall>w v. ((R_ag_ought a) w v) \<longrightarrow> (RBox w v)" and
+  (*at every moment for each agent there is a choice available that is an ideal choice (questionable?)*)
+  D9: "\<forall>a. \<forall>w. (\<exists>v. (RBox w v) \<and> (\<forall>u. ((R_ag a) v u) \<longrightarrow> ((R_ag_ought a) w u)))" and 
+  (*for each agent, if a world is ideal from the perspective of a particular world at a moment, that world is ideal from  
+  the perspective of any world at that same moment, ideal worlds are settled upon moments*)
+  D10: "\<forall>a. \<forall>w v u z. (RBox w v) \<and> (RBox w u) \<and> ((R_ag_ought a) u z) \<longrightarrow> ((R_ag_ought a) v z)" and 
+  (*Every ideal world extends to a complete ideal choice, no choice contains both ideal and non-ideal worlds (questionable?)*)
+  D11: "\<forall>a. \<forall>w v. ((R_ag_ought a) w v) \<longrightarrow> (\<exists>u. (RBox w u) \<and> ((R_ag a) u v) \<and> (\<forall>z. ((R_ag a) u z) \<longrightarrow> ((R_ag_ought a) w z)))"
+
+lemma True nitpick [satisfy, user_axioms, show_all] oops (*infinite*) 
+
+(*Usual connectives lifted*)
+  abbreviation combiNot::\<gamma> ("\<^bold>\<not>_") where "\<^bold>\<not>A \<equiv> \<lambda>w. \<not>A(w)" 
+  abbreviation combiAnd::\<rho> ("_\<^bold>\<and>_") where "A\<^bold>\<and>B \<equiv> \<lambda>w. A(w)\<and>B(w)"   
+  abbreviation combiOr::\<rho> ("_ \<^bold>\<or> _") where "A\<^bold>\<or>B \<equiv> \<lambda>w. A(w)\<or>B(w)"   
+  abbreviation combiImp::\<rho> ("_\<^bold>\<rightarrow>_") where "A\<^bold>\<rightarrow>B \<equiv> \<lambda>w. A(w)\<longrightarrow>B(w)"  
+  abbreviation combiEquiv::\<rho> ("_\<^bold>\<leftrightarrow>_") where "A\<^bold>\<leftrightarrow>B \<equiv> \<lambda>w. A(w)\<longleftrightarrow>B(w)"  
+  abbreviation combiBox::\<gamma> ("\<^bold>\<box>") where "\<^bold>\<box>A \<equiv> \<lambda>w. \<forall>v. A(v)"  (*A = (\<lambda>w. True)*) 
+  abbreviation combiDia::\<gamma> ("\<^bold>\<diamond>") where "\<^bold>\<diamond>A \<equiv> \<^bold>\<not>\<^bold>\<box>(\<^bold>\<not>A)"
+  abbreviation combiTop::\<sigma> ("\<^bold>\<top>") where "\<^bold>\<top> \<equiv> \<lambda>w. True"
+  abbreviation combiBot::\<sigma> ("\<^bold>\<bottom>") where "\<^bold>\<bottom> \<equiv> \<lambda>w. False" 
+
+ (*Dstit connectives*)
+  abbreviation combiCstit::"ag\<Rightarrow>\<gamma>" ("[_] _") where "[k] A \<equiv> \<lambda>w. (\<forall>y. ((R_ag k) w y) \<longrightarrow> (A y))" (*Chellas Stit*)
+  abbreviation combiCstitPoss::"ag\<Rightarrow>\<gamma>" ("<_>_") where "<i> A \<equiv> \<^bold>\<not>([i] (\<^bold>\<not> A))" (*Possibility Group Chellas stit*)
+  abbreviation combiCstitGr::"(ag\<Rightarrow>bool)\<Rightarrow>\<gamma>" ("[_]gr _") where "[S]gr A \<equiv> \<lambda>w. (\<forall>v. ((R_set S) w v) \<longrightarrow> (A v))" (*Chellas stit group*)
+  abbreviation combiCstitGrPoss::"(ag\<Rightarrow>bool)\<Rightarrow>\<gamma>" ("<_>gr_") where "<S>gr A \<equiv> \<^bold>\<not>([S]gr (\<^bold>\<not> A))" (*Possibility Group Chellas stit*)
+  abbreviation combiOughtToDo::"ag\<Rightarrow>\<gamma>" ("\<^bold>\<otimes> _ _") where "\<^bold>\<otimes> i A \<equiv> \<lambda>w. (\<forall>v. ((R_ag_ought i) w v) \<longrightarrow> (A v))" (*OughtToDo Operator*)
+  abbreviation combiG::\<gamma> ("G_") where "G A \<equiv> \<lambda>w. (\<forall>v. ((RG w v) \<longrightarrow> (A v)))" (*A will always be true in the future*)
+  abbreviation combiH::\<gamma> ("H_") where "H A \<equiv> \<lambda>w. (\<forall>v. ((RH w v) \<longrightarrow> (A v)))" (*A has always been true in the past*) 
+  abbreviation combiP::\<gamma> ("P_") where "P A \<equiv> \<^bold>\<not> (H (\<^bold>\<not> A))" (*it has not always been true that not A*)
+  abbreviation combiF::\<gamma> ("F_") where "F A \<equiv> \<^bold>\<not> (G (\<^bold>\<not> A))" (*it will not always be true that not A*)
+
+  abbreviation combiDstit::"ag\<Rightarrow>\<gamma>" ("[_]d _") where "[i]d A \<equiv> ([i]A) \<^bold>\<and> \<^bold>\<not>(\<^bold>\<box>A)" (*Dstit*)
+  (*long version:
+  abbreviation dstitDstit::"ag\<Rightarrow>\<gamma>" ("[_]x _") where "[i]x A \<equiv>  \<lambda>w. (\<forall>v. ((R_ag i) w v) \<longrightarrow> (A v)) \<and> \<not> (\<forall>x. A(x))"*)
+  abbreviation combiDstitGr::"(ag\<Rightarrow>bool)\<Rightarrow>\<gamma>" ("[_]dgr _") where "[S]dgr A \<equiv> ([S]gr A) \<^bold>\<and> (\<^bold>\<not>(\<^bold>\<box>A))" (*Dstit group*)
+  abbreviation combiDstitGrPoss::"(ag\<Rightarrow>bool)\<Rightarrow>\<gamma>" ("<_>dgr_") where "<S>dgr A \<equiv> \<^bold>\<not>([S]dgr(\<^bold>\<not> A))"
+  abbreviation combiOughtToDoD::"ag\<Rightarrow>\<gamma>" ("\<^bold>\<otimes>d _ _") where "\<^bold>\<otimes>d i A \<equiv> (\<^bold>\<otimes> i A) \<^bold>\<and> (\<^bold>\<diamond> \<^bold>\<not> A)" (*OughtToDo Operator*)
+  abbreviation combiDelta::"ag\<Rightarrow>\<gamma>" ("\<Delta>_ _") where "\<Delta> i A \<equiv> (\<lambda>w. (A (w)) \<^bold>\<and> (\<^bold>\<not> ([i]d (A))))"  
+
+  (*Quantification*) 
+  abbreviation combiForall ("\<^bold>\<forall>") where "\<^bold>\<forall>\<Phi> \<equiv> \<lambda>w.\<forall>x. (\<Phi> x w)"
+  abbreviation combiForallB (binder"\<^bold>\<forall>"[8]9) where "\<^bold>\<forall>x. \<phi>(x) \<equiv> \<^bold>\<forall>\<phi>"  
+  abbreviation combiExists ("\<^bold>\<exists>") where "\<^bold>\<exists>\<Phi> \<equiv> \<lambda>w.\<exists>x. (\<Phi> x w)"   
+  abbreviation combiExistsB (binder"\<^bold>\<exists>"[8]9) where "\<^bold>\<exists>x. \<phi>(x) \<equiv> \<^bold>\<exists>\<phi>" 
+
+  (*Validity*)
+  abbreviation combiValidLocal :: "(i\<Rightarrow>bool) \<Rightarrow> bool" ("\<Turnstile> _") where "\<Turnstile> A \<equiv> A cw"
+  abbreviation combiValidGlobal :: "(i \<Rightarrow> bool) \<Rightarrow> bool" ("\<lfloor>_\<rfloor>") where "\<lfloor>A\<rfloor> \<equiv> \<forall>w. A w" 
+
+lemma True nitpick [satisfy, user_axioms, show_all] oops (*time-out, infinite*)
+
+end
+
+
