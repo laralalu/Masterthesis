@@ -1,0 +1,27 @@
+theory "high-risk-3-26"
+  imports 
+  types
+  DDL_agents
+begin
+
+(*agent a = importers*)
+consts
+  conformity_assessment_done_by_provider::"aiSys\<Rightarrow>\<sigma>" 
+  drawn_up_techdoc_by_provider::"aiSys\<Rightarrow>\<sigma>" 
+  system_has_conformity_mark::"aiSys\<Rightarrow>\<sigma>"
+  system_has_instructions_use::"aiSys\<Rightarrow>\<sigma>"
+  system_not_in_conformity::"aiSys\<Rightarrow>\<sigma>"
+  place_system_on_market::"aiSys\<Rightarrow>\<sigma>"
+  system_poses_risk_65_1::"aiSys\<Rightarrow>\<sigma>"
+  provider_of_sys::"aiSys\<Rightarrow>agent"
+  inform_provider::"(aiSys\<Rightarrow>agent)\<Rightarrow>aiSys\<Rightarrow>\<sigma>"
+
+consts x::"aiSys" (*aiSystem*) 
+
+(*missing: Prior to placing on market, can not be expressed, we don't have a time operator in DDL*)
+abbreviation "A1 \<equiv> \<lfloor>\<^bold>\<forall>x. (\<^bold>\<circle>a<(stita (conformity_assessment_done_by_provider x)) \<^bold>\<and> (stita (drawn_up_techdoc_by_provider x)) \<^bold>\<and>
+  (stita (system_has_conformity_mark x)) \<^bold>\<and> (stita (system_has_instructions_use x))>)\<rfloor>"
+
+abbreviation "A2 \<equiv> \<lfloor>\<^bold>\<forall>x. system_not_in_conformity x \<^bold>\<rightarrow> \<^bold>\<circle>a<stita (\<^bold>\<not>(place_system_on_market x))>\<rfloor>"
+
+abbreviation "A3 \<equiv> \<lfloor>\<^bold>\<forall>x. system_poses_risk_65_1 x \<^bold>\<rightarrow> \<^bold>\<circle>a<stita (inform_provider provider_of_sys x)>\<rfloor>"

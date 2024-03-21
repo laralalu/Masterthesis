@@ -1,6 +1,6 @@
 theory "high-risk-3-16-SDL"
   imports types
-  SDL_agents_CB
+  SDL_agents
 begin
 
 (*agent d: Providers, uses stitd and \<^bold>\<circle>d<>*)

@@ -1,27 +1,21 @@
-theory SDL_agents_CB
-  imports Main
+theory SDL_agents
+  imports types Main 
 begin
 
- typedecl i (*Type for possible worlds.*)
- type_synonym \<sigma> = "(i\<Rightarrow>bool)"
- type_synonym \<gamma> = "\<sigma>\<Rightarrow>\<sigma>" 
- type_synonym \<rho> = "\<sigma>\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>"
- type_synonym \<tau> = "(i\<Rightarrow>i\<Rightarrow>bool)\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" 
-
-(*Two agents: agent a, agent b*)
 consts 
-  Rela::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Ra" 70) (*Accessibility relation agent a, judicial authority or by an independent administrative authority of Member State.*)  
+  Rela::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Ra" 70) (*Accessibility relation agent a, Judicial authority or independent administrative authority of Member State.*)  
   Relb::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rb" 70) (*Accessibility relation agent b, Member state.*) 
   Relc::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rc" 70) (*Accessibility relation agent c, EU commission.*) 
   Reld::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rd" 70) (*Accessibility relation agent d, Provider.*) 
-  Rel::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "R" 70) (*General accessibility relation, not related to an agent.*) 
-  aw::i (*Actual world.*)  
-
+  Rele::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Re" 70) (*Accessibility relation agent e, Conformity assessment body.*) 
+  Relf::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rf" 70) (*Accessibility relation agent f, Notifying authority.*) 
+  Relg::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rg" 70) (*Accessibility relation agent g, Notified body.*) 
+  Relh::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rh" 70) (*Accessibility relation agent h, Importer.*) 
+  Rel::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "R" 70) (*General accessibility relation, not related to an agent.*)
+ 
+  aw::i (*Actual world.*)
  (*stit operators for a and b, no meaning assigned*)
-  stita::"\<sigma>\<Rightarrow>\<sigma>" (*a sees to it that*)
-  stitb::"\<sigma>\<Rightarrow>\<sigma>" (*b sees to it that*)
-  stitc::"\<sigma>\<Rightarrow>\<sigma>" (*c sees to it that*)
-  stitd::"\<sigma>\<Rightarrow>\<sigma>" (*d sees to it that*)
+  stit::"ag\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" (*ag sees to it that*) 
 
  abbreviation (input) SDLtop::\<sigma> ("\<^bold>\<top>") where "\<^bold>\<top> \<equiv> \<lambda>w. True" 
  abbreviation (input) SDLbot::\<sigma> ("\<^bold>\<bottom>") where "\<^bold>\<bottom> \<equiv> \<lambda>w. False" 
@@ -44,15 +38,20 @@ consts
  abbreviation (input) SDLexists ("\<^bold>\<exists>") where "\<^bold>\<exists>\<Phi> \<equiv> \<lambda>w.\<exists>x. (\<Phi> x w)"   
  abbreviation (input) SDLexistsB (binder"\<^bold>\<exists>"[8]9) where "\<^bold>\<exists>x. \<phi>(x) \<equiv> \<^bold>\<exists>\<phi>"
 
- abbreviation (input) SDLvalid::"\<sigma>\<Rightarrow>bool" ("\<lfloor>_\<rfloor>"[7]105)  where "\<lfloor>\<phi>\<rfloor> \<equiv> \<forall>w. \<phi> w"       (*Global validity.*)
+ abbreviation (input) SDLvalid::"\<sigma>\<Rightarrow>bool" ("\<lfloor>_\<rfloor>"[7]105)  where "\<lfloor>\<phi>\<rfloor> \<equiv> \<forall>w. \<phi> w"      (*Global validity.*)
  abbreviation (input) SDLvalidcw::"\<sigma>\<Rightarrow>bool" ("\<lfloor>_\<rfloor>\<^sub>l"[7]105)    where "\<lfloor>\<phi>\<rfloor>\<^sub>l \<equiv> \<phi> aw"   (*Validity in actual world.*)
 
  (* New syntax *)
- abbreviation (input) SDLobl::\<gamma> ("\<^bold>\<circle><_>") where "\<^bold>\<circle><\<phi>> \<equiv>  OBg Rel \<phi>"  (*New syntax: A is obligatory*)
+abbreviation (input) SDLobl::\<gamma> ("\<^bold>\<circle><_>") where "\<^bold>\<circle><\<phi>> \<equiv>  OBg Rel \<phi>"  (*New syntax: A is obligatory*)
+
  abbreviation (input) SDLobla::\<gamma> ("\<^bold>\<circle>a<_>") where "\<^bold>\<circle>a<\<phi>> \<equiv>  OBg Rela \<phi>" (*A is obligatory for a*)
  abbreviation (input) SDLoblb::\<gamma> ("\<^bold>\<circle>b<_>") where "\<^bold>\<circle>b<\<phi>> \<equiv>  OBg Relb \<phi>" (*A is obligatory for b*)
  abbreviation (input) SDLoblc::\<gamma> ("\<^bold>\<circle>c<_>") where "\<^bold>\<circle>c<\<phi>> \<equiv>  OBg Relc \<phi>" (*A is obligatory for c*)
  abbreviation (input) SDLobld::\<gamma> ("\<^bold>\<circle>d<_>") where "\<^bold>\<circle>d<\<phi>> \<equiv>  OBg Reld \<phi>" (*A is obligatory for d*)
+ abbreviation (input) SDLoble::\<gamma> ("\<^bold>\<circle>e<_>") where "\<^bold>\<circle>e<\<phi>> \<equiv>  OBg Rele \<phi>" (*A is obligatory for e*)
+ abbreviation (input) SDLoblf::\<gamma> ("\<^bold>\<circle>f<_>") where "\<^bold>\<circle>f<\<phi>> \<equiv>  OBg Relf \<phi>" (*A is obligatory for f*)
+ abbreviation (input) SDLoblg::\<gamma> ("\<^bold>\<circle>g<_>") where "\<^bold>\<circle>g<\<phi>> \<equiv>  OBg Relg \<phi>" (*A is obligatory for g*)
+ abbreviation (input) SDLoblh::\<gamma> ("\<^bold>\<circle>h<_>") where "\<^bold>\<circle>h<\<phi>> \<equiv>  OBg Relh \<phi>" (*A is obligatory for h*)
 
 (* Corrspondence, generic *)
 lemma "\<lfloor>\<^bold>\<not>(OBg rel \<phi> \<^bold>\<and> OBg rel (\<^bold>\<not>\<phi>))\<rfloor> \<longleftrightarrow> (\<forall>w. \<exists>v. rel w v)"  by auto 
@@ -61,7 +60,6 @@ lemma "\<lfloor>\<^bold>\<not>(OBg rel \<phi> \<^bold>\<and> OBg rel (\<^bold>\<
 lemma "\<lfloor>\<^bold>\<not> (\<^bold>\<circle><\<phi>> \<^bold>\<and> \<^bold>\<circle><\<^bold>\<not>\<phi>>)\<rfloor> \<longleftrightarrow> (\<forall>w. \<exists>v. w R v)" by blast
 lemma "\<lfloor>\<^bold>\<not> (\<^bold>\<circle>a<\<phi>> \<^bold>\<and> \<^bold>\<circle>a<\<^bold>\<not>\<phi>>)\<rfloor> \<longleftrightarrow> (\<forall>w. \<exists>v. w Ra v)" by blast
 lemma "\<lfloor>\<^bold>\<not> (\<^bold>\<circle>b<\<phi>> \<^bold>\<and> \<^bold>\<circle>b<\<^bold>\<not>\<phi>>)\<rfloor> \<longleftrightarrow> (\<forall>w. \<exists>v. w Rb v)" by blast
-
 
 (* We postulate these axioms, they are computationally better suited; the other way around is 
    clearly also possible though. *)
@@ -75,10 +73,8 @@ lemma "\<lfloor>\<^bold>\<not> (\<^bold>\<circle><\<phi>> \<^bold>\<and> \<^bold
 lemma "\<lfloor>\<^bold>\<not> (\<^bold>\<circle>a<\<phi>> \<^bold>\<and> \<^bold>\<circle>a<\<^bold>\<not>\<phi>>)\<rfloor>" using serialitya by blast
 lemma "\<lfloor>\<^bold>\<not> (\<^bold>\<circle>b<\<phi>> \<^bold>\<and> \<^bold>\<circle>b<\<^bold>\<not>\<phi>>)\<rfloor>" using serialityb by blast
 
-
 (*Consistency confirmed by model finder Nitpick.*) 
 lemma True nitpick[satisfy,user_axioms,expect=genuine] oops
-
 
 (*Barcan formulas, generic*) 
 lemma BarcanG:         "\<lfloor>(\<^bold>\<forall>d. OBg rel (\<phi> d)) \<^bold>\<rightarrow> (OBg rel (\<^bold>\<forall>d. (\<phi> d)))\<rfloor>" by simp  

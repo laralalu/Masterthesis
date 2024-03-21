@@ -1,9 +1,9 @@
 theory "high-risk-3-16-DDL"
   imports types
-  SDL_agents_CB
+  DDL_agents
 begin
 
-(*agent d: Providers, uses stitd and \<^bold>\<circle>d<>*)
+(*agent a: Providers, uses stita and \<^bold>\<circle>a<>*)
 
 consts
   compliance_req_chap2::"aiSys\<Rightarrow>\<sigma>"
@@ -27,28 +27,28 @@ consts
 consts x::"aiSys" (*aiSystem*)
 
 (*theory, tile 3, chapter 3, article 16*)
-abbreviation "A1 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>d<stitd (compliance_req_chap2 x)>\<rfloor>"  
-abbreviation "A2 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>d<stitd (technical_doc_drawn_up x)>\<rfloor>" 
-abbreviation "A3 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>d<stitd (quality_man_sys_complies_art_17 x)>\<rfloor>" 
-abbreviation "A4 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. (logs_under_control provider x) \<^bold>\<rightarrow> \<^bold>\<circle>d<stitd (auto_logs_kept x)>\<rfloor>" 
-abbreviation "A5 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>d<stitd (rel_conformity_assessment_procedure_undergone_prior x)>\<rfloor>" 
-abbreviation "A6 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>d<stitd (registration_obligations_art_51_complied x)>\<rfloor>" 
-abbreviation "A7 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<not>(compliance_req_chap2 x) \<^bold>\<rightarrow> \<^bold>\<circle>c<stitd (take_corrective_action provider x)>\<rfloor>"
-abbreviation "A8 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<not>(compliance_req_chap2 x) \<^bold>\<rightarrow> \<^bold>\<circle>c<stitd (inform_com_auth x)>\<rfloor>" 
-abbreviation "A9 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. (\<^bold>\<not>(compliance_req_chap2 x) \<^bold>\<and> nat_body_involved) \<^bold>\<rightarrow> \<^bold>\<circle>c<stitd (inform_nat_body x)>\<rfloor>"
-abbreviation "A10 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>c<stitd (affix_CE_marking_art_49 provider x)>\<rfloor>"
-abbreviation "A11 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. (demo_requested_by_nat_comp_auth) \<^bold>\<rightarrow> \<^bold>\<circle>c<stitd (demonstrate_conformance_art_2 provider x)>\<rfloor>"
+abbreviation "A1 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>a<stita (compliance_req_chap2 x)>\<rfloor>"  
+abbreviation "A2 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>a<stita (technical_doc_drawn_up x)>\<rfloor>" 
+abbreviation "A3 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>a<stita (quality_man_sys_complies_art_17 x)>\<rfloor>" 
+abbreviation "A4 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. (logs_under_control provider x) \<^bold>\<rightarrow> \<^bold>\<circle>a<stita (auto_logs_kept x)>\<rfloor>" 
+abbreviation "A5 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>a<stita (rel_conformity_assessment_procedure_undergone_prior x)>\<rfloor>" 
+abbreviation "A6 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>a<stita (registration_obligations_art_51_complied x)>\<rfloor>" 
+abbreviation "A7 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<not>(compliance_req_chap2 x) \<^bold>\<rightarrow> \<^bold>\<circle>a<stita (take_corrective_action provider x)>\<rfloor>"
+abbreviation "A8 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<not>(compliance_req_chap2 x) \<^bold>\<rightarrow> \<^bold>\<circle>a<stita (inform_com_auth x)>\<rfloor>" 
+abbreviation "A9 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. (\<^bold>\<not>(compliance_req_chap2 x) \<^bold>\<and> nat_body_involved) \<^bold>\<rightarrow> \<^bold>\<circle>a<stita (inform_nat_body x)>\<rfloor>"
+abbreviation "A10 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>a<stita (affix_CE_marking_art_49 provider x)>\<rfloor>"
+abbreviation "A11 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. (demo_requested_by_nat_comp_auth) \<^bold>\<rightarrow> \<^bold>\<circle>a<stita (demonstrate_conformance_art_2 provider x)>\<rfloor>"
 abbreviation "a_theory \<equiv> A1 \<and> A2 \<and> A3 \<and> A4 \<and> A5 \<and> A6 \<and> A7 \<and> A8 \<and> A9 \<and> A10 \<and> A11"
 
 (*Facts*)
 abbreviation "F1 w \<equiv> (logs_under_control provider x) w"
-abbreviation "F2 w \<equiv> (\<not> (stitd (compliance_req_chap2 x)) w)"
+abbreviation "F2 w \<equiv> (\<not> (stita (compliance_req_chap2 x)) w)"
 abbreviation "a_facts \<equiv> F1 \<^bold>\<and> F2"
 
-theorem Result1: "a_theory \<longrightarrow> \<lfloor>\<^bold>\<circle>d<stitd (technical_doc_drawn_up x)>\<rfloor>"  
+theorem Result1: "a_theory \<longrightarrow> \<lfloor>\<^bold>\<circle>a<stita (technical_doc_drawn_up x)>\<rfloor>"  
   by auto
 
-theorem Result2: "a_theory \<longrightarrow> \<lfloor>(F1) \<^bold>\<rightarrow> \<^bold>\<circle>d<stitd (auto_logs_kept x)>\<rfloor>"  
+theorem Result2: "a_theory \<longrightarrow> \<lfloor>(F1) \<^bold>\<rightarrow> \<^bold>\<circle>a<stita (auto_logs_kept x)>\<rfloor>"  
   by simp 
 
 
@@ -58,19 +58,25 @@ consts
   l::aiSys
 
 (*interesting part: CTD; Trying to create the typical structure*)
-(*stitd still has no semantics*)
+(*stita still has no semantics*)
 axiomatization where
 F1: "\<lfloor>(on_market l)\<rfloor>" and
-A1: "\<lfloor>\<^bold>\<forall>x::aiSys.(on_market x) \<^bold>\<rightarrow> \<^bold>\<circle>d<stitd (compliance_req_chap2 x)>\<rfloor>" and
-A8: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<not>(stitd (compliance_req_chap2 x)) \<^bold>\<and> (on_market x) \<^bold>\<rightarrow> \<^bold>\<circle>d<(stitd (inform_com_auth x))>\<rfloor>" and
+A1: "\<lfloor>\<^bold>\<forall>x::aiSys.(on_market x) \<^bold>\<rightarrow> \<^bold>\<circle>a<stita (compliance_req_chap2 x)>\<rfloor>" and
+(*this should be \<^bold>\<not>(compliance_req_chap2 x). The fact that the provider does not see to it that 
+the system complies with the requirements should entail that actually the compliance is not given.
+However, the stita here has no semantic meaning, which is why this doesn't work*)
+A8: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<not>(stita (compliance_req_chap2 x)) \<^bold>\<and> (on_market x) \<^bold>\<rightarrow> \<^bold>\<circle>a<(stita (inform_com_auth x))>\<rfloor>" and
 (*implicit: If the compliance with the requirements is a given, the provider is obligated to not inform authorities 
 of non-compliance (since that would make no sense*)
-AX: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>d<(stitd (compliance_req_chap2 x)) \<^bold>\<rightarrow> (\<^bold>\<not>(stitd (inform_com_auth x)))>\<rfloor>" and
-Situation: "\<lfloor>\<^bold>\<not> (stitd (compliance_req_chap2 l))\<rfloor>\<^sub>l"
+AX: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>a<(stita (compliance_req_chap2 x)) \<^bold>\<rightarrow> (\<^bold>\<not>(stita (inform_com_auth x)))>\<rfloor>" and
+Situation: "\<lfloor>\<^bold>\<not> (stita (compliance_req_chap2 l))\<rfloor>\<^sub>l"
 
-(*Should the competent authority be informed? We find a proof for both \<rightarrow> contradiction*)
-(*We must try this in DDL*)
-lemma "\<lfloor>\<^bold>\<circle>d<stitd (inform_com_auth l)>\<rfloor>\<^sub>l" using A8 F1 Situation by auto
-lemma "\<lfloor>\<^bold>\<circle>d<\<^bold>\<not>(stitd (inform_com_auth l))>\<rfloor>\<^sub>l" by (meson F1 A1 AX)
+(***Some Experiments***) 
+lemma True nitpick [satisfy, user_axioms] oops (*Consistency-check: Nitpick finds a model.*)
+
+(*Should the competent authority be informed? Yes, in DDl, we can prove that!
+For the contrary, a counterexample is found. *)
+lemma "\<lfloor>\<^bold>\<circle>a<stita (inform_com_auth l)>\<rfloor>\<^sub>l" using A8 F1 Situation by auto
+lemma "\<lfloor>\<^bold>\<circle>a<\<^bold>\<not>(stita (inform_com_auth l))>\<rfloor>\<^sub>l" nitpick [user_axioms] oops (*counterexample found*)
 
 end

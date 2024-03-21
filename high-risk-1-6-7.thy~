@@ -1,7 +1,7 @@
-theory "high-risk-1_6_7"
+theory "high-risk-1-6-7"
   imports 
   types
-  SDL_agents_CB
+  SDL_agents
 begin
 
 consts (*Predicates/relations*)

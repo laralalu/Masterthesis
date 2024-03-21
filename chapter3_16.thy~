@@ -17,7 +17,7 @@ consts
   request::"national_competent_authority\<Rightarrow>aiSys\<Rightarrow>\<sigma>" 
   nch::national_competent_authority
 
-(*g and h are missing here due to the CTD part*)
+
 axiomatization where
   a: "\<lfloor>\<^bold>\<forall>x::aiSys. (\<^bold>\<otimes>d a1 (ensure_compliance_chap_2 x))\<rfloor>" and
   b: "\<lfloor>\<^bold>\<forall>x::aiSys. (\<^bold>\<otimes>d a1 (quality_management_art_17 x))\<rfloor>" and

@@ -14,6 +14,9 @@ consts
   obl_deemed_fulfilled_by_art_74_40::"aiSys\<Rightarrow>\<sigma>"
   take_into_account::"standard\<Rightarrow>aiSys\<Rightarrow>\<sigma>" 
 
+(*A3 can not be expressed since in Deontic_dstit as it is know, we can't use non-
+agentive obligations*)
+ 
 axiomatization where
   A1: "\<lfloor>\<^bold>\<forall>x::aiSys. (\<^bold>\<otimes> a1 (quality_man_in_place x))\<rfloor>" and
   B1: "\<lfloor>\<^bold>\<forall>y::qualManSys. (\<^bold>\<otimes> a1 (document_quality_man y))\<rfloor>" and

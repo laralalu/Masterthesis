@@ -1,0 +1,91 @@
+theory "high-risk-3-3-26"
+  imports 
+  types
+  DDL_agents
+begin
+
+(*agent b = importers*)
+
+consts
+  nat_comp_auth::"aiSys\<Rightarrow>agent1" (*nat comp auth responsible for the system*)
+  importer_sys::"aiSys\<Rightarrow>agent1" (*importer of the system = a*)
+  provider_of_sys::"aiSys\<Rightarrow>agent1" (*provider of the system*)
+
+  conformity_assessment_done_by_provider::"aiSys\<Rightarrow>\<sigma>" 
+  drawn_up_techdoc_by_provider::"aiSys\<Rightarrow>\<sigma>" 
+  system_has_conformity_mark::"aiSys\<Rightarrow>\<sigma>"
+  system_has_instructions_use::"aiSys\<Rightarrow>\<sigma>"
+  system_in_conformity::"aiSys\<Rightarrow>\<sigma>"
+  place_system_on_market::"aiSys\<Rightarrow>\<sigma>"
+  system_poses_risk_65_1::"aiSys\<Rightarrow>\<sigma>"
+  inform_provider::"(aiSys\<Rightarrow>agent1)\<Rightarrow>aiSys\<Rightarrow>\<sigma>"
+  indicate_name_on_sys::"aiSys\<Rightarrow>\<sigma>"
+  indicate_adress_on_sys::"aiSys\<Rightarrow>\<sigma>"
+  indicate_name_on_packaging::"aiSys\<Rightarrow>\<sigma>"
+  indicate_adress_on_packaging::"aiSys\<Rightarrow>\<sigma>"
+  possible_ind_on_sys::"aiSys\<Rightarrow>\<sigma>"
+  sys_under_responsibility::"(aiSys\<Rightarrow>agent1)\<Rightarrow>aiSys\<Rightarrow>\<sigma>"
+  storage_transport_compromise_req_chap2::"aiSys\<Rightarrow>\<sigma>"
+  reasoned_request_natcompauth::\<sigma>
+  info_doc_demonstrate_req_chap2_provided_to::"(aiSys\<Rightarrow>agent1)\<Rightarrow>aiSys\<Rightarrow>\<sigma>"
+  access_generated_logs_provided_to::"(aiSys\<Rightarrow>agent1)\<Rightarrow>aiSys\<Rightarrow>\<sigma>"
+  cooperate_with::"(aiSys\<Rightarrow>agent1)\<Rightarrow>(aiSys\<Rightarrow>agent1)\<Rightarrow>aiSys\<Rightarrow>\<sigma>"
+  
+consts x::"aiSys" (*aiSystem*) 
+
+(*missing: Prior to placing on market, can not be expressed, we don't have a time operator in DDL 
+\<rightarrow> include in predicate? e.g. conformity_assessment_done_by_provider_prior *)
+abbreviation "A1 \<equiv> \<lfloor>\<^bold>\<forall>x. (\<^bold>\<circle>b<(stitb (conformity_assessment_done_by_provider x)) \<^bold>\<and> (stitb (drawn_up_techdoc_by_provider x)) \<^bold>\<and>
+  (stitb (system_has_conformity_mark x)) \<^bold>\<and> (stitb (system_has_instructions_use x))>)\<rfloor>"
+(*again, here we would need more then an empty stit operator to show the effects of stita*)
+abbreviation "A1a \<equiv> \<lfloor>\<^bold>\<forall>x. \<^bold>\<circle>b<(stitb (system_in_conformity x))>\<rfloor>"
+(*Hence we must add the stita here also*)
+abbreviation "A2 \<equiv> \<lfloor>\<^bold>\<forall>x. \<^bold>\<not> (stitb (system_in_conformity x)) \<^bold>\<rightarrow> \<^bold>\<circle>b<stitb (\<^bold>\<not>(place_system_on_market x))>\<rfloor>"
+
+abbreviation "A3 \<equiv> \<lfloor>\<^bold>\<forall>x. system_poses_risk_65_1 x \<^bold>\<rightarrow> \<^bold>\<circle>b<stitb (inform_provider provider_of_sys x)>\<rfloor>"
+
+abbreviation "A4 \<equiv> \<lfloor>\<^bold>\<forall>x. possible_ind_on_sys x \<^bold>\<rightarrow> \<^bold>\<circle>b<(stitb (indicate_name_on_sys x))> \<^bold>\<and> \<^bold>\<circle>b<(stitb (indicate_adress_on_sys x))>\<rfloor>"
+
+abbreviation "A5 \<equiv> \<lfloor>\<^bold>\<forall>x. \<^bold>\<not> possible_ind_on_sys x \<^bold>\<rightarrow> \<^bold>\<circle>b<(stitb (indicate_name_on_packaging x))> \<^bold>\<and> \<^bold>\<circle>b<(stitb (indicate_adress_on_packaging x))>\<rfloor>"
+
+abbreviation "A6 \<equiv> \<lfloor>\<^bold>\<forall>x. (sys_under_responsibility importer_sys x) \<^bold>\<rightarrow> \<^bold>\<circle>b<stitb (\<^bold>\<not>(storage_transport_compromise_req_chap2 x))>\<rfloor>"
+
+abbreviation "A7 \<equiv> \<lfloor>\<^bold>\<forall>x. reasoned_request_natcompauth \<^bold>\<rightarrow> \<^bold>\<circle>b<(stitb (info_doc_demonstrate_req_chap2_provided_to nat_comp_auth x))>\<rfloor>"
+
+abbreviation "A8 \<equiv> \<lfloor>\<^bold>\<forall>x. reasoned_request_natcompauth \<^bold>\<rightarrow> \<^bold>\<circle>b<(stitb (access_generated_logs_provided_to nat_comp_auth x))>\<rfloor>"
+
+(*importer sees to it that the importer of the system cooperates with the responsible national competent authorities on
+actions relating to the system*)
+abbreviation "A9 \<equiv> \<lfloor>\<^bold>\<forall>x. \<^bold>\<circle>b<(stitb (cooperate_with importer_sys nat_comp_auth x))>\<rfloor>" 
+
+
+(*DDL structure \<rightarrow> with stitb*)
+axiomatization where
+A1: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>b<stitb (system_in_conformity x)>\<rfloor>" and (*this should imply: "\<^bold>\<circle>a<system_in_conformity x>"*)
+A8: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<not> (stitb (system_in_conformity x)) \<^bold>\<rightarrow> \<^bold>\<circle>b<(stitb (\<^bold>\<not>(place_system_on_market x)))>\<rfloor>" and
+(*implicit: If the system is in conformity, the importer is obligated to not see to it that the system is not placed
+on the market*)
+AX: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>b<(system_in_conformity x) \<^bold>\<rightarrow> (\<^bold>\<not>(stitb (\<^bold>\<not>(place_system_on_market x))))>\<rfloor>" and
+Situationa: "\<lfloor>\<^bold>\<not> (stitb (system_in_conformity x))\<rfloor>\<^sub>l"
+
+lemma "\<lfloor>\<^bold>\<circle>b<stitb (\<^bold>\<not> (place_system_on_market x))>\<rfloor>\<^sub>l" using A8 Situationa by auto
+lemma "\<lfloor>\<^bold>\<circle>b<\<^bold>\<not>(stitb (\<^bold>\<not>(place_system_on_market x)))>\<rfloor>\<^sub>l" nitpick [user_axioms] oops (*counterexample found*)
+
+(*DDL structure \<rightarrow> using the added axioms with minimal meaning*)
+axiomatization where
+A1a: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>b<stitb (system_in_conformity x)>\<rfloor>" and (*this should imply: "\<^bold>\<circle>b<system_in_conformity x>" \<rightarrow> 
+added as an axiom, doublecheck!*)
+A8a: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<not> (system_in_conformity x) \<^bold>\<rightarrow> \<^bold>\<circle>b<(stitb (\<^bold>\<not>(place_system_on_market x)))>\<rfloor>" and
+(*implicit: If the system is in conformity, the importer is obligated to not see to it that the system is not placed
+on the market*)
+AXa: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>b<(system_in_conformity x) \<^bold>\<rightarrow> (\<^bold>\<not>(stitb (\<^bold>\<not>(place_system_on_market x))))>\<rfloor>" and
+Situationb: "\<lfloor>\<^bold>\<not> (system_in_conformity x)\<rfloor>\<^sub>l"
+
+lemma "\<lfloor>\<^bold>\<circle>b<stitb (\<^bold>\<not> (place_system_on_market x))>\<rfloor>\<^sub>l" using A8a Situationb by auto
+lemma "\<lfloor>\<^bold>\<circle>b<\<^bold>\<not>(stitb (\<^bold>\<not>(place_system_on_market x)))>\<rfloor>\<^sub>l" nitpick [user_axioms] oops (*counterexample found*)
+
+(*Notes:
+- timely dimension cannot be expressed
+- ideally, a stit operator with meaning would be needed*)
+
+end
