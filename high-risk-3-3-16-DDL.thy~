@@ -64,7 +64,7 @@ A1: "\<lfloor>\<^bold>\<forall>x::aiSys.(on_market x) \<^bold>\<rightarrow> \<^b
 A8: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<not>(stit d (compliance_req_chap2 x)) \<^bold>\<and> (on_market x) \<^bold>\<rightarrow> \<^bold>\<circle>d<(stit d (inform_com_auth x))>\<rfloor>" and
 (*implicit: If the compliance with the requirements is a given, the provider is obligated to not inform authorities 
 of non-compliance (since that would make no sense*)
-AX: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>d<(stit d (compliance_req_chap2 x)) \<^bold>\<rightarrow> (\<^bold>\<not>(stit d (inform_com_auth x)))>\<rfloor>" and
+AX: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>d<(stit d (compliance_req_chap2 x)) \<^bold>\<and> (on_market x) \<^bold>\<rightarrow> (\<^bold>\<not>(stit d (inform_com_auth x)))>\<rfloor>" and
 Situation: "\<lfloor>\<^bold>\<not> (stit d (compliance_req_chap2 l))\<rfloor>\<^sub>l"
 
 (***Some Experiments***) 

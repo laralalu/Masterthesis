@@ -1,5 +1,8 @@
 theory chapter3_17
-  imports Main Dstit_Deontic types
+  imports 
+    Main 
+    Dstit_Deontic 
+    types
 begin
 
 (*Example: DDL in combination with dstit*)

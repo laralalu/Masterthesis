@@ -4,13 +4,15 @@ begin
 
 consts 
   Rela::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Ra" 70) (*Accessibility relation agent a, Judicial authority or independent administrative authority of Member State.*)  
-  Relb::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rb" 70) (*Accessibility relation agent b, Member state.*) 
+  Relb::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rb" 70) (*Accessibility relation agent b, Importer.*) 
   Relc::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rc" 70) (*Accessibility relation agent c, EU commission.*) 
   Reld::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rd" 70) (*Accessibility relation agent d, Provider.*) 
   Rele::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Re" 70) (*Accessibility relation agent e, Conformity assessment body.*) 
   Relf::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rf" 70) (*Accessibility relation agent f, Notifying authority.*) 
   Relg::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rg" 70) (*Accessibility relation agent g, Notified body.*) 
-  Relh::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rh" 70) (*Accessibility relation agent h, Importer.*) 
+  Relh::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rh" 70) (*Accessibility relation agent h, Member state.*) 
+  Relj::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rj" 70) (*Accessibility relation agent j, Member state.*) 
+  Relk::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rk" 70) (*Accessibility relation agent k, Member state.*) 
   Rel::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "R" 70) (*General accessibility relation, not related to an agent.*)
  
   aw::i (*Actual world.*)
@@ -52,6 +54,8 @@ abbreviation (input) SDLobl::\<gamma> ("\<^bold>\<circle><_>") where "\<^bold>\<
  abbreviation (input) SDLoblf::\<gamma> ("\<^bold>\<circle>f<_>") where "\<^bold>\<circle>f<\<phi>> \<equiv>  OBg Relf \<phi>" (*A is obligatory for f*)
  abbreviation (input) SDLoblg::\<gamma> ("\<^bold>\<circle>g<_>") where "\<^bold>\<circle>g<\<phi>> \<equiv>  OBg Relg \<phi>" (*A is obligatory for g*)
  abbreviation (input) SDLoblh::\<gamma> ("\<^bold>\<circle>h<_>") where "\<^bold>\<circle>h<\<phi>> \<equiv>  OBg Relh \<phi>" (*A is obligatory for h*)
+ abbreviation (input) SDLoblj::\<gamma> ("\<^bold>\<circle>j<_>") where "\<^bold>\<circle>j<\<phi>> \<equiv>  OBg Relj \<phi>" (*A is obligatory for j*)
+ abbreviation (input) SDLoblk::\<gamma> ("\<^bold>\<circle>k<_>") where "\<^bold>\<circle>k<\<phi>> \<equiv>  OBg Relk \<phi>" (*A is obligatory for k*)
 
 (* Corrspondence, generic *)
 lemma "\<lfloor>\<^bold>\<not>(OBg rel \<phi> \<^bold>\<and> OBg rel (\<^bold>\<not>\<phi>))\<rfloor> \<longleftrightarrow> (\<forall>w. \<exists>v. rel w v)"  by auto 
@@ -107,6 +111,7 @@ lemma OBbNEC: "\<lfloor>A\<rfloor> \<Longrightarrow> \<lfloor>\<^bold>\<circle>b
 lemma "\<lfloor>\<^bold>\<circle>a<\<phi>> \<^bold>\<rightarrow> \<^bold>\<circle>a<\<^bold>\<circle>a<\<phi>>>\<rfloor>"
   nitpick[falsify,user_axioms,expect=genuine] oops
 
+lemma True nitpick [satisfy, user_axioms, show_all] oops
 end
 
 

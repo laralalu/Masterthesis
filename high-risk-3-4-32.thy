@@ -10,7 +10,7 @@ begin
 consts
   body_meets_req_Art33::"ag\<Rightarrow>\<sigma>" 
   notify_body::"ag\<Rightarrow>ag\<Rightarrow>\<sigma>"
-  notified::"ag=>\<sigma>"
+  notified::"ag\<Rightarrow>\<sigma>"
   notify_comm_ms_via_tool::"ag\<Rightarrow>\<sigma>"  
   notif_contains_details_mod_tech::\<sigma>
   objections_raised_comm_ms::\<sigma>

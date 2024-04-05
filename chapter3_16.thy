@@ -13,9 +13,9 @@ consts
   not_in_conformity_chap_2::"aiSys\<Rightarrow>\<sigma>"
   inform_authorities::"aiSys\<Rightarrow>\<sigma>"
   CE_marking_art_49::"aiSys\<Rightarrow>\<sigma>"
-  demonstrate_conformity_art_2::"national_competent_authority\<Rightarrow>aiSys\<Rightarrow>\<sigma>"
-  request::"national_competent_authority\<Rightarrow>aiSys\<Rightarrow>\<sigma>" 
-  nch::national_competent_authority
+  demonstrate_conformity_art_2::"ag\<Rightarrow>aiSys\<Rightarrow>\<sigma>"
+  request::"ag\<Rightarrow>aiSys\<Rightarrow>\<sigma>" 
+  nch::ag
 
 (*g and h are missing here due to the CTD part*)
 axiomatization where

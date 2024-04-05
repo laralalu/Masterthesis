@@ -12,10 +12,8 @@ avd::"i\<Rightarrow>\<sigma>" pvd::"i\<Rightarrow>\<sigma>" obd::"\<sigma>\<Righ
 avb::"i\<Rightarrow>\<sigma>" pvb::"i\<Rightarrow>\<sigma>" obb::"\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool)" (*accessibility relations for agent b*)         
 avg::"i\<Rightarrow>\<sigma>" pvg::"i\<Rightarrow>\<sigma>" obg::"\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool)" (*accessibility relations for agent g*) 
 
-(*stit operators for a and b, no meaning assigned*) 
-stitd::"\<sigma>\<Rightarrow>\<sigma>" (*d sees to it that \<rightarrow> providers*)
-stitb::"\<sigma>\<Rightarrow>\<sigma>" (*b sees to it that \<rightarrow> importers*)
-stitg::"\<sigma>\<Rightarrow>\<sigma>" (*g sees to it that \<rightarrow> notified body*)
+(*stit operator, no meaning assigned*) 
+stit::"ag\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" (*ag sees to it that*)
 
  axiomatization where
   ax_3a: "\<forall>w.\<exists>x. av(w)(x)" and ax_4a: "\<forall>w x. av(w)(x) \<longrightarrow> pv(w)(x)" and ax_4b: "\<forall>w. pv(w)(w)" and
@@ -39,7 +37,6 @@ stitg::"\<sigma>\<Rightarrow>\<sigma>" (*g sees to it that \<rightarrow> notifie
                    \<longrightarrow> obd(Z)(\<lambda>w. (Z(w) \<and> \<not>X(w)) \<or> Y(w))" and
   axd_5e: "\<forall>X Y Z. ((\<forall>w. Y(w) \<longrightarrow> X(w)) \<and> obd(X)(Z) \<and> (\<exists>w. Y(w) \<and> Z(w))) \<longrightarrow> obd(Y)(Z)" and
 
-  
   (*for agent g*)
   axg_3a: "\<forall>w.\<exists>x. avd(w)(x)" and axg_4a: "\<forall>w x. avg(w)(x) \<longrightarrow> pvd(w)(x)" and axg_4ba: "\<forall>w. pvg(w)(w)" and
   axg_5a: "\<forall>X.\<not>obd(X)(\<lambda>x. False)" and

@@ -4,6 +4,12 @@ theory Dstit_Deontic (*Combi Dstit deontic logic, neutral temporal deontic stit*
     types
 begin 
 
+typedecl i (*Type for possible worlds.*) 
+type_synonym \<sigma> = "(i\<Rightarrow>bool)"
+type_synonym \<gamma> = "\<sigma>\<Rightarrow>\<sigma>" 
+type_synonym \<rho> = "\<sigma>\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>"
+type_synonym \<delta> = "i\<Rightarrow>i\<Rightarrow>bool" (* type of accessibility relations between worlds *)
+
 datatype ag = a1 | a2 | a3 | a4  (* dataype of mutually different agents; we provide 4, more can be added as needed *)
 
 type_synonym \<omega> = "ag\<Rightarrow>i\<Rightarrow>i\<Rightarrow>bool"   (* type of agent dependent accessibility relations between worlds *)

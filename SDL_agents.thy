@@ -11,6 +11,9 @@ consts
   Relf::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rf" 70) (*Accessibility relation agent f, Notifying authority.*) 
   Relg::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rg" 70) (*Accessibility relation agent g, Notified body.*) 
   Relh::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rh" 70) (*Accessibility relation agent h, Member state.*) 
+  Relj::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rj" 70) (*Accessibility relation agent j, national competent authorities.*) 
+  Relk::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rk" 70) (*Accessibility relation agent k, credit institutions.*) 
+  Rell::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rl" 70) (*Accessibility relation agent l, distributor.*) 
   Rel::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "R" 70) (*General accessibility relation, not related to an agent.*)
  
   aw::i (*Actual world.*)
@@ -52,6 +55,9 @@ abbreviation (input) SDLobl::\<gamma> ("\<^bold>\<circle><_>") where "\<^bold>\<
  abbreviation (input) SDLoblf::\<gamma> ("\<^bold>\<circle>f<_>") where "\<^bold>\<circle>f<\<phi>> \<equiv>  OBg Relf \<phi>" (*A is obligatory for f*)
  abbreviation (input) SDLoblg::\<gamma> ("\<^bold>\<circle>g<_>") where "\<^bold>\<circle>g<\<phi>> \<equiv>  OBg Relg \<phi>" (*A is obligatory for g*)
  abbreviation (input) SDLoblh::\<gamma> ("\<^bold>\<circle>h<_>") where "\<^bold>\<circle>h<\<phi>> \<equiv>  OBg Relh \<phi>" (*A is obligatory for h*)
+ abbreviation (input) SDLoblj::\<gamma> ("\<^bold>\<circle>j<_>") where "\<^bold>\<circle>j<\<phi>> \<equiv>  OBg Relj \<phi>" (*A is obligatory for j*)
+ abbreviation (input) SDLoblk::\<gamma> ("\<^bold>\<circle>k<_>") where "\<^bold>\<circle>k<\<phi>> \<equiv>  OBg Relk \<phi>" (*A is obligatory for k*)
+ abbreviation (input) SDLobll::\<gamma> ("\<^bold>\<circle>l<_>") where "\<^bold>\<circle>l<\<phi>> \<equiv>  OBg Rell \<phi>" (*A is obligatory for l*)
 
 (* Corrspondence, generic *)
 lemma "\<lfloor>\<^bold>\<not>(OBg rel \<phi> \<^bold>\<and> OBg rel (\<^bold>\<not>\<phi>))\<rfloor> \<longleftrightarrow> (\<forall>w. \<exists>v. rel w v)"  by auto 

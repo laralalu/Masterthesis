@@ -52,6 +52,7 @@ abbreviation "A8 \<equiv> \<lfloor>\<^bold>\<forall>x. reasoned_request_natcompa
 actions relating to the system*)
 abbreviation "A9 \<equiv> \<lfloor>\<^bold>\<forall>x. \<^bold>\<circle>b<(stit b (cooperation_on_sys_importer_nat_comp_auth x b j))>\<rfloor>" 
 
+(*-------------------------------------------------------------------*)
 (*DDL structure*)
 consts l::aiSys
 
@@ -65,7 +66,8 @@ AXa: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>b<(stit b (system_in_
 Situationb: "\<lfloor>\<^bold>\<not> (stit b (system_in_conformity l))\<rfloor>\<^sub>l"
 
 (***Some Experiments***) 
-lemma True nitpick [satisfy, user_axioms] oops (*Consistency-check: Nitpick finds a model.*)
+lemma True nitpick [satisfy, user_axioms, show_all] oops (*Consistency-check: Nitpick finds a model.*)
+(*kreis für welt, beziehungen dazwischen malen, ob /obb prädikat, mengen von welten abbilden*)
 
 lemma "\<lfloor>\<^bold>\<circle>b<(stit b (not_on_market l))>\<rfloor>\<^sub>l" using A0 A8a Situationb by auto
 lemma "\<lfloor>\<^bold>\<circle>b<\<^bold>\<not> (stit b (not_on_market l))>\<rfloor>\<^sub>l" nitpick [user_axioms] oops (*counterexample found*)

@@ -10,6 +10,8 @@ consts (*Predicates/relations*)
   has_purpose::"aiSys\<Rightarrow>purpose\<Rightarrow>\<sigma>" (*system has a purpose*)
   exploits_vulnerabilities_group::"aiSys\<Rightarrow>quality_person\<Rightarrow>\<sigma>" (*exploits a certain vulnerable quality of a group*)
   exploits_vulnerable_group::"aiSys\<Rightarrow>\<sigma>" (*exploits any of the vulnerabilities of a specific group due to a certain quality*)
+
+
   employed_by_pauthorities::"aiSys\<Rightarrow>\<sigma>" (*employed by public authorities or on their behalf*)
   real_time_bioid::"aiSys\<Rightarrow>\<sigma>" (*system is a real time bio identification system*)
   used_public_spaces::"aiSys\<Rightarrow>\<sigma>" (*system is planned to be used in public spaces*)
@@ -31,7 +33,7 @@ consts (*Predicates/relations*)
   x::aiSys 
   z::aiSys
 
-(*Ai Act Article 5, 1 + 2*)
+(*AI1 Act Article 5, 1 + 2*)
 (*helper: If x has consequence harm_psychological or harm_physical, we can generalize to harm*)
 abbreviation "H1 \<equiv> \<lfloor>\<^bold>\<forall>x. ((has_consequence x harm_physical) \<^bold>\<or> 
 (has_consequence x harm_psychological)) \<^bold>\<leftrightarrow> has_consequence x harm\<rfloor>"
@@ -45,6 +47,7 @@ abbreviation "H2 \<equiv> \<lfloor>\<^bold>\<forall>x. ((exploits_vulnerabilitie
 
 abbreviation "B1 \<equiv> \<lfloor>\<^bold>\<forall>x. exploits_vulnerable_group x \<^bold>\<and> has_purpose x distort_behavior \<^bold>\<and> 
 has_consequence x harm \<^bold>\<rightarrow> \<^bold>\<circle><prohibited x>\<rfloor>" 
+
 
 abbreviation "C1 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. employed_by_pauthorities x \<^bold>\<and> has_purpose x eval_trustworthiness_over_time \<^bold>\<and> 
 (has_consequence x detri_treatment_unrelated_context \<^bold>\<or> has_consequence x detri_treatment_unjustified_disprop)
@@ -115,7 +118,7 @@ theorem Result2c: "theory_1_2 \<longrightarrow> \<lfloor>F6 \<^bold>\<and> F7 \<
 theorem Result3a: "theory_1_2 \<longrightarrow> \<lfloor>F2 \<^bold>\<and> F3 \<^bold>\<and> F15 \<^bold>\<rightarrow> (\<^bold>\<circle><prohibited x>)\<rfloor>"
   by metis
 
-(*Ai Act Article 5, 3 + 4*)
+(*AI Act Article 5, 3 + 4*)
 (*We use a (in Oa, stita) to stand for judicial authority or by an independent administrative authority of Member State,
 and Member state h (in Oh, stith)*)
 

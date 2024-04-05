@@ -31,7 +31,7 @@ consts (*Predicates/relations*)
   x::aiSys 
   z::aiSys
 
-(*Ai Act Article 5, 1 + 2*)
+(*AI Act Article 5, 1 + 2*)
 (*helper: If x has consequence harm_psychological or harm_physical, we can generalize to harm*)
 abbreviation "H1 \<equiv> \<lfloor>\<^bold>\<forall>x. ((has_consequence x harm_physical) \<^bold>\<or> 
 (has_consequence x harm_psychological)) \<^bold>\<leftrightarrow> has_consequence x harm\<rfloor>"
@@ -115,7 +115,7 @@ theorem Result2c: "theory_1_2 \<longrightarrow> \<lfloor>F6 \<^bold>\<and> F7 \<
 theorem Result3a: "theory_1_2 \<longrightarrow> \<lfloor>F2 \<^bold>\<and> F3 \<^bold>\<and> F15 \<^bold>\<rightarrow> (\<^bold>\<circle><prohibited x>)\<rfloor>"
   by metis
 
-(*Ai Act Article 5, 3 + 4*)
+(*AI Act Article 5, 3 + 4*)
 (*We use a (in Oa, stita) to stand for judicial authority or by an independent administrative authority of Member State,
 and Member state h (in Oh, stith)*)
 
