@@ -1,6 +1,6 @@
-theory dstitKripkeCurrent_test
+theory tstitKripkeCurrent_test
   imports 
-    dstitKripkeCurrent
+    tstitKripkeCurrent
     Main
 begin
 

@@ -71,8 +71,6 @@ Situation: "\<lfloor>\<^bold>\<not> (stit d (compliance_req_chap2 l))\<rfloor>\<
 (***Some Experiments***) 
 lemma True nitpick [satisfy, user_axioms] oops (*Consistency-check: Nitpick finds a model.*)
 
-(*Should the competent authority be informed? We find a proof for both \<rightarrow> contradiction*)
-(*We must try this in DDL*)
 lemma "\<lfloor>\<^bold>\<circle>d<stit d (inform_com_auth l)>\<rfloor>\<^sub>l" using A8 F1 Situation by auto
 lemma "\<lfloor>\<^bold>\<circle>d<\<^bold>\<not>(stit d (inform_com_auth l))>\<rfloor>\<^sub>l" nitpick [user_axioms] oops (*counterexample found*)
 

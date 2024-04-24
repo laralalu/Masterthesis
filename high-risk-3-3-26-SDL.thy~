@@ -22,6 +22,7 @@ Situation: "\<lfloor>\<^bold>\<not>(stit b (system_in_conformity l))\<rfloor>\<^
 
 (***Some Experiments***) 
 lemma True nitpick [satisfy, user_axioms] oops (*Consistency-check: Nitpick finds no model, WTF ?.*)
+(*Falsity beweisen gut!*)
 
 (*both can be proven \<rightarrow> contradiction*)
 lemma "\<lfloor>\<^bold>\<circle>b<(stit b (not_on_market l))>\<rfloor>\<^sub>l" using A1 Situation by auto
