@@ -1,7 +1,7 @@
 theory "high-risk-3-1-6_7"
   imports 
   types
-  SDL_agents
+  DDL_agents
 begin
 
 consts (*Predicates/relations*)
@@ -26,7 +26,7 @@ consts (*Predicates/relations*)
    x::aiSys (*aiSystem*) 
 
 (*AI Act article 6 + 7*)
-(*We use c (in Oc, stitc) to stand for the eu_commission*)
+(*We use c (in Oc, stitc) for the eu_commission*)
 abbreviation "A1 \<equiv> \<lfloor>\<^bold>\<forall>x. (((covered_by_Union_harmonisation_legislation_Annex_2 x) \<^bold>\<and> 
                    (is_required_to_undergo_thirdparty_conformity_assessment x)) \<^bold>\<rightarrow> (\<^bold>\<circle><high_risk x>))\<rfloor>"
 
@@ -70,10 +70,6 @@ theorem Result2a: "a_theory \<longrightarrow> \<lfloor>F3 \<^bold>\<rightarrow> 
                     (\<^bold>\<circle>c<stit c (taken_into_account potential_extent_harm x)>) \<^bold>\<and>
                     (\<^bold>\<circle>c<stit c (taken_into_account extent_produced_outcome_reversible x)>))\<rfloor>"
   by simp
- 
-(*This chapter can be expressed in SDL, with one drawback, similar to the one we encountered in the prohibited tile: 
-The phrase 'When assessing..., x shall' implies a temporal dimension which can not be expressed in SDL. I represented this obligation in A4
-by simply saying that : "If the EU commission is seeing to it that the risk of the Ai system x is assessed, then the EU commission is obligated 
-to see to it that (...) is taken into account."*)
 
+(*no problems!*)
 end

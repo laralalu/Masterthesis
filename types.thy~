@@ -25,7 +25,6 @@ detri_treatment_unjustified_disprop | affect_personal_rights | affect_personal_f
 datatype purpose = distort_behavior | exploit_groups | eval_trustworthiness_over_time | targeted_search | 
 prevention | detection (*type for purposes of AI-systems*)
 
-
 typedecl national_law  (*national law of member states*) 
 
 (*high-risk-3-1-6-7*)
@@ -60,13 +59,26 @@ datatype standard = harm_stand_art_40 (*standards that must be considered*)
 datatype size = small | medium | large (*size of provider's organisation*)
 
 consts 
-   prohibited :: "aiSys\<Rightarrow>\<sigma>" (*system is declared prohibited*)
-   high_risk :: "aiSys\<Rightarrow>\<sigma>" (*system is declared a high-risk system*)
+   prohibited::"aiSys\<Rightarrow>\<sigma>" (*system is declared prohibited*)
+   high_risk::"aiSys\<Rightarrow>\<sigma>" (*system is declared a high-risk system*)
+
+  (*would be nice, but for SDL/DDL_agents we need clearly identified agents
+   is_juin_auth::"ag\<Rightarrow>\<sigma>"
+   is_importer::"ag\<Rightarrow>\<sigma>"
+   c::ag (*eu commission \<rightarrow> there only is one!*)
+   is_provider::"ag\<Rightarrow>\<sigma>"
+   is_confAss_body::"ag\<Rightarrow>\<sigma>"
+   is_notified_body::"ag\<Rightarrow>\<sigma>"
+   is_member_state::"ag\<Rightarrow>\<sigma>"
+   is_natCom_auth::"ag\<Rightarrow>\<sigma>"
+   is_credit_inst::"ag\<Rightarrow>\<sigma>"
+   is_distributor::"ag\<Rightarrow>\<sigma>"
+  *)
 
   (*identify agents:*)
     a::ag (*a = type for judicial authorities or independent administrative authorities*)
     b::ag (*b = type for importers*)   
-    c::ag (*c = type for the EU commission*)
+    c::ag (*c = type for eu commission*)
     d::ag (*d = type for providers*)
     e::ag (*e = type for conformity assessment bodies*)
     f::ag (*f = type for notifying authorities*)

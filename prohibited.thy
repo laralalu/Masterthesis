@@ -1,6 +1,6 @@
 theory prohibited
   imports 
-   DDL
+   DDL_agents
    types
 begin
 
@@ -103,84 +103,12 @@ theorem Result2a: "D1a \<and> D1b \<and> A2a \<and> A2b \<and> A2c \<longrightar
   by meson
 
 theorem Result2b: "D1a \<and> D1b \<and> A2a \<and> A2b \<and> A2c \<longrightarrow> \<lfloor>F4 \<^bold>\<and> F5 \<^bold>\<and> F6 \<^bold>\<and> F7 \<^bold>\<and> F9 \<^bold>\<rightarrow> (\<^bold>\<circle><prohibited z>)\<rfloor>"
-  nitpick [user_axioms] (*found counterexample*) oops
+  nitpick [user_axioms] (*counterexample found*) oops
 
 (*Consistency confirmed by model finder Nitpick.*) 
 lemma True nitpick[satisfy,user_axioms,show_all,expect=genuine] oops
 
-(*
-(*AI Act Article 5, 3 + 4*)
-(*We use a (in Oa, stita) to stand for judicial authority or independent administrative authority of Member State,
-and Member state h (in Oh, stith)*)
-
-(*use not urgent \<rightarrow> authority must authorise prior*)
-abbreviation "B3 \<equiv> \<lfloor>\<^bold>\<forall>x. real_time_bioid x \<^bold>\<and> used_public_spaces x \<^bold>\<and> used_law_enforcement x \<^bold>\<and>
-(((has_purpose x targeted_search) \<^bold>\<and> (strictly_necessary_for x targeted_search)) \<^bold>\<or> (((has_purpose x prevention) \<^bold>\<and> 
-(strictly_necessary_for x prevention))) \<^bold>\<or> (((has_purpose x detection) \<^bold>\<and> (strictly_necessary_for x detection)))) \<^bold>\<and>
- \<^bold>\<not> use_urgent x \<^bold>\<rightarrow> \<^bold>\<circle>a<stit a (authorised_prior x)>\<rfloor>" 
-
-(*use urgent \<rightarrow> authority must not authorise prior, may authorise during or after use*)
-abbreviation "C3 \<equiv> \<lfloor>\<^bold>\<forall>x. real_time_bioid x \<^bold>\<and> used_public_spaces x \<^bold>\<and> used_law_enforcement x \<^bold>\<and>
-(((has_purpose x targeted_search) \<^bold>\<and> (strictly_necessary_for x targeted_search)) \<^bold>\<or> (((has_purpose x prevention) \<^bold>\<and> 
-(strictly_necessary_for x prevention))) \<^bold>\<or> (((has_purpose x detection) \<^bold>\<and> (strictly_necessary_for x detection)))) \<^bold>\<and> 
-use_urgent x \<^bold>\<rightarrow> (\<^bold>\<not>\<^bold>\<circle>a<stit a (authorised_prior x)>) \<^bold>\<and> \<^bold>\<not>(\<^bold>\<circle>a< \<^bold>\<not> stit a (authorised_during_after x)>)\<rfloor>"
-
-(*helpers: authorise x means either prior or during/after authorisation*)
-abbreviation "H3 \<equiv> \<lfloor>\<^bold>\<forall>x. \<^bold>\<circle>a<(stit a (authorised x))> \<^bold>\<leftrightarrow> ((\<^bold>\<circle>a<(stit a (authorised_prior x))>) \<^bold>\<or> 
-(\<^bold>\<circle>a<(stit a (authorised_during_after x))>))\<rfloor>"
-abbreviation "H3a \<equiv> \<lfloor>\<^bold>\<forall>x. (stit a (authorised x)) \<^bold>\<leftrightarrow> ((stit a (authorised_prior x)) \<^bold>\<or> 
-(stit a (authorised_during_after x)))\<rfloor>"
-
-(*Authorise only if evidence and indications show that use of system is necessary and proportionate for achieving
-the objective specified*)
-abbreviation "D3 \<equiv> \<lfloor>\<^bold>\<forall>x. (stit a (authorised x)) \<^bold>\<leftrightarrow> evidence_indications_necessary_proportionate x\<rfloor>"
-
-abbreviation "E3 \<equiv> \<lfloor>\<^bold>\<forall>x. (stit a (authorised x)) \<^bold>\<rightarrow> \<^bold>\<circle>a<stit a (consider_consequence_no_use x harm_psychological)> \<^bold>\<and>
- \<^bold>\<circle>a<stit a (consider_consequence_no_use x harm_physical)> \<^bold>\<and> \<^bold>\<circle>a<stit a (consider_consequence x affect_personal_rights)> \<^bold>\<and>
- \<^bold>\<circle>a<stit a (consider_consequence x affect_personal_freedom)>\<rfloor>"
-
-abbreviation "A4 \<equiv> \<lfloor>\<^bold>\<circle><authorised_use_specified nl>\<rfloor>" 
-
-abbreviation "theory_3_4 \<equiv> B3 \<and> C3 \<and> H3 \<and> H3a \<and> D3 \<and> E3 \<and> A4"
-
-(*Facts, Article 5, 4 + 4*)
-abbreviation "F21 w \<equiv> (real_time_bioid x) w"
-abbreviation "F22a w \<equiv> \<not> (use_urgent x) w"
-abbreviation "F22b w \<equiv> (use_urgent x) w"
-abbreviation "F23 w \<equiv> (has_purpose x targeted_search) w"
-abbreviation "F24 w \<equiv> (strictly_necessary_for x targeted_search) w"
-abbreviation "F25 w \<equiv> (used_public_spaces x) w"
-abbreviation "F26 w \<equiv> (used_law_enforcement x) w"
-abbreviation "F27a w \<equiv> (stit a (authorised_prior x)) w"
-abbreviation "F27b w \<equiv> (stit a (authorised_during_after x)) w"
-abbreviation "facts_3_4 \<equiv> F21 \<^bold>\<and> F23 \<^bold>\<and> F24 \<^bold>\<and> F25 \<^bold>\<and> F26"
-
-theorem Result4a: "theory_3_4 \<longrightarrow> \<lfloor>(facts_3_4 \<^bold>\<and> F22a) \<^bold>\<rightarrow> (\<^bold>\<circle>a<(stit a (authorised_prior x))>)\<rfloor>"  
-  by auto
-
-theorem Result4b: "theory_3_4 \<longrightarrow> \<lfloor>(facts_3_4 \<^bold>\<and> F22b) \<^bold>\<rightarrow> (\<^bold>\<circle>a<(stit a (authorised_prior x))>)\<rfloor>"  
-  nitpick (*counterexample found*) oops
-
-theorem Result4c: "theory_3_4 \<longrightarrow> \<lfloor>(facts_3_4 \<^bold>\<and> F22b) \<^bold>\<rightarrow> (\<^bold>\<not>(\<^bold>\<circle>a< \<^bold>\<not> stit a (authorised_during_after x)>))\<rfloor>"  
-  by simp
-
-theorem Result4d: "theory_3_4 \<longrightarrow> \<lfloor>(facts_3_4 \<^bold>\<and> F22a \<^bold>\<and> F27a) \<^bold>\<rightarrow> (evidence_indications_necessary_proportionate x)\<rfloor>"  
-  by metis
-
-theorem Result4e: "theory_3_4 \<longrightarrow> \<lfloor>(facts_3_4 \<^bold>\<and> F22b \<^bold>\<and> F27b) \<^bold>\<rightarrow> ((evidence_indications_necessary_proportionate x) \<^bold>\<and> 
-  \<^bold>\<circle>a<stita (consider_consequence_no_use x harm_psychological)>)\<rfloor>"  
-  by metis
-
-*)
-(* This tile can be expressed in SDL, with some drawbacks: There is no perfect way to express exceptions from general rules.
-We would need this when defining the exception from the prohibition of real-time-bioid-systems (D1, A2, A2a), and the exception 
-from needing prior authorisation (B3 and C3). I solved this here defining two obligations, one for everything but the exception
-and one for the exception.
-One further difficulty is expressing the obligation: ‘In deciding the request, xy shall\<dots>’ (Article 5, 3), because the phrase 'in
-deciding...' implies some temporal aspect which can not be expressed in SDL. I represented this obligation in E3 by 
-simply saying that if a is authorising ai-system x, then a is obligated to consider the context of x and the consequences of x.
-Parts of Article 5,  point 3 + 4 need agency to be expressed correctly. I did not use my STIT embedding here due to the infinite 
-models but simple placeholder operators. *)
+(*works!*)
 
 end
 

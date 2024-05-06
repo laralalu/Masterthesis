@@ -100,6 +100,7 @@ theorem Result5: "theory \<longrightarrow> \<lfloor>F3 \<^bold>\<rightarrow> \<^
  
 (***Some Experiments***) 
 lemma True nitpick [satisfy, user_axioms] oops (*Consistency-check: Nitpick finds a model.*)
+  (*sledgehammer[overlord]*)
 
 (*Notes:
 - temporal dimension is lost (A14)

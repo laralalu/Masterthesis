@@ -10,7 +10,6 @@ consts (*Predicates/relations*)
    is_listed_Annex_3::"aiSys\<Rightarrow>\<sigma>"
    is_used_areas_1to8_Annex_3::"aiSys\<Rightarrow>\<sigma>"
    poses_risk_equivalent_greater_systems_Annex_3::"aiSys\<Rightarrow>\<sigma>"
-
    (*to consider in assessment*)
    purpose_sys::"(aiSys\<Rightarrow>purpose)" 
    extent_use::"(aiSys\<Rightarrow>degree)"
@@ -20,7 +19,6 @@ consts (*Predicates/relations*)
    extent_harmed_people_vulnerable::"(aiSys\<Rightarrow>degree)"
    extent_union_legislation_redress_prevention::"(aiSys\<Rightarrow>degree)"
    extent_produced_outcome_reversible::"(aiSys\<Rightarrow>degree)"
-
    delegated_acts_adapted_Art73_update_Ann3::"\<sigma>" (*list of high-risk systems in annex is updated*)
    risk_assessed::"aiSys\<Rightarrow>\<sigma>" (*risk of a system is assessed*)
    taken_into_account::"(aiSys\<Rightarrow>degree)\<Rightarrow>aiSys\<Rightarrow>\<sigma>" (*take into account degree of a quality*)

@@ -6,11 +6,12 @@ begin
 consts 
   l::aiSys
   compliance_req_chap2::"aiSys\<Rightarrow>\<sigma>"
+  
 
 axiomatization where
 Ex: "\<lfloor>stit d (compliance_req_chap2 l)\<rfloor>\<^sub>l"
 
-lemma T1: "\<lfloor>(compliance_req_chap2 l)\<rfloor>\<^sub>l" using Ex stit1 by auto
+lemma T1: "\<lfloor>(compliance_req_chap2 l)\<rfloor>\<^sub>l" using Ex stit1 by auto 
 
 
 consts
