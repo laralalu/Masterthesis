@@ -1,17 +1,17 @@
-theory Dstit_Deontic (*Combi Dstit deontic logic, neutral temporal deontic stit*)
+theory Tstit_Deontic (*Combi Tstit deontic logic, neutral temporal deontic stit*)
   imports 
     Main
     types
 begin 
 
-datatype ag = a1 | a2 | a3 | a4  (* dataype of mutually different agents; we provide 4, more can be added as needed *)
+datatype ag = a1 | a2  (*dataype of mutually different agents; we provide 4, more can be added as needed *)
 
 type_synonym \<omega> = "ag\<Rightarrow>i\<Rightarrow>i\<Rightarrow>bool"   (* type of agent dependent accessibility relations between worlds *)
 type_synonym \<nu> = "(ag\<Rightarrow>bool)\<Rightarrow>i\<Rightarrow>i\<Rightarrow>bool" (* type of set-of-agents dependent accessibility relations between worlds *)
 
 consts 
   cw::i (*current world*)
-  (*accessibility relations DStit*)
+  (*accessibility relations TStit*)
   RBox::\<delta> (*worlds that are alternatives to each other: if (w, w1) then w1 is an alternative to w*)
   R_ag::\<omega> (*worlds that are actual choices for agent a, set of alternatives that are forced by agents i choice or action at world w*)
   R_set::\<nu> (*worlds that are actual choices for the set of Agents Agt*)
@@ -32,7 +32,7 @@ abbreviation isin::"i\<Rightarrow>i\<Rightarrow>\<delta>\<Rightarrow>bool" ("[_,
 lemma True nitpick [satisfy, user_axioms, show_all] oops (*empty assignment*) 
 
 axiomatization where
- (*Dstit*)
+ (*Tstit*)
  (*reflexivity, symmetry, and transitivity for all equivalence relations*)
   accReR_ag:  "\<forall>a w. (R_ag a) w w" and
   accSymR_ag: "\<forall>a w v. (R_ag a) w v \<longrightarrow> (R_ag a) v w" and
@@ -92,7 +92,7 @@ lemma True nitpick [satisfy, user_axioms, show_all] oops (*infinite*)
   abbreviation combiBot::\<sigma> ("\<^bold>\<bottom>") where "\<^bold>\<bottom> \<equiv> \<lambda>w. False" 
 
  (*Dstit connectives*)
-  abbreviation combiCstit::"ag\<Rightarrow>\<gamma>" ("[_] _") where "[k] A \<equiv> \<lambda>w. (\<forall>y. ((R_ag k) w y) \<longrightarrow> (A y))" (*Chellas Stit*)
+  abbreviation combiCstit::"ag\<Rightarrow>\<gamma>" ("[_] _") where "[i] A \<equiv> \<lambda>w. (\<forall>y. ((R_ag i) w y) \<longrightarrow> (A y))"  (*Chellas Stit*)
   abbreviation combiCstitPoss::"ag\<Rightarrow>\<gamma>" ("<_>_") where "<i> A \<equiv> \<^bold>\<not>([i] (\<^bold>\<not> A))" (*Possibility Group Chellas stit*)
   abbreviation combiCstitGr::"(ag\<Rightarrow>bool)\<Rightarrow>\<gamma>" ("[_]gr _") where "[S]gr A \<equiv> \<lambda>w. (\<forall>v. ((R_set S) w v) \<longrightarrow> (A v))" (*Chellas stit group*)
   abbreviation combiCstitGrPoss::"(ag\<Rightarrow>bool)\<Rightarrow>\<gamma>" ("<_>gr_") where "<S>gr A \<equiv> \<^bold>\<not>([S]gr (\<^bold>\<not> A))" (*Possibility Group Chellas stit*)
@@ -103,12 +103,9 @@ lemma True nitpick [satisfy, user_axioms, show_all] oops (*infinite*)
   abbreviation combiF::\<gamma> ("F_") where "F A \<equiv> \<^bold>\<not> (G (\<^bold>\<not> A))" (*it will not always be true that not A*)
 
   abbreviation combiDstit::"ag\<Rightarrow>\<gamma>" ("[_]d _") where "[i]d A \<equiv> ([i]A) \<^bold>\<and> \<^bold>\<not>(\<^bold>\<box>A)" (*Dstit*)
-  (*long version:
-  abbreviation dstitDstit::"ag\<Rightarrow>\<gamma>" ("[_]x _") where "[i]x A \<equiv>  \<lambda>w. (\<forall>v. ((R_ag i) w v) \<longrightarrow> (A v)) \<and> \<not> (\<forall>x. A(x))"*)
   abbreviation combiDstitGr::"(ag\<Rightarrow>bool)\<Rightarrow>\<gamma>" ("[_]dgr _") where "[S]dgr A \<equiv> ([S]gr A) \<^bold>\<and> (\<^bold>\<not>(\<^bold>\<box>A))" (*Dstit group*)
   abbreviation combiDstitGrPoss::"(ag\<Rightarrow>bool)\<Rightarrow>\<gamma>" ("<_>dgr_") where "<S>dgr A \<equiv> \<^bold>\<not>([S]dgr(\<^bold>\<not> A))"
-  abbreviation combiOughtToDoD::"ag\<Rightarrow>\<gamma>" ("\<^bold>\<otimes>d _ _") where "\<^bold>\<otimes>d i A \<equiv> (\<^bold>\<otimes> i A) \<^bold>\<and> (\<^bold>\<diamond> \<^bold>\<not> A)" (*OughtToDo Operator*)
-  abbreviation combiDelta::"ag\<Rightarrow>\<gamma>" ("\<Delta>_ _") where "\<Delta> i A \<equiv> (\<lambda>w. (A (w)) \<^bold>\<and> (\<^bold>\<not> ([i]d (A))))"  
+  abbreviation combiOughtToDoD::"ag\<Rightarrow>\<gamma>" ("\<^bold>\<otimes>d _ _") where "\<^bold>\<otimes>d i A \<equiv> (\<^bold>\<otimes> i A) \<^bold>\<and> (\<^bold>\<diamond> \<^bold>\<not> A)" (*OughtToDo Operator*) 
 
   (*Quantification*) 
   abbreviation combiForall ("\<^bold>\<forall>") where "\<^bold>\<forall>\<Phi> \<equiv> \<lambda>w.\<forall>x. (\<Phi> x w)"

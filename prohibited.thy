@@ -1,34 +1,32 @@
 theory prohibited
   imports 
-   SDL
+   DDL
    types
 begin
 
 consts (*Predicates*)
+  authorised::"aiSys\<Rightarrow>\<sigma>" (*system is authorised*)
   subliminal_technique::"aiSys\<Rightarrow>\<sigma>" (*deploys a subliminal technique beyond a person's consciousness*)
   has_consequence::"aiSys\<Rightarrow>consequence\<Rightarrow>\<sigma>" (*system has or may have a consequence*)
-  has_purpose::"aiSys\<Rightarrow>purpose\<Rightarrow>\<sigma>" (*system has a purpose*)
-  exploits_vulnerabilities_group::"aiSys\<Rightarrow>quality_person\<Rightarrow>\<sigma>" (*exploits a certain vulnerable quality of a group*)
-  exploits_vulnerable_group::"aiSys\<Rightarrow>\<sigma>" (*exploits any of the vulnerabilities of a specific group due to a certain quality*)
-  employed_by_pauthorities::"aiSys\<Rightarrow>\<sigma>" (*employed by public authorities or on their behalf*)
   real_time_bioid::"aiSys\<Rightarrow>\<sigma>" (*system is a real time bio identification system*)
   used_public_spaces::"aiSys\<Rightarrow>\<sigma>" (*system is planned to be used in public spaces*)
   used_law_enforcement::"aiSys\<Rightarrow>\<sigma>" (*system is planned to be used for law enforcement*)
+  has_purpose::"aiSys\<Rightarrow>purpose\<Rightarrow>\<sigma>" (*system has a purpose*)
   strictly_necessary_for::"aiSys\<Rightarrow>purpose\<Rightarrow>\<sigma>" (*use of system is strictly necessary for a purpose*)
+  consider_context::"aiSys\<Rightarrow>\<sigma>" (*context in which the system is used is considered*)
   consider_consequence::"aiSys\<Rightarrow>consequence\<Rightarrow>\<sigma>" (*specific consequence of the use of a system are considered*)
   consider_consequence_no_use::"aiSys\<Rightarrow>consequence\<Rightarrow>\<sigma>" (*specific consequence of not using the system are considered*)
-  consider_context::"aiSys\<Rightarrow>\<sigma>" (*context in which the system is used is considered*)
+  exploits_vulnerabilities_group::"aiSys\<Rightarrow>quality_person\<Rightarrow>\<sigma>" (*exploits a certain vulnerable quality of a group*)
+  exploits_vulnerable_group::"aiSys\<Rightarrow>\<sigma>" (*exploits any of the vulnerabilities of a specific group due to a certain quality*)
+  employed_by_pauthorities::"aiSys\<Rightarrow>\<sigma>" (*employed by public authorities or on their behalf*)
   complies_with_bio_id_rules::"aiSys\<Rightarrow>\<sigma>" (*system complies with specific safety rules*)
-
-  (*authorised_prior::"aiSys\<Rightarrow>\<sigma>" (*systems is authorised before use*)
+  authorised_prior::"aiSys\<Rightarrow>\<sigma>" (*systems is authorised before use*)
   authorised_during_after::"aiSys\<Rightarrow>\<sigma>" (*systems is authorised during or after use*)
-  authorised::"aiSys\<Rightarrow>\<sigma>" (*system is authorised*)
   use_urgent::"aiSys\<Rightarrow>\<sigma>" (*use of system is urgent*)
   evidence_indications_necessary_proportionate::"aiSys\<Rightarrow>\<sigma>" (*evidence and indications are necessary and proportionate*)
   authorised_use_specified::"national_law\<Rightarrow>\<sigma>" (*national_law specifies the rules for the request, issuance, ad exercise of
   the authorisation for some real time bio id systems*)
-  br::bioid_rules (*bioid rules*)
-  nl::national_law (*national law*)*)
+  nl::national_law (*national law*)
 
 (*AI1 Act Article 5, 1 + 2*)
 (*helper: If x has consequence harm_psychological or harm_physical, we can generalize to harm*)
@@ -92,26 +90,27 @@ abbreviation "F6 w \<equiv> (used_law_enforcement z) w"
 abbreviation "F7 w \<equiv> (has_purpose z targeted_search) w" 
 abbreviation "F8 w \<equiv> \<not>(strictly_necessary_for z targeted_search) w"
 abbreviation "F9 w \<equiv> (strictly_necessary_for z targeted_search) w"
+
 abbreviation "facts_1_2 \<equiv> F1 \<^bold>\<and> F2 \<^bold>\<and> F3 \<^bold>\<and> F4 \<^bold>\<and> F5 \<^bold>\<and> F6 \<^bold>\<and> F7 \<^bold>\<and> F8 \<^bold>\<and> F9"
 
-theorem Result1a: "theory_1_2 \<longrightarrow> \<lfloor>(F1 \<^bold>\<and> F2 \<^bold>\<and> F3)  \<^bold>\<rightarrow> (\<^bold>\<circle><prohibited x>)\<rfloor>"  
+theorem Result1a: "H1 \<and> H2 \<and> A1 \<and> B1 \<and> C1 \<longrightarrow> \<lfloor>(F1 \<^bold>\<and> F2 \<^bold>\<and> F3)  \<^bold>\<rightarrow> (\<^bold>\<circle><prohibited x>)\<rfloor>"  
   by metis
 
-theorem Result1b: "theory_1_2 \<longrightarrow> \<lfloor>F1 \<^bold>\<and> F2  \<^bold>\<rightarrow> (\<^bold>\<circle><prohibited x>)\<rfloor>"  
-  nitpick [user_axioms] oops (*counterexample found*)
+theorem Result1b: "H1 \<and> H2 \<and> A1 \<and> B1 \<and> C1 \<longrightarrow> \<lfloor>F1 \<^bold>\<and> F2  \<^bold>\<rightarrow> (\<^bold>\<circle><prohibited x>)\<rfloor>"  
+  nitpick [user_axioms] oops (*counterexample found*) 
 
-theorem Result2a: "theory_1_2 \<longrightarrow> \<lfloor>F4 \<^bold>\<and> F5 \<^bold>\<and> F6 \<^bold>\<and> F7 \<^bold>\<and> F8 \<^bold>\<rightarrow> (\<^bold>\<circle><prohibited z>)\<rfloor>"
+theorem Result2a: "D1a \<and> D1b \<and> A2a \<and> A2b \<and> A2c \<longrightarrow> \<lfloor>F4 \<^bold>\<and> F5 \<^bold>\<and> F6 \<^bold>\<and> F7 \<^bold>\<and> F8 \<^bold>\<rightarrow> (\<^bold>\<circle><prohibited z>)\<rfloor>"
   by meson
 
-theorem Result2b: "theory_1_2 \<longrightarrow> \<lfloor>F4 \<^bold>\<and> F5 \<^bold>\<and> F6 \<^bold>\<and> F7 \<^bold>\<and> F9 \<^bold>\<rightarrow> (\<^bold>\<circle><prohibited z>)\<rfloor>"
+theorem Result2b: "D1a \<and> D1b \<and> A2a \<and> A2b \<and> A2c \<longrightarrow> \<lfloor>F4 \<^bold>\<and> F5 \<^bold>\<and> F6 \<^bold>\<and> F7 \<^bold>\<and> F9 \<^bold>\<rightarrow> (\<^bold>\<circle><prohibited z>)\<rfloor>"
   nitpick [user_axioms] (*found counterexample*) oops
 
 (*Consistency confirmed by model finder Nitpick.*) 
-lemma True nitpick[satisfy,user_axioms,show_all,expect=genuine] 
+lemma True nitpick[satisfy,user_axioms,show_all,expect=genuine] oops
 
 (*
 (*AI Act Article 5, 3 + 4*)
-(*We use a (in Oa, stita) to stand for judicial authority or by an independent administrative authority of Member State,
+(*We use a (in Oa, stita) to stand for judicial authority or independent administrative authority of Member State,
 and Member state h (in Oh, stith)*)
 
 (*use not urgent \<rightarrow> authority must authorise prior*)
@@ -173,7 +172,6 @@ theorem Result4e: "theory_3_4 \<longrightarrow> \<lfloor>(facts_3_4 \<^bold>\<an
   by metis
 
 *)
-
 (* This tile can be expressed in SDL, with some drawbacks: There is no perfect way to express exceptions from general rules.
 We would need this when defining the exception from the prohibition of real-time-bioid-systems (D1, A2, A2a), and the exception 
 from needing prior authorisation (B3 and C3). I solved this here defining two obligations, one for everything but the exception

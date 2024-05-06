@@ -17,7 +17,8 @@ consts
   Rel::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "R" 70) (*General accessibility relation, not related to an agent.*)
  
   aw::i (*Actual world.*)
- (*stit operators for a and b, no meaning assigned*)
+
+ (*stit operator, no meaning assigned*)
   stit::"ag\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" (*ag sees to it that*) 
 
  abbreviation (input) SDLtop::\<sigma> ("\<^bold>\<top>") where "\<^bold>\<top> \<equiv> \<lambda>w. True" 

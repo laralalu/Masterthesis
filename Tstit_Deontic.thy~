@@ -1,17 +1,17 @@
-theory Dstit_Deontic (*Combi Dstit deontic logic, neutral temporal deontic stit*)
+theory Tstit_Deontic (*Combi Tstit deontic logic, neutral temporal deontic stit*)
   imports 
     Main
     types
 begin 
 
-datatype ag = a1 | a2 | a3 | a4  (* dataype of mutually different agents; we provide 4, more can be added as needed *)
+datatype ag = a1 | a2  (*dataype of mutually different agents; we provide 4, more can be added as needed *)
 
 type_synonym \<omega> = "ag\<Rightarrow>i\<Rightarrow>i\<Rightarrow>bool"   (* type of agent dependent accessibility relations between worlds *)
 type_synonym \<nu> = "(ag\<Rightarrow>bool)\<Rightarrow>i\<Rightarrow>i\<Rightarrow>bool" (* type of set-of-agents dependent accessibility relations between worlds *)
 
 consts 
   cw::i (*current world*)
-  (*accessibility relations DStit*)
+  (*accessibility relations TStit*)
   RBox::\<delta> (*worlds that are alternatives to each other: if (w, w1) then w1 is an alternative to w*)
   R_ag::\<omega> (*worlds that are actual choices for agent a, set of alternatives that are forced by agents i choice or action at world w*)
   R_set::\<nu> (*worlds that are actual choices for the set of Agents Agt*)

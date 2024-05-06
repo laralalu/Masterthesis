@@ -53,25 +53,33 @@ theorem Result2: "a_theory \<longrightarrow> \<lfloor>(F0 \<^bold>\<and> F1) \<^
 
 
 (*-------------------------------------------------------------------*)
-(*CTD example DDL:*)
+(*CTD example extended DDL:*)
 consts 
   l::aiSys
+  provider_of::"aiSys\<Rightarrow>ag\<Rightarrow>\<sigma>" 
 
 (*interesting part: CTD; Trying to create the typical structure*)
-(*stita still has no semantics*)
 axiomatization where
-F1: "\<lfloor>(high_risk l)\<rfloor>" and
+F1: "\<lfloor>(high_risk l)\<rfloor>" and F2: "\<lfloor>provider_of l d\<rfloor>" and
 A1: "\<lfloor>\<^bold>\<forall>x::aiSys.(high_risk x) \<^bold>\<rightarrow> \<^bold>\<circle>d<stit d (compliance_req_chap2 x)>\<rfloor>" and
-A8: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<not>(stit d (compliance_req_chap2 x)) \<^bold>\<and> (high_risk x) \<^bold>\<rightarrow> \<^bold>\<circle>d<(stit d (inform_com_auth x))>\<rfloor>" and
+A8: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<not>(compliance_req_chap2 x) \<^bold>\<and> (high_risk x) \<^bold>\<rightarrow> \<^bold>\<circle>d<(stit d (inform_com_auth x))>\<rfloor>" and
 (*implicit: If the compliance with the requirements is a given, the provider is obligated to not inform authorities 
 of non-compliance (since that would make no sense*)
-AX: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>d<(stit d (compliance_req_chap2 x)) \<^bold>\<and> (high_risk x) \<^bold>\<rightarrow> (\<^bold>\<not>(stit d (inform_com_auth x)))>\<rfloor>" and
-Situation: "\<lfloor>\<^bold>\<not> (stit d (compliance_req_chap2 l))\<rfloor>\<^sub>l"
+AX: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>d<(compliance_req_chap2 x \<^bold>\<and> high_risk x) \<^bold>\<rightarrow> \<^bold>\<not> stit d (inform_com_auth x)>\<rfloor>"and
+Situation: "\<lfloor>\<^bold>\<not> (compliance_req_chap2 l)\<rfloor>\<^sub>l"
+(*SituationA: "\<lfloor>(stit d (compliance_req_chap2 l))\<rfloor>\<^sub>l"*)
 
 (***Some Experiments***) 
-lemma True nitpick [satisfy, user_axioms] oops (*Consistency-check: Nitpick finds a model.*)
+lemma True nitpick [satisfy, user_axioms, show_all] oops (*Consistency-check: Nitpick finds a model.*)
 
 lemma "\<lfloor>\<^bold>\<circle>d<stit d (inform_com_auth l)>\<rfloor>\<^sub>l" using A8 F1 Situation by auto
-lemma "\<lfloor>\<^bold>\<circle>d<\<^bold>\<not>(stit d (inform_com_auth l))>\<rfloor>\<^sub>l" nitpick [user_axioms] oops (*counterexample found*)
+lemma "\<lfloor>\<^bold>\<circle>d<\<^bold>\<not>(stit d (inform_com_auth l))>\<rfloor>\<^sub>l" nitpick [user_axioms, show_all] oops (*counterexample found*)
+
+(*lemma "\<lfloor>\<^bold>\<circle>d<stit d (inform_com_auth l)>\<rfloor>\<^sub>l" nitpick [user_axioms] (*counterexample found*) oops
+lemma 1: "\<lfloor>(compliance_req_chap2 l)\<rfloor>\<^sub>l" using SituationA stit1 by blast
+lemma 2: "\<lfloor>(high_risk l)\<rfloor>\<^sub>l" by (simp add: F1)
+lemma "\<lfloor>\<^bold>\<circle>d<(\<^bold>\<not> stit d (inform_com_auth l))>\<rfloor>\<^sub>l" try*)
 
 end
+
+

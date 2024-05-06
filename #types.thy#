@@ -62,19 +62,6 @@ consts
    prohibited::"aiSys\<Rightarrow>\<sigma>" (*system is declared prohibited*)
    high_risk::"aiSys\<Rightarrow>\<sigma>" (*system is declared a high-risk system*)
 
-  (*would be nice, but for SDL/DDL_agents we need clearly identified agents
-   is_juin_auth::"ag\<Rightarrow>\<sigma>"
-   is_importer::"ag\<Rightarrow>\<sigma>"
-   c::ag (*eu commission \<rightarrow> there only is one!*)
-   is_provider::"ag\<Rightarrow>\<sigma>"
-   is_confAss_body::"ag\<Rightarrow>\<sigma>"
-   is_notified_body::"ag\<Rightarrow>\<sigma>"
-   is_member_state::"ag\<Rightarrow>\<sigma>"
-   is_natCom_auth::"ag\<Rightarrow>\<sigma>"
-   is_credit_inst::"ag\<Rightarrow>\<sigma>"
-   is_distributor::"ag\<Rightarrow>\<sigma>"
-  *)
-
   (*identify agents:*)
     a::ag (*a = type for judicial authorities or independent administrative authorities*)
     b::ag (*b = type for importers*)   
@@ -86,6 +73,6 @@ consts
     h::ag (*h = type for members states*)
     j::ag (*j = type for national competent authorities*)
     k::ag (*k = type for credit institutions*)
-    l::ag (*l = type for distributors*)
+    m::ag (*l = type for distributors*)
 
 end

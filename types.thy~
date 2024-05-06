@@ -2,19 +2,21 @@ theory types
   imports Main 
 begin
 
+(*SDL types*)
 typedecl i (*Type for possible worlds.*) 
-typedecl ag (*Type for agents*)
 type_synonym \<sigma> = "(i\<Rightarrow>bool)"
 type_synonym \<gamma> = "\<sigma>\<Rightarrow>\<sigma>" 
 type_synonym \<rho> = "\<sigma>\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>"
+
+(*SDL_agents/ Dstit_Deontic types*)
+typedecl ag (*Type for agents*)
 type_synonym \<tau> = "(i\<Rightarrow>i\<Rightarrow>bool)\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" 
 type_synonym \<kappa> = "(ag\<Rightarrow>i\<Rightarrow>i\<Rightarrow>bool)\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" 
 type_synonym \<mu> = "(\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool))\<Rightarrow>(i\<Rightarrow>i\<Rightarrow>bool)\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>"
 type_synonym \<nu> = "(\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool))\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>"
-
 type_synonym \<delta> = "i\<Rightarrow>i\<Rightarrow>bool" (* type of accessibility relations between worlds Dstit_Deontic*)
 
-(*Types needed*)
+(*Other types needed for tiles & articles*)
 (*prohibited*)
 typedecl aiSys (*Type for AI-systems*)
 datatype quality_person = age | physcial_disability | mental_disability (*quality of a person*)
@@ -22,7 +24,8 @@ datatype consequence = harm | harm_physical | harm_psychological | detri_treatme
 detri_treatment_unjustified_disprop | affect_personal_rights | affect_personal_freedom (*type for consequences caused by AI-systems*)
 datatype purpose = distort_behavior | exploit_groups | eval_trustworthiness_over_time | targeted_search | 
 prevention | detection (*type for purposes of AI-systems*)
-typedecl bioid_rules (*specified rules for real time bio identification systems*)
+
+
 typedecl national_law  (*national law of member states*) 
 
 (*high-risk-3-1-6-7*)
