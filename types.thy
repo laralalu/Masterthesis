@@ -70,6 +70,9 @@ consts
     e::ag (*e = type for conformity assessment bodies*)
     f::ag (*f = type for notifying authorities*)
     g::ag (*g = type for notified bodies*)
+
+(*----------------------- --------------not in DDL yet--------------------------------------------*)
+
     h::ag (*h = type for members states*)
     j::ag (*j = type for national competent authorities*)
     k::ag (*k = type for credit institutions*)

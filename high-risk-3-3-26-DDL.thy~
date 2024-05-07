@@ -53,7 +53,7 @@ actions relating to the system*)
 abbreviation "A9 \<equiv> \<lfloor>\<^bold>\<forall>x. \<^bold>\<circle>b<(stit b (cooperation_on_sys_importer_nat_comp_auth x b j))>\<rfloor>" 
 
 (*-------------------------------------------------------------------*)
-(*DDL structure*)
+(*CTD structure*)
 consts l::aiSys
 
 axiomatization where
