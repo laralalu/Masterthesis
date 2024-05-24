@@ -61,11 +61,11 @@ consts
 axiomatization where
 F1: "\<lfloor>(high_risk l)\<rfloor>" and
 A1: "\<lfloor>\<^bold>\<forall>x::aiSys.(high_risk x) \<^bold>\<rightarrow> \<^bold>\<circle>d<stit d (compliance_req_chap2 x)>\<rfloor>" and
-A8: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<not>(stit d (compliance_req_chap2 x)) \<^bold>\<and> (high_risk x) \<^bold>\<rightarrow> \<^bold>\<circle>d<(stit d (inform_com_auth x))>\<rfloor>" and
+A8: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<not>(compliance_req_chap2 x) \<^bold>\<and> (high_risk x) \<^bold>\<rightarrow> \<^bold>\<circle>d<(stit d (inform_com_auth x))>\<rfloor>" and
 (*implicit: If the compliance with the requirements is a given, the provider is obligated to not inform authorities 
 of non-compliance (since that would make no sense*)
 AX: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>d<(stit d (compliance_req_chap2 x)) \<^bold>\<rightarrow> (\<^bold>\<not>(stit d (inform_com_auth x)))>\<rfloor>" and
-Situation: "\<lfloor>\<^bold>\<not> (stit d (compliance_req_chap2 l))\<rfloor>\<^sub>l"
+Situation: "\<lfloor>\<^bold>\<not> (compliance_req_chap2 l)\<rfloor>\<^sub>l"
 
 (***Some Experiments***) 
 lemma True nitpick [satisfy, user_axioms, show_all] oops (*Consistency-check: Nitpick finds a model.*)

@@ -1,11 +1,6 @@
 theory DDL    (* DDL: Dyadic Deontic Logic by Carmo and Jones, Benzmüller, Parent Farjami, 2018 *)
-  imports Main
+  imports types Main
 begin 
-
- typedecl i (*type for possible worlds*)
- type_synonym \<sigma> = "(i\<Rightarrow>bool)"
- type_synonym \<gamma> = "\<sigma>\<Rightarrow>\<sigma>" 
- type_synonym \<rho> = "\<sigma>\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>"
 
  consts av::"i\<Rightarrow>\<sigma>" pv::"i\<Rightarrow>\<sigma>" ob::"\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool)" (*accessibility relations*)
             cw::i (*current world*)

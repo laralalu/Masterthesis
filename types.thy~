@@ -46,7 +46,6 @@ typedecl devproc (*development process Art10, point 6*)
 (*high-risk-3-3-27*)
 typedecl stor_tra_conditions (*storage or transport conditions*)
 
-
 (*high-risk-3-4-31*)
 typedecl appl_nb (*application for notification*)
 
@@ -71,8 +70,5 @@ consts
     f::ag (*f = type for notifying authorities*)
     g::ag (*g = type for notified bodies*)
     h::ag (*h = type for members states*)
-    j::ag (*j = type for national competent authorities*)
-    k::ag (*k = type for credit institutions*)
-    m::ag (*l = type for distributors*)
 
 end

@@ -68,7 +68,7 @@ AX: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>d<(stit d (compliance_
 Situation: "\<lfloor>\<^bold>\<not> (stit d (compliance_req_chap2 l))\<rfloor>\<^sub>l"
 
 (***Some Experiments***) 
-lemma True nitpick [satisfy, user_axioms] oops (*Consistency-check: Nitpick finds a model.*)
+lemma True nitpick [satisfy, user_axioms, show_all] oops (*Consistency-check: Nitpick finds a model.*)
 
 (*Should the competent authority be informed? We find a proof for both \<rightarrow> contradiction*)
 (*We must try this in DDL*)

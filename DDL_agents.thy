@@ -8,12 +8,16 @@ consts
 cw::i (*current world*)
 av::"i\<Rightarrow>\<sigma>" pv::"i\<Rightarrow>\<sigma>" ob::"\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool)" (*general accessibility relations*)
                  
-avb::"i\<Rightarrow>\<sigma>" pvb::"i\<Rightarrow>\<sigma>" obb::"\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool)" (*accessibility relations for agent b*) 
-avc::"i\<Rightarrow>\<sigma>" pvc::"i\<Rightarrow>\<sigma>" obc::"\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool)" (*accessibility relations for agent c*)
+(*avb::"i\<Rightarrow>\<sigma>" pvb::"i\<Rightarrow>\<sigma>" obb::"\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool)" (*accessibility relations for agent b*) 
+avc::"i\<Rightarrow>\<sigma>" pvc::"i\<Rightarrow>\<sigma>" obc::"\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool)" (*accessibility relations for agent c*)*)
 avd::"i\<Rightarrow>\<sigma>" pvd::"i\<Rightarrow>\<sigma>" obd::"\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool)" (*accessibility relations for agent d*)
-ave::"i\<Rightarrow>\<sigma>" pve::"i\<Rightarrow>\<sigma>" obe::"\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool)" (*accessibility relations for agent e*)
+(*ave::"i\<Rightarrow>\<sigma>" pve::"i\<Rightarrow>\<sigma>" obe::"\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool)" (*accessibility relations for agent e*)
 avf::"i\<Rightarrow>\<sigma>" pvf::"i\<Rightarrow>\<sigma>" obf::"\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool)" (*accessibility relations for agent f*)
 avg::"i\<Rightarrow>\<sigma>" pvg::"i\<Rightarrow>\<sigma>" obg::"\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool)" (*accessibility relations for agent g*)
+avh::"i\<Rightarrow>\<sigma>" pvh::"i\<Rightarrow>\<sigma>" obh::"\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool)" (*accessibility relations for agent h*)*)
+
+(*simplifier? etc., pragmatisch vorgehen, erklären warum nicht, etc.
+agents die mehrere Typen sind, geht auch nicht*)
 
 (*stit operator*) 
 stit::"ag\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" (*ag sees to it that*)
@@ -29,7 +33,7 @@ stit::"ag\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" (*ag sees to it that*)
                    \<longrightarrow> ob(Z)(\<lambda>w. (Z(w) \<and> \<not>X(w)) \<or> Y(w))" and
   ax_5e: "\<forall>X Y Z. ((\<forall>w. Y(w) \<longrightarrow> X(w)) \<and> ob(X)(Z) \<and> (\<exists>w. Y(w) \<and> Z(w))) \<longrightarrow> ob(Y)(Z)" and
 
-  (*for agent b: importers*)
+  (*(*for agent b: importers*)
   axb_3a: "\<forall>w.\<exists>x. avb(w)(x)" and axb_4a: "\<forall>w x. avb(w)(x) \<longrightarrow> pvb(w)(x)" and axb_4ba: "\<forall>w. pvb(w)(w)" and
   axb_5a: "\<forall>X.\<not>obb(X)(\<lambda>x. False)" and
   axb_5b: "\<forall>X Y Z. (\<forall>w. ((Y(w) \<and> X(w)) \<longleftrightarrow> (Z(w) \<and> X(w)))) \<longrightarrow> (obb(X)(Y) \<longleftrightarrow> obb(X)(Z))" and
@@ -49,7 +53,7 @@ stit::"ag\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" (*ag sees to it that*)
   axc_5c: "\<forall>X Y Z. (((\<exists>w. (X(w) \<and> Y(w) \<and> Z(w))) \<and>  obc(X)(Y)  \<and>  obc(X)(Z))  \<longrightarrow>  obc(X)(\<lambda>w. Y(w) \<and> Z(w)))" and
   axc_5d: "\<forall>X Y Z. ((\<forall>w. Y(w) \<longrightarrow> X(w)) \<and> obc(X)(Y) \<and> (\<forall>w. X(w) \<longrightarrow> Z(w)))
                    \<longrightarrow> obc(Z)(\<lambda>w. (Z(w) \<and> \<not>X(w)) \<or> Y(w))" and
-  axc_5e: "\<forall>X Y Z. ((\<forall>w. Y(w) \<longrightarrow> X(w)) \<and> obc(X)(Z) \<and> (\<exists>w. Y(w) \<and> Z(w))) \<longrightarrow> obc(Y)(Z)" and
+  axc_5e: "\<forall>X Y Z. ((\<forall>w. Y(w) \<longrightarrow> X(w)) \<and> obc(X)(Z) \<and> (\<exists>w. Y(w) \<and> Z(w))) \<longrightarrow> obc(Y)(Z)" and*)
 
    (*for agent d: providers*)
   axd_3a: "\<forall>w.\<exists>x. avd(w)(x)" and axd_4a: "\<forall>w x. avd(w)(x) \<longrightarrow> pvd(w)(x)" and axa_4ba: "\<forall>w. pvd(w)(w)" and
@@ -62,7 +66,7 @@ stit::"ag\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" (*ag sees to it that*)
                    \<longrightarrow> obd(Z)(\<lambda>w. (Z(w) \<and> \<not>X(w)) \<or> Y(w))" and
   axd_5e: "\<forall>X Y Z. ((\<forall>w. Y(w) \<longrightarrow> X(w)) \<and> obd(X)(Z) \<and> (\<exists>w. Y(w) \<and> Z(w))) \<longrightarrow> obd(Y)(Z)" and
 
-  (*for agent e: conformity assessment bodies*)
+  (*(*for agent e: conformity assessment bodies*)
   axe_3a: "\<forall>w.\<exists>x. ave(w)(x)" and axe_4a: "\<forall>w x. ave(w)(x) \<longrightarrow> pve(w)(x)" and axe_4ba: "\<forall>w. pve(w)(w)" and
   axe_5a: "\<forall>X.\<not>obe(X)(\<lambda>x. False)" and
   axe_5b: "\<forall>X Y Z. (\<forall>w. ((Y(w) \<and> X(w)) \<longleftrightarrow> (Z(w) \<and> X(w)))) \<longrightarrow> (obe(X)(Y) \<longleftrightarrow> obe(X)(Z))" and
@@ -84,8 +88,8 @@ stit::"ag\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" (*ag sees to it that*)
                    \<longrightarrow> obf(Z)(\<lambda>w. (Z(w) \<and> \<not>X(w)) \<or> Y(w))" and
   axf_5e: "\<forall>X Y Z. ((\<forall>w. Y(w) \<longrightarrow> X(w)) \<and> obf(X)(Z) \<and> (\<exists>w. Y(w) \<and> Z(w))) \<longrightarrow> obf(Y)(Z)" and
 
-   (*for agent g: notified bodies*)
-  axg_3a: "\<forall>w.\<exists>x. avg(w)(x)" and axg_4a: "\<forall>w x. avg(w)(x) \<longrightarrow> pvf(w)(x)" and axg_4ba: "\<forall>w. pvg(w)(w)" and
+  (*for agent g: notified bodies*)
+  axg_3a: "\<forall>w.\<exists>x. avg(w)(x)" and axg_4a: "\<forall>w x. avg(w)(x) \<longrightarrow> pvg(w)(x)" and axg_4ba: "\<forall>w. pvg(w)(w)" and
   axg_5a: "\<forall>X.\<not>obg(X)(\<lambda>x. False)" and
   axg_5b: "\<forall>X Y Z. (\<forall>w. ((Y(w) \<and> X(w)) \<longleftrightarrow> (Z(w) \<and> X(w)))) \<longrightarrow> (obg(X)(Y) \<longleftrightarrow> obg(X)(Z))" and
   axg_5ca: "\<forall>X \<beta>. ((\<forall>Z. \<beta>(Z) \<longrightarrow> obg(X)(Z)) \<and> (\<exists>Z. \<beta>(Z))) \<longrightarrow> 
@@ -95,6 +99,17 @@ stit::"ag\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" (*ag sees to it that*)
                    \<longrightarrow> obg(Z)(\<lambda>w. (Z(w) \<and> \<not>X(w)) \<or> Y(w))" and
   axg_5e: "\<forall>X Y Z. ((\<forall>w. Y(w) \<longrightarrow> X(w)) \<and> obg(X)(Z) \<and> (\<exists>w. Y(w) \<and> Z(w))) \<longrightarrow> obg(Y)(Z)" and
 
+  (*for agent h: member state*)
+  axh_3a: "\<forall>w.\<exists>x. avh(w)(x)" and axh_4a: "\<forall>w x. avh(w)(x) \<longrightarrow> pvh(w)(x)" and axh_4ba: "\<forall>w. pvh(w)(w)" and
+  axh_5a: "\<forall>X.\<not>obh(X)(\<lambda>x. False)" and
+  axh_5b: "\<forall>X Y Z. (\<forall>w. ((Y(w) \<and> X(w)) \<longleftrightarrow> (Z(w) \<and> X(w)))) \<longrightarrow> (obh(X)(Y) \<longleftrightarrow> obh(X)(Z))" and
+  axh_5ca: "\<forall>X \<beta>. ((\<forall>Z. \<beta>(Z) \<longrightarrow> obh(X)(Z)) \<and> (\<exists>Z. \<beta>(Z))) \<longrightarrow> 
+      (((\<exists>y. ((\<lambda>w. \<forall>Z. (\<beta> Z) \<longrightarrow> (Z w))(y) \<and> X(y))) \<longrightarrow> obh(X)(\<lambda>w. \<forall>Z. (\<beta> Z) \<longrightarrow> (Z w))))" and
+  axh_5c: "\<forall>X Y Z. (((\<exists>w. (X(w) \<and> Y(w) \<and> Z(w))) \<and>  obh(X)(Y)  \<and>  obh(X)(Z))  \<longrightarrow>  obh(X)(\<lambda>w. Y(w) \<and> Z(w)))" and
+  axh_5d: "\<forall>X Y Z. ((\<forall>w. Y(w) \<longrightarrow> X(w)) \<and> obh(X)(Y) \<and> (\<forall>w. X(w) \<longrightarrow> Z(w)))
+                   \<longrightarrow> obh(Z)(\<lambda>w. (Z(w) \<and> \<not>X(w)) \<or> Y(w))" and
+  axh_5e: "\<forall>X Y Z. ((\<forall>w. Y(w) \<longrightarrow> X(w)) \<and> obh(X)(Z) \<and> (\<exists>w. Y(w) \<and> Z(w))) \<longrightarrow> obh(Y)(Z)" and*)
+
   stit1: "\<forall>a F w. ((stit a F) w) \<longrightarrow> F w"
 
  abbreviation ddlneg::\<gamma> ("\<^bold>\<not>_"[52]53) where "\<^bold>\<not>A \<equiv> \<lambda>w. \<not>A(w)" 
@@ -102,14 +117,21 @@ stit::"ag\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" (*ag sees to it that*)
  abbreviation ddlor::\<rho> (infixr"\<^bold>\<or>"50) where "A\<^bold>\<or>B \<equiv> \<lambda>w. A(w)\<or>B(w)"   
  abbreviation ddlimp::\<rho> (infixr"\<^bold>\<rightarrow>"49) where "A\<^bold>\<rightarrow>B \<equiv> \<lambda>w. A(w)\<longrightarrow>B(w)"  
  abbreviation ddlequiv::\<rho> (infixr"\<^bold>\<leftrightarrow>"48) where "A\<^bold>\<leftrightarrow>B \<equiv> \<lambda>w. A(w)\<longleftrightarrow>B(w)"  
+
  abbreviation ddlbox::\<gamma> ("\<^bold>\<box>") where "\<^bold>\<box>A \<equiv> \<lambda>w.\<forall>v. A(v)"  (*A = (\<lambda>w. True)*) 
  abbreviation ddldia_g::\<gamma>  ("\<^bold>\<diamond>") where "\<^bold>\<diamond> A \<equiv> \<^bold>\<not>\<^bold>\<box>(\<^bold>\<not>A)"
+ abbreviation ddlboxa::\<gamma> ("\<^bold>\<box>\<^sub>a") where "\<^bold>\<box>\<^sub>a A \<equiv> \<lambda>w. (\<forall>x. av (w)(x) \<longrightarrow> A(x))"  (*in all actual worlds*)
+ abbreviation ddlboxp::\<gamma> ("\<^bold>\<box>\<^sub>p") where "\<^bold>\<box>\<^sub>p A \<equiv> \<lambda>w. (\<forall>x. pv (w)(x) \<longrightarrow> A(x))" (*in all potential worlds*)
+ abbreviation ddldiaa::\<gamma> ("\<^bold>\<diamond>\<^sub>a") where "\<^bold>\<diamond>\<^sub>a A \<equiv> \<^bold>\<not>\<^bold>\<box>\<^sub>a (\<^bold>\<not>A)" 
+ abbreviation ddldiap::\<gamma> ("\<^bold>\<diamond>\<^sub>p") where "\<^bold>\<diamond>\<^sub>p A \<equiv> \<^bold>\<not>\<^bold>\<box>\<^sub>p (\<^bold>\<not>A)" 
 
-(*generalised operators with relation as a parameter*)
- abbreviation ddlboxa_g::\<tau> ("\<^bold>\<box>\<^sub>a") where "\<^bold>\<box>\<^sub>a rel A \<equiv> \<lambda>w. (\<forall>x. rel (w)(x) \<longrightarrow> A(x))"  (*in all actual worlds*)
- abbreviation ddlboxp_g::\<tau> ("\<^bold>\<box>\<^sub>p") where "\<^bold>\<box>\<^sub>p rel A \<equiv> \<lambda>w. (\<forall>x. rel (w)(x) \<longrightarrow> A(x))" (*in all potential worlds*)
- abbreviation ddldiaa_g::\<tau> ("\<^bold>\<diamond>\<^sub>a") where "\<^bold>\<diamond>\<^sub>a rel A \<equiv> \<^bold>\<not>\<^bold>\<box>\<^sub>a rel (\<^bold>\<not>A)" 
- abbreviation ddldiap_g::\<tau> ("\<^bold>\<diamond>\<^sub>p") where "\<^bold>\<diamond>\<^sub>p rel A \<equiv> \<^bold>\<not>\<^bold>\<box>\<^sub>p rel (\<^bold>\<not>A)" 
+ (*Necessity/possibility for agents*)
+ abbreviation ddlboxa_g::\<zeta> ("\<^bold>\<box>\<^sub>a") where "\<^bold>\<box>\<^sub>a rel A \<equiv> \<lambda>w. (\<forall>x. (rel (w)(x) \<longrightarrow> A(x)))"  (*in all actual worlds*)
+ abbreviation ddlboxp_g::\<zeta> ("\<^bold>\<box>\<^sub>p") where "\<^bold>\<box>\<^sub>p rel A \<equiv> \<lambda>w. (\<forall>x. (rel (w)(x) \<longrightarrow> A(x)))" (*in all potential worlds*)
+ abbreviation ddldiaa_g::\<zeta> ("\<^bold>\<diamond>\<^sub>a") where "\<^bold>\<diamond>\<^sub>a rel A \<equiv> \<^bold>\<not>\<^bold>\<box>\<^sub>a (\<^bold>\<not>A)" 
+ abbreviation ddldiap_g::\<zeta> ("\<^bold>\<diamond>\<^sub>p") where "\<^bold>\<diamond>\<^sub>p rel A \<equiv> \<^bold>\<not>\<^bold>\<box>\<^sub>p (\<^bold>\<not>A)" 
+
+ (*generalised obligation operators with relation as a parameter*)
  abbreviation ddlo_g::\<nu> ("\<^bold>O _ \<^bold>\<langle>_\<^bold>|_\<^bold>\<rangle>") where "\<^bold>O rel \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<equiv> \<lambda>w. rel (A)(B)"  (*it ought to be A, given B *)
  abbreviation ddloa_g::\<mu>  ("\<^bold>O\<^sub>a ") where "\<^bold>O\<^sub>a rel1 rel2 A \<equiv> \<lambda>w. rel1(rel2(w))(A) \<and> (\<exists>x. rel2(w)(x) \<and> \<not>A(x))" (*actual obligation*)
  abbreviation ddlop_g::\<mu>  ("\<^bold>O\<^sub>p") where "\<^bold>O\<^sub>p rel1 rel2 A \<equiv> \<lambda>w. rel1(rel2(w))(A) \<and> (\<exists>x. rel2(w)(x) \<and> \<not>A(x))"  (*primary obligation*)
@@ -128,15 +150,16 @@ stit::"ag\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" (*ag sees to it that*)
 
 (* A is obligatory *)
  abbreviation ddlobl::\<gamma> ("\<^bold>\<circle><_>") where "\<^bold>\<circle><A> \<equiv>  \<^bold>O ob \<^bold>\<langle>A\<^bold>|\<^bold>\<top>\<^bold>\<rangle>"  (*New syntax: A is obligatory.*)
- abbreviation ddloblb::\<gamma> ("\<^bold>\<circle>b<_>") where "\<^bold>\<circle>b<A> \<equiv>  \<^bold>O obb \<^bold>\<langle>A\<^bold>|\<^bold>\<top>\<^bold>\<rangle>"  (*New syntax: A is obligatory for agent b.*) 
- abbreviation ddloblc::\<gamma> ("\<^bold>\<circle>c<_>") where "\<^bold>\<circle>c<A> \<equiv>  \<^bold>O obc \<^bold>\<langle>A\<^bold>|\<^bold>\<top>\<^bold>\<rangle>"  (*New syntax: A is obligatory for agent c.*) 
+ (*abbreviation ddloblb::\<gamma> ("\<^bold>\<circle>b<_>") where "\<^bold>\<circle>b<A> \<equiv>  \<^bold>O obb \<^bold>\<langle>A\<^bold>|\<^bold>\<top>\<^bold>\<rangle>"  (*New syntax: A is obligatory for agent b.*) 
+ abbreviation ddloblc::\<gamma> ("\<^bold>\<circle>c<_>") where "\<^bold>\<circle>c<A> \<equiv>  \<^bold>O obc \<^bold>\<langle>A\<^bold>|\<^bold>\<top>\<^bold>\<rangle>"  (*New syntax: A is obligatory for agent c.*) *)
  abbreviation ddlobld::\<gamma> ("\<^bold>\<circle>d<_>") where "\<^bold>\<circle>d<A> \<equiv>  \<^bold>O obd \<^bold>\<langle>A\<^bold>|\<^bold>\<top>\<^bold>\<rangle>"  (*New syntax: A is obligatory for agent d.*)
- abbreviation ddloble::\<gamma> ("\<^bold>\<circle>e<_>") where "\<^bold>\<circle>e<A> \<equiv>  \<^bold>O obe \<^bold>\<langle>A\<^bold>|\<^bold>\<top>\<^bold>\<rangle>"  (*New syntax: A is obligatory for agent e.*)
+ (*abbreviation ddloble::\<gamma> ("\<^bold>\<circle>e<_>") where "\<^bold>\<circle>e<A> \<equiv>  \<^bold>O obe \<^bold>\<langle>A\<^bold>|\<^bold>\<top>\<^bold>\<rangle>"  (*New syntax: A is obligatory for agent e.*)
  abbreviation ddloblf::\<gamma> ("\<^bold>\<circle>f<_>") where "\<^bold>\<circle>f<A> \<equiv>  \<^bold>O obf \<^bold>\<langle>A\<^bold>|\<^bold>\<top>\<^bold>\<rangle>"  (*New syntax: A is obligatory for agent f.*)
  abbreviation ddloblg::\<gamma> ("\<^bold>\<circle>g<_>") where "\<^bold>\<circle>g<A> \<equiv>  \<^bold>O obg \<^bold>\<langle>A\<^bold>|\<^bold>\<top>\<^bold>\<rangle>"  (*New syntax: A is obligatory for agent g.*)
+ abbreviation ddloblh::\<gamma> ("\<^bold>\<circle>h<_>") where "\<^bold>\<circle>h<A> \<equiv>  \<^bold>O obg \<^bold>\<langle>A\<^bold>|\<^bold>\<top>\<^bold>\<rangle>"  (*New syntax: A is obligatory for agent h.*)*)
 
 (* Consistency *) 
- lemma True nitpick [satisfy,user_axioms,show_all,card i=2] oops 
+ lemma True nitpick [satisfy,user_axioms,show_all, card i = 2] oops 
 end
 
 

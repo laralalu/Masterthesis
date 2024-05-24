@@ -99,6 +99,9 @@ theorem Result1a: "H1 \<and> H2 \<and> A1 \<and> B1 \<and> C1 \<longrightarrow> 
 theorem Result1b: "H1 \<and> H2 \<and> A1 \<and> B1 \<and> C1 \<longrightarrow> \<lfloor>F1 \<^bold>\<and> F2  \<^bold>\<rightarrow> (\<^bold>\<circle><prohibited x>)\<rfloor>"  
   nitpick [user_axioms] oops (*counterexample found*) 
 
+(*Consistency confirmed by model finder Nitpick.*) 
+lemma True nitpick[satisfy,user_axioms,show_all,expect=genuine] oops
+
 theorem Result2a: "D1a \<and> D1b \<and> A2a \<and> A2b \<and> A2c \<longrightarrow> \<lfloor>F4 \<^bold>\<and> F5 \<^bold>\<and> F6 \<^bold>\<and> F7 \<^bold>\<and> F8 \<^bold>\<rightarrow> (\<^bold>\<circle><prohibited z>)\<rfloor>"
   by meson
 

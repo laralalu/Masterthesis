@@ -1,0 +1,30 @@
+theory "extendedDDL-mult-agents"
+  imports 
+    types
+    DDL_agents
+begin
+
+consts
+  have_qual_man_art17::"aiSys\<Rightarrow>\<sigma>"
+  conf_ass_done::"aiSys\<Rightarrow>\<sigma>"
+  has_conformity_marking::"aiSys\<Rightarrow>\<sigma>"
+  safeguard_info::\<sigma>
+  verify_conformity_Art43::"aiSys\<Rightarrow>\<sigma>"
+
+abbreviation "sixteenB \<equiv> \<lfloor>\<^bold>\<forall>x. (high_risk x) \<^bold>\<rightarrow> \<^bold>\<circle>d<stit d (have_qual_man_art17 x)>\<rfloor>" (*d = provider*)
+abbreviation "twentysix1a \<equiv> \<lfloor>\<^bold>\<forall>x. (high_risk x) \<^bold>\<rightarrow> \<^bold>\<circle>b<stit b (stit d (conf_ass_done x))>\<rfloor>" (*b = importer*)
+abbreviation "thirty6 \<equiv> \<lfloor>\<^bold>\<circle>f<stit f (safeguard_info)>\<rfloor>" (*f = notifying authority*)
+
+consts 
+  notification_changes::"ag\<Rightarrow>\<sigma>"
+  inform::"ag\<Rightarrow>ag\<Rightarrow>\<sigma>"
+  notif_auth_of::"ag\<Rightarrow>ag" (*gives back notifying authority of a member state*)
+  submit_appl_for_notific::"ag\<Rightarrow>ag\<Rightarrow>\<sigma>" (*conf ass body submits application to the
+  notifying authority of the member state it is established in*)
+  established_in::"ag\<Rightarrow>ag" (*member state in which conf ass body is established*)
+
+abbreviation "thirthyone1 \<equiv> \<lfloor>\<^bold>\<circle>e<stit e (submit_appl_for_notific e (notif_auth_of (established_in e)))>\<rfloor>" (*e = conformity assessment bodies*)
+abbreviation "thirtytwo5 \<equiv> \<lfloor>(notification_changes f) \<^bold>\<rightarrow> \<^bold>\<circle>f<stit f (inform f c)>\<rfloor>" (*c = eu-commission 1*)
+abbreviation "thirtythree1 \<equiv> \<lfloor>\<^bold>\<forall>x. (high_risk x) \<^bold>\<rightarrow> \<^bold>\<circle>g<stit g (verify_conformity_Art43 x)>\<rfloor>" (*g =notified body*)
+
+lemma True nitpick [satisfy, user_axioms, show_all] oops (*Consistency-check: Nitpick finds a model.*)

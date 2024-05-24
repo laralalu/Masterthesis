@@ -12,8 +12,11 @@ type_synonym \<rho> = "\<sigma>\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>"
 typedecl ag (*Type for agents*)
 type_synonym \<tau> = "(i\<Rightarrow>i\<Rightarrow>bool)\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" 
 type_synonym \<kappa> = "(ag\<Rightarrow>i\<Rightarrow>i\<Rightarrow>bool)\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" 
-type_synonym \<mu> = "(\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool))\<Rightarrow>(i\<Rightarrow>i\<Rightarrow>bool)\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>"
+
 type_synonym \<nu> = "(\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool))\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>"
+type_synonym \<mu> = "(\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool))\<Rightarrow>(i\<Rightarrow>i\<Rightarrow>bool)\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>"
+type_synonym \<zeta> = "(i\<Rightarrow>\<sigma>)\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>"
+
 type_synonym \<delta> = "i\<Rightarrow>i\<Rightarrow>bool" (* type of accessibility relations between worlds Dstit_Deontic*)
 
 (*Other types needed for tiles & articles*)
@@ -46,7 +49,6 @@ typedecl devproc (*development process Art10, point 6*)
 (*high-risk-3-3-27*)
 typedecl stor_tra_conditions (*storage or transport conditions*)
 
-
 (*high-risk-3-4-31*)
 typedecl appl_nb (*application for notification*)
 
@@ -62,7 +64,7 @@ consts
    prohibited::"aiSys\<Rightarrow>\<sigma>" (*system is declared prohibited*)
    high_risk::"aiSys\<Rightarrow>\<sigma>" (*system is declared a high-risk system*)
 
-  (*identify agents:*)
+    (*(*identify agents:*)
     a::ag (*a = type for judicial authorities or independent administrative authorities*)
     b::ag (*b = type for importers*)   
     c::ag (*c = type for eu commission*)
@@ -70,12 +72,6 @@ consts
     e::ag (*e = type for conformity assessment bodies*)
     f::ag (*f = type for notifying authorities*)
     g::ag (*g = type for notified bodies*)
-
-(*----------------------- --------------not in DDL yet--------------------------------------------*)
-
-    h::ag (*h = type for members states*)
-    j::ag (*j = type for national competent authorities*)
-    k::ag (*k = type for credit institutions*)
-    m::ag (*l = type for distributors*)
+    h::ag (*h = type for members states*)*)
 
 end

@@ -67,22 +67,6 @@ axiomatization where
   made up of the choices of the intersection of choices of each individual agent, if (w1, w2) is part of R_set, 
   then for all agents a in the set, (w1, w2) is part of R_ag \<rightarrow> see test*) 
 
-lemma C2test: 
-  "(\<forall>w1 w2. (RBox w1 w2) \<longrightarrow> ((\<^bold>\<Inter> (\<lambda>S::i\<Rightarrow>bool. (\<forall>x a. (S x) \<longleftrightarrow> ((R_ag a) w1 x)))) \<noteq> {}))
-    \<longleftrightarrow>
-    (\<forall>w1 w2. (RBox w1 w2) \<longrightarrow> (\<exists>w. \<forall>a. (R_ag a) w1 w))"
-  using C2 by metis
-
-lemma C2test': 
-   "((\<^bold>\<Inter> (\<lambda>S::i\<Rightarrow>bool. (\<forall>x a. (S x) \<longleftrightarrow> ((R_ag a) w1 x)))) \<noteq> {})
-    \<longleftrightarrow>
-    (\<exists>w. \<forall>a. (R_ag a) w1 w)"
-  using C2 by (meson accReR_ag)
-
-lemma C3test: "(\<forall>w1 w2. ((R_set Agt) w1 w2) 
-   \<longrightarrow> ((R_ag a1) w1 w2) \<and> ((R_ag a2) w1 w2))" 
-  by (simp add: C3 a1Set a2Set)
-
 abbreviation "infinity \<equiv> \<exists>M. (\<exists>z::i. \<not>(M z) \<and> (\<exists>G. (\<forall>y::i. (\<exists>x. (M x) \<and> (G x) = y))))"
 
 lemma assumes
@@ -99,7 +83,6 @@ lemma assumes
   C7: "\<forall>w v. ((RBox w v)) \<longrightarrow> \<not>(RG w v)" (*if worlds are in the same moment, they can't be in each others future*)
 shows "infinity" nitpick[show_all] oops 
 (*no countermodel found, time out*)
-(*no countermodel for: i=2, i=3, i=4, i=5, out of time at i=6*)
 (*C7 ohne w \<noteq> v impliziert infinite Modelle in Verbindung mit Serialität und Transitivität!*) 
 
 axiomatization where
@@ -115,11 +98,6 @@ axiomatization where
   undivided histories*)
   C6: "\<forall>v w u S. (RG w v) \<and> (RBox v u) \<longrightarrow> (\<exists>z. ((R_set S) w z) \<and> (RG z u))" and
   C7: "\<forall>w v. ((RBox w v))  \<longrightarrow> \<not>(RG w v)" (*if worlds are in the same moment, they can't be in each others future*)
-
-lemma "infinity" nitpick [show_all] oops (*no countermodel found, time out *)
-
-(*tests: if I add w\<noteq>v: model found up until i=3, at i=4 no model is found*)
-(*lemma True nitpick [satisfy, user_axioms, show_all, card i = 3] oops *)
 
 (*usual connectives lifted*)
 abbreviation dstitTop::\<sigma> ("\<^bold>\<top>") where "\<^bold>\<top> \<equiv> \<lambda>w. True"  
