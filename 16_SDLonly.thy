@@ -29,6 +29,6 @@ lemma False sledgehammer oops
 
 lemma "\<lfloor>\<^bold>\<circle><(inform_com_auth l)>\<rfloor>\<^sub>l" using A0 A2 Situation by auto
 lemma "\<lfloor>\<^bold>\<circle><\<^bold>\<not>(inform_com_auth l)>\<rfloor>\<^sub>l" by (simp add: A0 A1 A3)
-lemma "\<lfloor>\<^bold>\<circle><(kill_everyone l)>\<rfloor>\<^sub>l" by (meson A0 A1 A2 A3 Situation)
+lemma "\<lfloor>\<^bold>\<circle><(kill_everyone l)>\<rfloor>\<^sub>l" try
 
 end

@@ -64,13 +64,13 @@ axiomatization where
   part of the actual choice of all agents*)
   C3: "\<forall>S w1 w2. ((R_set S) w1 w2) \<longrightarrow> (\<forall>a. S a \<longrightarrow> (R_ag a) w1 w2)" and (*choices of agents in group Agt are 
   made up of the choices of the intersection of choices of each individual agent*) 
-  
-  C4: "\<forall>u v w. ((RG w u) \<and> (RG w v)) \<longrightarrow> ((RG v u) \<or> (RG u v) \<or> u = v)" and (*future*)
-  C5: "\<forall>u v w. ((RH w u) \<and> (RH w v)) \<longrightarrow> ((RH v u) \<or> (RH u v) \<or> u = v)" and (*past*)
+                           
+  T4: "\<forall>u v w. ((RG w u) \<and> (RG w v)) \<longrightarrow> ((RG v u) \<or> (RG u v) \<or> u = v)" and (*future*)
+  T5: "\<forall>u v w. ((RH w u) \<and> (RH w v)) \<longrightarrow> ((RH v u) \<or> (RH u v) \<or> u = v)" and (*past*)
   (* If v is in the future of w and u and v are in the same moment,  then there exists an alternative z 
   in the collective choice of all agents at w such that u is in the future of z.*)
-  C6: "\<forall>v w u S. (RG w v) \<and> (RBox v u) \<longrightarrow> (\<exists>z. ((R_set S) w z) \<and> (RG z u))" and 
-  C7: "\<forall>w v. ((RBox w v)) \<longrightarrow> \<not>(RG w v)" and (*if worlds are in the same moment, they can't be in each others future*)
+  T6: "\<forall>v w u S. (RG w v) \<and> (RBox v u) \<longrightarrow> (\<exists>z. ((R_set S) w z) \<and> (RG z u))" and 
+  T7: "\<forall>w v. ((RBox w v)) \<longrightarrow> \<not>(RG w v)" and (*if worlds are in the same moment, they can't be in each others future*)
 
   (*ideal worlds accessible at a moment are alternatives to the current world*)
   D8: "\<forall>a. \<forall>w v. ((R_ag_ought a) w v) \<longrightarrow> (RBox w v)" and
@@ -93,15 +93,15 @@ axiomatization where
   abbreviation tdsTop::\<sigma> ("\<^bold>\<top>") where "\<^bold>\<top> \<equiv> \<lambda>w. True"
   abbreviation tdsBot::\<sigma> ("\<^bold>\<bottom>") where "\<^bold>\<bottom> \<equiv> \<lambda>w. False" 
 
- (*Operators connectives*)
+  (*Operators*)
   abbreviation tdsCstit::"ag\<Rightarrow>\<gamma>" ("[_] _") where "[i] A \<equiv> \<lambda>w. (\<forall>y. ((R_ag i) w y) \<longrightarrow> (A y))"  (*Chellas Stit*)
   abbreviation tdsCstitPoss::"ag\<Rightarrow>\<gamma>" ("<_>_") where "<i> A \<equiv> \<^bold>\<not>([i] (\<^bold>\<not> A))" (*Possibility Group Chellas stit*)
-  abbreviation tdsCstitGr::"\<gamma>" ("[Ag]_") where "[Ag] A \<equiv> \<lambda>w. (\<forall>v. ((R_set Agt) w v) \<longrightarrow> (A v))" (*Chellas stit group*)
+  abbreviation tdsCstitGr::"\<gamma>" ("[Ag]_") where "[Ag] A \<equiv> \<lambda>w. (\<forall>v. ((R_set Ag) w v) \<longrightarrow> (A v))" (*Chellas stit group*)
   abbreviation tdsCstitGrPoss::"\<gamma>" ("<Ag>_") where "<Ag> A \<equiv> \<^bold>\<not>([Ag] (\<^bold>\<not> A))"
   abbreviation tdsDstit::"ag\<Rightarrow>\<gamma>" ("[_]d _") where "[i]d A \<equiv> ([i]A) \<^bold>\<and> \<^bold>\<not>(\<^bold>\<box>A)" (*Dstit*)
   abbreviation tdsDstitPoss::"ag\<Rightarrow>\<gamma>" ("<_>d _") where "<i>d A \<equiv> \<^bold>\<not> ([i]d (\<^bold>\<not> A))" (*Dstit Poss*)
-  abbreviation tdsDstitGr::"(ag\<Rightarrow>bool)\<Rightarrow>\<gamma>" ("[Ag]d_") where "[Ag]A \<equiv> ([Ag] A) \<^bold>\<and> (\<^bold>\<not>(\<^bold>\<box>A))" (*Dstit group*)
-  abbreviation tdsDstitGrPoss::"(ag\<Rightarrow>bool)\<Rightarrow>\<gamma>" ("<Ag>d_") where "<Ag>d A \<equiv> \<^bold>\<not>([Ag]d(\<^bold>\<not> A))"
+  abbreviation tdsDstitGr::\<gamma> ("[Ag]d_") where "[Ag]d A \<equiv> ([Ag] A) \<^bold>\<and> (\<^bold>\<not>(\<^bold>\<box>A))" (*Dstit group*)
+  abbreviation tdsDstitGrPoss::\<gamma> ("<Ag>d_") where "<Ag>d A \<equiv> \<^bold>\<not>([Ag]d(\<^bold>\<not> A))"
   abbreviation tdsOughtToDo::"ag\<Rightarrow>\<gamma>" ("\<^bold>\<otimes> _ _") where "\<^bold>\<otimes> i A \<equiv> \<lambda>w. (\<forall>v. ((R_ag_ought i) w v) \<longrightarrow> (A v))" (*OughtToDo Operator*)
   abbreviation tdsOughtToDoD::"ag\<Rightarrow>\<gamma>" ("\<^bold>\<otimes>d _ _") where "\<^bold>\<otimes>d i A \<equiv> (\<^bold>\<otimes> i A) \<^bold>\<and> (\<^bold>\<diamond> \<^bold>\<not> A)" (*OughtToDo Operator*) 
 

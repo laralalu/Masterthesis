@@ -1,25 +1,10 @@
-theory "extendedDDL-mult-agents"
+theory "multAgTests"
   imports 
-    types
-    DDL_agents_2
+    types_2 (*types*)
+    DDL_agents_2 (*DDL_agents*)
 begin
 
-consts 
-  e::ag 
-  notif_auth_of::"ag\<Rightarrow>ag" (*gives back notifying authority of a member state*)
-  established_in::"ag\<Rightarrow>ag" (*member state in which conf ass body is established*)
-  submit_appl_for_notific::"ag\<Rightarrow>ag\<Rightarrow>\<sigma>" (*conf ass body submits application to a
-  notifying authority*)
-
-axiomatization where
-  F1: "\<lfloor>conf_ass_body e\<rfloor>\<^sub>l" and
-  R1: "\<lfloor>\<^bold>\<forall>a.(conf_ass_body a) \<^bold>\<rightarrow> \<^bold>\<circle>a<stit a (submit_appl_for_notific a (notif_auth_of (established_in a)))>\<rfloor>" 
-
-lemma test1: "\<lfloor>\<^bold>\<circle>e<stit e (submit_appl_for_notific e (notif_auth_of (established_in e)))>\<rfloor>\<^sub>l" using F1 R1 by auto
-
-lemma True nitpick [satisfy, user_axioms, show_all] (*Consistency-check: Nitpick finds a model.*)
-
-
+(*Article 32 (?) \<rightarrow> pick example and formalize, once in ExtDDL and once in ModExtDDL (agents_2)*)
 consts
   c::ag
   f::ag

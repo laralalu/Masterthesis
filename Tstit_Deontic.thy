@@ -66,14 +66,14 @@ axiomatization where
   RG_serial: "(\<forall>x. (\<exists>y. (RG x y)))" and (*seriality of RG*) 
   RG_trans: "(\<forall>x y z. (RG x y) \<and> (RG y z) \<longrightarrow> (RG x z))" and (*transitivity of RG*)
   C7: "\<forall>w v. ((RBox w v) \<and> w \<noteq> v) \<longrightarrow> \<not>(RG w v)" (*if worlds are in the same moment, they can't be in each others future*)
-  shows "infinity" nitpick[show_all, user_axioms] oops (* countermodel found, but only with the unwanted addition in C7*)
+  shows "infinity" nitpick [show_all, user_axioms] oops (* countermodel found, but only with the unwanted addition in C7*)
 
   lemma assumes
   (*axioms for RG and RH*)
   RG_serial: "(\<forall>x. (\<exists>y. (RG x y)))" and (*seriality of RG*) 
   RG_trans: "(\<forall>x y z. (RG x y) \<and> (RG y z) \<longrightarrow> (RG x z))" and (*transitivity of RG*)
   C7: "\<forall>w v. ((RBox w v)) \<longrightarrow> \<not>(RG w v)" (*if worlds are in the same moment, they can't be in each others future*)
-  shows "infinity" nitpick[show_all, user_axioms] oops 
+  shows "infinity" nitpick [show_all, user_axioms] 
   (*no countermodel found, time out*)
   (*C7 ohne w \<noteq> v impliziert infinite Modelle in Verbindung mit Serialität und Transitivität!*) 
   

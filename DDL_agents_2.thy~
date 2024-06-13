@@ -7,17 +7,18 @@ begin
 (*General version, agent as parameter, used to better show interaction of agents and relations between agent and AI system, eg. provider OF an AI system*)
 
 consts 
- is_jud_ind_authority::"ag\<Rightarrow>\<sigma>"
- is_importer::"ag\<Rightarrow>\<sigma>" (*b = type for importers*)   
- is_eu_comm::"ag\<Rightarrow>\<sigma>" (*c = type for eu commission*)
- is_provider::"ag\<Rightarrow>\<sigma>" (*d = type for providers*)
- is_conf_ass_body::"ag\<Rightarrow>\<sigma>" (*e = type for conformity assessment bodies*)
- is_notif_authority::"ag\<Rightarrow>\<sigma>" (*f = type for notifying authorities*)
- is_noti_bodies::"ag\<Rightarrow>\<sigma>" (*g = type for notified bodies*)
- is_member_state::"ag\<Rightarrow>\<sigma>" (*h = type for members states*)
+ jud_ind_authority::"ag\<Rightarrow>\<sigma>"
+ importer::"ag\<Rightarrow>\<sigma>" (*b = type for importers*)   
+ eu_comm::"ag\<Rightarrow>\<sigma>" (*c = type for eu commission*)
+ provider::"ag\<Rightarrow>\<sigma>" (*d = type for providers*)
+ conf_ass_body::"ag\<Rightarrow>\<sigma>" (*e = type for conformity assessment bodies*)
+ notif_authority::"ag\<Rightarrow>\<sigma>" (*f = type for notifying authorities*)
+ noti_bodies::"ag\<Rightarrow>\<sigma>" (*g = type for notified bodies*)
+ member_state::"ag\<Rightarrow>\<sigma>" (*h = type for members states*)
 
  cw::i (*current world*)
  av::"i\<Rightarrow>\<sigma>" pv::"i\<Rightarrow>\<sigma>" ob::"\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool)" (*general accessibility relations*)
+
  av_g::"ag\<Rightarrow>i\<Rightarrow>\<sigma>" pv_g::"ag\<Rightarrow>i\<Rightarrow>\<sigma>" ob_g::"ag\<Rightarrow>(\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool))" (*agent-dependent accessibility relations*)
   
  (*stit operator*) 
@@ -41,7 +42,7 @@ axiomatization where
  axg_5ca: "\<forall>X \<beta> a. ((\<forall>Z. \<beta>(Z) \<longrightarrow> ob_g a(X)(Z)) \<and> (\<exists>Z. \<beta>(Z))) \<longrightarrow> 
       (((\<exists>y. ((\<lambda>w. \<forall>Z. (\<beta> Z) \<longrightarrow> (Z w))(y) \<and> X(y))) \<longrightarrow> ob_g a (X)(\<lambda>w. \<forall>Z. (\<beta> Z) \<longrightarrow> (Z w))))" and
  axg_5c: "\<forall>X Y Z a. (((\<exists>w. (X(w) \<and> Y(w) \<and> Z(w))) \<and>  ob_g a (X)(Y)  \<and>  ob_g a(X)(Z))  \<longrightarrow>  ob_g a(X)(\<lambda>w. Y(w) \<and> Z(w)))" and
- axg_5d: "\<forall>X Y Z a. ((\<forall>w. Y(w) \<longrightarrow> X(w)) \<and> ob_g a (X)(Y) \<and> (\<forall>w. X(w) \<longrightarrow> Z(w)))
+ axg_5d: "\<forall>X Y Z a. ((\<forall>w. Y(w) \<longrightarrow> X(w)) \<and> ob_g a (X)(Y) \<and> (\<forall>w. X(w) \<longrightarrow> Z(w))) 
                    \<longrightarrow> ob_g a(Z)(\<lambda>w. (Z(w) \<and> \<not>X(w)) \<or> Y(w))" and
  axg_5e: "\<forall>X Y Z a. ((\<forall>w. Y(w) \<longrightarrow> X(w)) \<and> ob_g a(X)(Z) \<and> (\<exists>w. Y(w) \<and> Z(w))) \<longrightarrow> ob_g a(Y)(Z)" and
 
@@ -67,8 +68,13 @@ axiomatization where
  type_synonym \<chi> = "ag\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>"
  type_synonym \<eta> = "ag\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" 
 
- (*generalised operators with relation as a parameter*)
- abbreviation ddlo_g::\<chi> ("\<^bold>O _ \<^bold>\<langle>_\<^bold>|_\<^bold>\<rangle>") where "\<^bold>O i \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<equiv> \<lambda>w. ob_g i A B"  (*it ought to be A, given B *) (*! ! !*)
+ (*Necessity/possibility for agents*)
+ abbreviation ddlboxa_g::\<eta> ("\<^bold>\<box>\<^sub>a") where "\<^bold>\<box>\<^sub>a i A \<equiv> \<lambda>w. (\<forall>x. av_g i (w)(x) \<longrightarrow> A(x))"  (*in all actual worlds*)
+ abbreviation ddlboxp_g::\<eta> ("\<^bold>\<box>\<^sub>p") where "\<^bold>\<box>\<^sub>p i A \<equiv> \<lambda>w. (\<forall>x. pv_g i (w)(x) \<longrightarrow> A(x))" (*in all potential worlds*)
+ abbreviation ddldiaa_g::\<eta> ("\<^bold>\<diamond>\<^sub>a") where "\<^bold>\<diamond>\<^sub>a i A \<equiv> \<^bold>\<not>\<^bold>\<box>\<^sub>a i (\<^bold>\<not>A)"
+ abbreviation ddldiap_g::\<eta> ("\<^bold>\<diamond>\<^sub>p") where "\<^bold>\<diamond>\<^sub>p i A \<equiv> \<^bold>\<not>\<^bold>\<box>\<^sub>p i (\<^bold>\<not>A)" 
+ (*generalised operators with agents as a parameter*)
+ abbreviation ddlo_g::\<chi> ("\<^bold>O _ \<^bold>\<langle>_\<^bold>|_\<^bold>\<rangle>") where "\<^bold>O i \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<equiv> \<lambda>w. ob_g i A B"  (*Agent i ought to A, given B *)
  abbreviation ddloa_g::\<eta>  ("\<^bold>O\<^sub>a _ ") where "\<^bold>O\<^sub>a i A \<equiv> \<lambda>w. ob_g i (av_g i (w))(A) \<and> (\<exists>x. av_g i (w)(x) \<and> \<not>A(x))" (*actual obligation*)
  abbreviation ddlop_g::\<eta>  ("\<^bold>O\<^sub>p _") where "\<^bold>O\<^sub>p i A \<equiv> \<lambda>w. ob_g i (pv_g i (w))(A) \<and> (\<exists>x. pv_g i (w)(x) \<and> \<not>A(x))"  (*primary obligation*)
  
@@ -89,7 +95,8 @@ axiomatization where
  abbreviation ddlobl_g::\<eta> ("\<^bold>\<circle>_<_>") where "\<^bold>\<circle> i <A> \<equiv>  \<^bold>O i \<^bold>\<langle>A\<^bold>|\<^bold>\<top>\<^bold>\<rangle>"  
 
  (* Consistency *) 
- lemma True nitpick [satisfy,user_axioms,show_all, card i=3] oops 
+ lemma True nitpick [satisfy,user_axioms,show_all, card i=2, timeout=60] 
+
 end
 
 

@@ -17,7 +17,7 @@ axiomatization where
 
 lemma test1: "\<lfloor>\<^bold>\<circle>e<stit e (submit_appl_for_notific e (notif_auth_of (established_in e)))>\<rfloor>\<^sub>l" using F1 R1 by auto
 
-lemma True nitpick [satisfy, user_axioms, show_all] oops (*Consistency-check: Nitpick finds a model.*)
+lemma True nitpick [satisfy, user_axioms, show_all] (*Consistency-check: Nitpick finds a model.*) oops
 
 
 consts

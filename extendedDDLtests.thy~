@@ -7,6 +7,15 @@ consts
   l::aiSys
   compliance_req_chap2::"aiSys\<Rightarrow>\<sigma>"
 
+abbreviation "Example \<equiv> \<lfloor>stit d (compliance_req_chap2 l)\<rfloor>"
+
+lemma assumes
+stit1: "\<forall> F w. ((stit a F) w) \<longrightarrow> F w"
+Example
+shows "\<lfloor>compliance_req_chap2 l\<rfloor>" try
+
+
+(*
 axiomatization where
 Ex: "\<lfloor>stit d (compliance_req_chap2 l)\<rfloor>\<^sub>l"
 
@@ -21,5 +30,5 @@ axiomatization where
 Ex1: "\<lfloor>stit b (stit d (conf_ass_proc_done m))\<rfloor>\<^sub>l"
 
 lemma T2:  "\<lfloor>stit d (conf_ass_proc_done m)\<rfloor>\<^sub>l" using Ex1 stit1 by auto
-
+*)
 end

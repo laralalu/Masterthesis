@@ -23,12 +23,13 @@ A3: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle><(compliance_req_chap2
 Situation: "\<lfloor>\<^bold>\<not> (compliance_req_chap2 l)\<rfloor>\<^sub>l"
 
 (***Some Experiments***) 
-lemma True nitpick [satisfy, user_axioms, show_all] oops (*Consistency-check: Nitpick finds a model.*)
+lemma True nitpick [satisfy, user_axioms, show_all] oops(*Consistency-check: Nitpick finds a model.*)
+
 
 
 lemma "\<lfloor>\<^bold>\<circle><(inform_com_auth l)>\<rfloor>\<^sub>l" using A0 A2 Situation by auto
 lemma "\<lfloor>\<^bold>\<circle><\<^bold>\<not>(inform_com_auth l)>\<rfloor>\<^sub>l" nitpick [user_axioms] oops (*counterexample found*)
-lemma "\<lfloor>\<^bold>\<circle><(kill_everyone l)>\<rfloor>\<^sub>l" try
+lemma "\<lfloor>\<^bold>\<circle><(kill_everyone l)>\<rfloor>\<^sub>l" try 
 
 end
 
