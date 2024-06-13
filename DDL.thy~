@@ -1,4 +1,4 @@
-theory DDL    (* DDL: Dyadic Deontic Logic by Carmo and Jones, Benzmüller, Parent Farjami, 2018 *)
+theory DDL (* DDL: Dyadic Deontic Logic by Carmo and Jones, Benzmüller, Parent Farjami, 2018 *)
   imports types Main
 begin 
 

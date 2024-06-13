@@ -1,3 +1,8 @@
+theory "multAgTests"
+  imports 
+    types_2 (*types*)
+    DDL_agents_2 (*DDL_agents*)
+begin
 
 (*Article 32 (?) \<rightarrow> pick example and formalize, once in ExtDDL and once in ModExtDDL (agents_2)*)
 consts

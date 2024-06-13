@@ -63,17 +63,4 @@ typedecl qualManSys (*quality management system*)
 datatype standard = harm_stand_art_40 (*standards that must be considered*)
 datatype size = small | medium | large (*size of provider's organisation*)
 
-(*consts
-(*identify agents:*)
-    a::ag (*a = type for judicial authorities or independent administrative authorities*)
-    b::ag (*b = type for importers*)   
-    c::ag (*c = type for eu commission*)
-    d::ag (*d = type for providers*)
-    e::ag (*e = type for conformity assessment bodies*)
-    f::ag (*f = type for notifying authorities*)
-    g::ag (*g = type for notified bodies*)
-    h::ag (*h = type for members states*)
-    j::ag 
-*)
-
 end
