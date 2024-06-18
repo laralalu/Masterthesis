@@ -1,7 +1,7 @@
 theory "high-risk-3-3-26-DDL"
   imports 
   types
-  DDL_agents
+  DDL_agents_clean
 begin
 
 (*agent b = importers*)
@@ -47,10 +47,6 @@ abbreviation "A6 \<equiv> \<lfloor>\<^bold>\<forall>x. (sys_under_responsibility
 abbreviation "A7 \<equiv> \<lfloor>\<^bold>\<forall>x. reasoned_request_natcompauth \<^bold>\<rightarrow> \<^bold>\<circle>b<(stit b (info_doc_demonstrate_req_chap2_provided_to_nat_comp_auth x))>\<rfloor>"
 
 abbreviation "A8 \<equiv> \<lfloor>\<^bold>\<forall>x. reasoned_request_natcompauth \<^bold>\<rightarrow> \<^bold>\<circle>b<(stit b (access_generated_logs_provided_to_nat_comp_auth x))>\<rfloor>"
-
-(*importer sees to it that the importer of the system cooperates with the responsible national competent authorities on
-actions relating to the system*)
-abbreviation "A9 \<equiv> \<lfloor>\<^bold>\<forall>x. \<^bold>\<circle>b<(stit b (cooperation_on_sys_importer_nat_comp_auth x b j))>\<rfloor>" 
 
 (*-------------------------------------------------------------------*)
 (*CTD structure*)

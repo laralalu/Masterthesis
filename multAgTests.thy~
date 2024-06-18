@@ -1,5 +1,6 @@
 theory "multAgTests"
   imports 
+    types
     DDL_agents_4
 begin
 
@@ -44,4 +45,4 @@ lemma T4: "\<lfloor>\<^bold>\<not>\<^bold>\<circle>f<\<^bold>\<not> stit f (act_
 lemma T5: "\<lfloor>\<^bold>\<circle>f<stit f ((inform f c (notification_changes (notification_for e))) \<^bold>\<and> (inform f h (notification_changes (notification_for e))))>\<rfloor>\<^sub>l" 
    using A32_5 F5 by auto
 
-lemma True nitpick [satisfy, user_axioms, show_all, card i=2]  (*Consistency-check: Nitpick finds a model.*)
+lemma True nitpick [satisfy, user_axioms, show_all]  (*Consistency-check: Nitpick finds a model.*)

@@ -12,7 +12,7 @@ abbreviation "Example \<equiv> \<lfloor>stit d (compliance_req_chap2 l)\<rfloor>
 lemma assumes
 stit1: "\<forall> F w. ((stit a F) w) \<longrightarrow> F w"
 Example
-shows "\<lfloor>compliance_req_chap2 l\<rfloor>" try
+shows "\<lfloor>compliance_req_chap2 l\<rfloor>" try oops
 
 
 (*

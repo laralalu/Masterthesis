@@ -11,7 +11,7 @@ type_synonym \<gamma> = "\<sigma>\<Rightarrow>\<sigma>"
 type_synonym \<rho> = "\<sigma>\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>"
 type_synonym \<delta> = "i\<Rightarrow>i\<Rightarrow>bool" (* type of accessibility relations between worlds *)
 
-datatype ag = a1 | a2  (* dataype of mutually different agents; we provide 3, more can be added as needed *)
+datatype ag = a1 | a2  (* dataype of mutually different agents; we provide 2, more can be added as needed *)
 
 type_synonym \<omega> = "ag\<Rightarrow>i\<Rightarrow>i\<Rightarrow>bool"   (* type of agent dependent accessibility relations between worlds *)
 type_synonym \<nu> = "(ag\<Rightarrow>bool)\<Rightarrow>i\<Rightarrow>i\<Rightarrow>bool" (* type of set-of-agents dependent accessibility relations between worlds *)

@@ -7,7 +7,6 @@ begin
 consts 
 cw::i (*current world*)
 av::"i\<Rightarrow>\<sigma>" pv::"i\<Rightarrow>\<sigma>" ob::"\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool)" (*general accessibility relations*)
-
 avd::"i\<Rightarrow>\<sigma>" pvd::"i\<Rightarrow>\<sigma>" obd::"\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool)" (*accessibility relations for agent d*)
 avb::"i\<Rightarrow>\<sigma>" pvb::"i\<Rightarrow>\<sigma>" obb::"\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool)" (*accessibility relations for agent b*) 
 
@@ -15,6 +14,7 @@ avb::"i\<Rightarrow>\<sigma>" pvb::"i\<Rightarrow>\<sigma>" obb::"\<sigma>\<Righ
 stit::"ag\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" (*ag sees to it that*)
 
 axiomatization where
+  ax_distinct: "d \<noteq> b" and
   ax_3a: "\<forall>w.\<exists>x. av(w)(x)" and ax_4a: "\<forall>w x. av(w)(x) \<longrightarrow> pv(w)(x)" and ax_4b: "\<forall>w. pv(w)(w)" and
   ax_5a: "\<forall>X.\<not>ob(X)(\<lambda>x. False)" and
   ax_5b: "\<forall>X Y Z. (\<forall>w. ((Y(w) \<and> X(w)) \<longleftrightarrow> (Z(w) \<and> X(w)))) \<longrightarrow> (ob(X)(Y) \<longleftrightarrow> ob(X)(Z))" and
@@ -87,7 +87,7 @@ axiomatization where
  abbreviation ddloblb::\<gamma> ("\<^bold>\<circle>b<_>") where "\<^bold>\<circle>b<A> \<equiv>  \<^bold>O obb \<^bold>\<langle>A\<^bold>|\<^bold>\<top>\<^bold>\<rangle>"  (*New syntax: A is obligatory for agent b.*)
 
 (* Consistency *) 
-lemma True nitpick [satisfy,user_axioms,show_all, card i = 2] oops
+lemma True nitpick [satisfy,user_axioms,show_all, card i = 2] oops 
 
 
 consts 
@@ -107,7 +107,7 @@ consts
 lemma assumes
 "\<forall> a F w. ((stit a F) w) \<longrightarrow> F w"
 "\<lfloor>stit b (stit d (conf_ass_proc_done x))\<rfloor>"
-shows "\<lfloor>conf_ass_proc_done x\<rfloor>" try 
+shows "\<lfloor>conf_ass_proc_done x\<rfloor>" try oops
 
 end
 

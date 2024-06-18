@@ -1,7 +1,7 @@
 theory "high-risk-3-2-10"
   imports 
   types
-  SDL_agents
+  DDL_agents
 begin
 
 consts

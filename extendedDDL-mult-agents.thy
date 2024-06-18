@@ -1,7 +1,6 @@
 theory "extendedDDL-mult-agents"
   imports 
-    types
-    DDL_agents_2
+    DDL_agents_mod
 begin
 
 (*Article 31*)
@@ -9,7 +8,7 @@ consts
   e::ag 
   notif_auth_of::"ag\<Rightarrow>ag" (*gives back notifying authority of a member state*)
   established_in::"ag\<Rightarrow>ag" (*member state in which conf ass body is established*)
-  submit_appl_for_notific::"ag\<Rightarrow>ag\<Rightarrow>\<sigma>" (*conf ass body submits application to a
+  submit_appl_for_notific::"ag\<Rightarrow>ag\<Rightarrow>\<sigma>" (*conf_ass_body submits application to a
   notifying authority*)
 
 axiomatization where
@@ -18,4 +17,5 @@ axiomatization where
 
 lemma test1: "\<lfloor>\<^bold>\<circle>e<stit e (submit_appl_for_notific e (notif_auth_of (established_in e)))>\<rfloor>\<^sub>l" using F1 R1 by auto
 
-lemma True nitpick [satisfy, user_axioms, show_all] (*Consistency-check: Nitpick finds a model.*) oops
+lemma True nitpick [satisfy, user_axioms, show_all] (*Consistency-check: Nitpick finds a model.*) 
+

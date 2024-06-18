@@ -1,4 +1,4 @@
-theory DDL_agents_2  (*DDL including STIT operator and agentive obligations*)
+theory DDL_agents_mod  (*DDL including STIT operator and agentive obligations*)
   imports 
     Main
     types_2
@@ -85,7 +85,7 @@ axiomatization where
  abbreviation ddlobl_g::\<eta> ("\<^bold>\<circle>_<_>") where "\<^bold>\<circle> i <A> \<equiv>  \<^bold>O i \<^bold>\<langle>A\<^bold>|\<^bold>\<top>\<^bold>\<rangle>"  
 
  (* Consistency *) 
- lemma True nitpick [satisfy,user_axioms,show_all, card i=1] oops (*no model for i>1*)
+ lemma True nitpick [satisfy,user_axioms,show_all,card i=1] (*no model for i>1*) oops
 
 end
 

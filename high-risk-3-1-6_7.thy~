@@ -71,7 +71,5 @@ theorem Result2a: "a_theory \<longrightarrow> \<lfloor>F3 \<^bold>\<rightarrow> 
                     (\<^bold>\<circle>c<stit c (taken_into_account extent_produced_outcome_reversible x)>))\<rfloor>"
   by simp
 
-                   (is_required_to_undergo_thirdparty_conformity_assessment x)) \<^bold>\<rightarrow> (\<^bold>\<circle><high_risk x>))\<rfloor>"
-
 (*no problems!*)
 end

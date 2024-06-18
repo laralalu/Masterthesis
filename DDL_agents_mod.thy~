@@ -1,21 +1,11 @@
-theory DDL_agents_2  (*DDL including STIT operator and agentive obligations*)
+theory DDL_agents_mod  (*DDL including STIT operator and agentive obligations*)
   imports 
     Main
-    types
+    types_2
 begin 
 
 (*General version, agent as parameter, used to better show interaction of agents and relations between agent and AI system, eg. provider OF an AI system*)
-
-consts 
- jud_ind_authority::"ag\<Rightarrow>\<sigma>"
- importer::"ag\<Rightarrow>\<sigma>" (*b = type for importers*)   
- eu_comm::"ag\<Rightarrow>\<sigma>" (*c = type for eu commission*)
- provider::"ag\<Rightarrow>\<sigma>" (*d = type for providers*)
- conf_ass_body::"ag\<Rightarrow>\<sigma>" (*e = type for conformity assessment bodies*)
- notif_authority::"ag\<Rightarrow>\<sigma>" (*f = type for notifying authorities*)
- noti_bodies::"ag\<Rightarrow>\<sigma>" (*g = type for notified bodies*)
- member_state::"ag\<Rightarrow>\<sigma>" (*h = type for members states*)
-
+consts
  cw::i (*current world*)
  av::"i\<Rightarrow>\<sigma>" pv::"i\<Rightarrow>\<sigma>" ob::"\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool)" (*general accessibility relations*)
 
@@ -95,7 +85,7 @@ axiomatization where
  abbreviation ddlobl_g::\<eta> ("\<^bold>\<circle>_<_>") where "\<^bold>\<circle> i <A> \<equiv>  \<^bold>O i \<^bold>\<langle>A\<^bold>|\<^bold>\<top>\<^bold>\<rangle>"  
 
  (* Consistency *) 
- lemma True nitpick [satisfy,user_axioms,show_all, card i=2, timeout=60] oops
+ lemma True nitpick [satisfy,user_axioms,show_all, card ag=3] oops (*no model for i>1*)
 
 end
 

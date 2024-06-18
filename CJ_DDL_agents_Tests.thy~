@@ -1,11 +1,11 @@
-theory CJ_DDL_agents_Tests imports DDL_agents           (* Christoph Benzmüller, Ali Farjami, Xavier Parent, 2020  *)
+theory CJ_DDL_agents_Tests imports DDL_agents_clean           (* Christoph Benzmüller, Ali Farjami, Xavier Parent, 2020  *)
 begin (* Some Tests on the Meta-Theory of DDL*)
 lemma True nitpick [satisfy,user_axioms,expect=genuine] oops  (* Consistency confirmed by Nitpick *)  
  
 lemma MP: "\<lbrakk>\<lfloor>A\<rfloor>; \<lfloor>A \<^bold>\<rightarrow> B\<rfloor>\<rbrakk> \<Longrightarrow> \<lfloor>B\<rfloor>" by simp
 lemma Nec: "\<lfloor>A\<rfloor> \<Longrightarrow> \<lfloor>\<^bold>\<box>A\<rfloor>" by simp
-lemma Neca: "\<lfloor>A\<rfloor> \<Longrightarrow> \<lfloor>\<^bold>\<box>\<^sub>aA\<rfloor>"  by simp
-lemma Necp: "\<lfloor>A\<rfloor> \<Longrightarrow> \<lfloor>\<^bold>\<box>\<^sub>p A\<rfloor>"  by simp
+lemma Neca: "\<lfloor>A\<rfloor> \<Longrightarrow> \<lfloor>\<^bold>\<box>\<^sub>a av A\<rfloor>"  by simp
+lemma Necp: "\<lfloor>A\<rfloor> \<Longrightarrow> \<lfloor>\<^bold>\<box>\<^sub>p pv A\<rfloor>"  by simp
 
 (* "\<^bold>\<box>" is an S5 modality *)
 lemma C_1_refl: "\<lfloor>\<^bold>\<box>A \<^bold>\<rightarrow> A\<rfloor>" by simp
@@ -13,19 +13,19 @@ lemma C_1_trans: "\<lfloor>\<^bold>\<box>A \<^bold>\<rightarrow> (\<^bold>\<box>
 lemma C_1_sym: "\<lfloor>A \<^bold>\<rightarrow> (\<^bold>\<box>(\<^bold>\<diamond>A))\<rfloor>"  by simp
 
 (* "\<^bold>\<box>\<^sub>p" is an KT modality *)
-lemma C_9_p_refl: "\<lfloor>\<^bold>\<box>\<^sub>p A \<^bold>\<rightarrow> A\<rfloor>"  by (simp add: ax_4b)
-lemma "\<lfloor>\<^bold>\<box>\<^sub>p A \<^bold>\<rightarrow> (\<^bold>\<box>\<^sub>p (\<^bold>\<box>\<^sub>p A))\<rfloor>" nitpick [user_axioms] oops (*ran out of time*)
-lemma "\<lfloor>A \<^bold>\<rightarrow> (\<^bold>\<box>\<^sub>p(\<^bold>\<diamond>\<^sub>pA))\<rfloor>"   nitpick [user_axioms] oops (* counterexample*)
+lemma C_9_p_refl: "\<lfloor>\<^bold>\<box>\<^sub>p pv A \<^bold>\<rightarrow> A\<rfloor>"  by (simp add: ax_4b)
+lemma "\<lfloor>\<^bold>\<box>\<^sub>p pv A \<^bold>\<rightarrow> (\<^bold>\<box>\<^sub>p pv (\<^bold>\<box>\<^sub>p pv A))\<rfloor>" nitpick [user_axioms] oops (*ran out of time*)
+lemma "\<lfloor>A \<^bold>\<rightarrow> (\<^bold>\<box>\<^sub>p pv (\<^bold>\<diamond>\<^sub>p pv A))\<rfloor>"   nitpick [user_axioms] oops (* counterexample*)
 
 (* "\<^bold>\<box>\<^sub>a" is an KD modality *)
-lemma C_10_a_serial: "\<lfloor>\<^bold>\<box>\<^sub>aA \<^bold>\<rightarrow> \<^bold>\<diamond>\<^sub>aA\<rfloor>"  by (simp add: ax_3a) 
-lemma "\<lfloor>\<^bold>\<box>\<^sub>aA \<^bold>\<rightarrow> A\<rfloor>" nitpick [user_axioms] oops (* countermodel *)
-lemma "\<lfloor>\<^bold>\<box>\<^sub>aA \<^bold>\<rightarrow> (\<^bold>\<box>\<^sub>a(\<^bold>\<box>\<^sub>aA))\<rfloor>" nitpick [user_axioms] oops (* countermodel *)
-lemma "\<lfloor>A \<^bold>\<rightarrow> (\<^bold>\<box>\<^sub>a(\<^bold>\<diamond>\<^sub>aA))\<rfloor>" nitpick [user_axioms] oops (* countermodel *)
+lemma C_10_a_serial: "\<lfloor>\<^bold>\<box>\<^sub>a av A \<^bold>\<rightarrow> \<^bold>\<diamond>\<^sub>a av A\<rfloor>"  by (simp add: ax_3a) 
+lemma "\<lfloor>\<^bold>\<box>\<^sub>a av A \<^bold>\<rightarrow> A\<rfloor>" nitpick [user_axioms] oops (* countermodel *)
+lemma "\<lfloor>\<^bold>\<box>\<^sub>a av A \<^bold>\<rightarrow> (\<^bold>\<box>\<^sub>a av (\<^bold>\<box>\<^sub>a av A))\<rfloor>" nitpick [user_axioms] oops (* countermodel *)
+lemma "\<lfloor>A \<^bold>\<rightarrow> (\<^bold>\<box>\<^sub>a av (\<^bold>\<diamond>\<^sub>a av A))\<rfloor>" nitpick [user_axioms] oops (* countermodel *)
 
 (* Relationship between "\<^bold>\<box>,\<^bold>\<box>\<^sub>a,\<^bold>\<box>\<^sub>p" *)
-lemma C_11: "\<lfloor>\<^bold>\<box>A \<^bold>\<rightarrow> \<^bold>\<box>\<^sub>pA\<rfloor>" by simp 
-lemma C_12: "\<lfloor>\<^bold>\<box>\<^sub>pA \<^bold>\<rightarrow> \<^bold>\<box>\<^sub>aA\<rfloor>"  using ax_4a by auto
+lemma C_11: "\<lfloor>\<^bold>\<box> A \<^bold>\<rightarrow> \<^bold>\<box>\<^sub>p pv A\<rfloor>" by simp 
+lemma C_12: "\<lfloor>\<^bold>\<box>\<^sub>p pv A \<^bold>\<rightarrow> \<^bold>\<box>\<^sub>a av A\<rfloor>"  using ax_4a by auto
 
 (* Observation II-2-1 *)
 lemma ax_5b': "ob X Y \<longleftrightarrow> ob X (\<lambda>z. X z \<and> Y z)" by (metis (no_types, lifting) ax_5b) 
@@ -44,14 +44,14 @@ lemma C_8: "\<lfloor>\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> 
   thus ?thesis using ax_5b by fastforce qed
 
 (* Relationship between "\<^bold>O\<^sub>a,\<^bold>O\<^sub>p,\<^bold>\<box>\<^sub>a,\<^bold>\<box>\<^sub>p" *)
-lemma C_13_a: "\<lfloor>\<^bold>\<box>\<^sub>aA \<^bold>\<rightarrow> (\<^bold>\<not>\<^bold>O\<^sub>a ob av A \<^bold>\<and> \<^bold>\<not>\<^bold>O\<^sub>a ob av (\<^bold>\<not>A))\<rfloor>"  by (metis (full_types) ax_5a ax_5b)
-lemma C_13_b: "\<lfloor>\<^bold>\<box>\<^sub>pA \<^bold>\<rightarrow> (\<^bold>\<not>\<^bold>O\<^sub>p ob pv A \<^bold>\<and> \<^bold>\<not>\<^bold>O\<^sub>p ob pv (\<^bold>\<not>A))\<rfloor>"   by (metis (full_types) ax_5a ax_5b) 
-lemma C_14_a: "\<lfloor>\<^bold>\<box>\<^sub>a(A \<^bold>\<leftrightarrow> B) \<^bold>\<rightarrow> (\<^bold>O\<^sub>a ob av A \<^bold>\<leftrightarrow> \<^bold>O\<^sub>a ob av B)\<rfloor>"  by (metis ax_5b)
-lemma C_14_b: "\<lfloor>\<^bold>\<box>\<^sub>p(A \<^bold>\<leftrightarrow> B) \<^bold>\<rightarrow> (\<^bold>O\<^sub>p ob pv A \<^bold>\<leftrightarrow> \<^bold>O\<^sub>p ob pv B)\<rfloor>"  by (metis ax_5b)
+lemma C_13_a: "\<lfloor>\<^bold>\<box>\<^sub>a av A \<^bold>\<rightarrow> (\<^bold>\<not>\<^bold>O\<^sub>a ob av A \<^bold>\<and> \<^bold>\<not>\<^bold>O\<^sub>a ob av (\<^bold>\<not>A))\<rfloor>"  by (metis (full_types) ax_5a ax_5b)
+lemma C_13_b: "\<lfloor>\<^bold>\<box>\<^sub>p pv A \<^bold>\<rightarrow> (\<^bold>\<not>\<^bold>O\<^sub>p ob pv A \<^bold>\<and> \<^bold>\<not>\<^bold>O\<^sub>p ob pv (\<^bold>\<not>A))\<rfloor>"   by (metis (full_types) ax_5a ax_5b) 
+lemma C_14_a: "\<lfloor>\<^bold>\<box>\<^sub>a av (A \<^bold>\<leftrightarrow> B) \<^bold>\<rightarrow> (\<^bold>O\<^sub>a ob av A \<^bold>\<leftrightarrow> \<^bold>O\<^sub>a ob av B)\<rfloor>"  by (metis ax_5b)
+lemma C_14_b: "\<lfloor>\<^bold>\<box>\<^sub>p pv (A \<^bold>\<leftrightarrow> B) \<^bold>\<rightarrow> (\<^bold>O\<^sub>p ob pv A \<^bold>\<leftrightarrow> \<^bold>O\<^sub>p ob pv B)\<rfloor>"  by (metis ax_5b)
 
 (* Relationship between "\<^bold>O\<^sub>,\<^bold>O\<^sub>a,\<^bold>O\<^sub>p,\<^bold>\<box>\<^sub>a,\<^bold>\<box>\<^sub>p" *)
-lemma C_15_a: "\<lfloor>(\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<box>\<^sub>aA \<^bold>\<and> \<^bold>\<diamond>\<^sub>aB \<^bold>\<and> \<^bold>\<diamond>\<^sub>a(\<^bold>\<not>B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>a ob av B\<rfloor>"  using ax_5e by blast
-lemma C_15_b: "\<lfloor>(\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<box>\<^sub>pA \<^bold>\<and> \<^bold>\<diamond>\<^sub>pB \<^bold>\<and> \<^bold>\<diamond>\<^sub>p(\<^bold>\<not>B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>p ob pv B\<rfloor>"  using ax_5e by blast
+lemma C_15_a: "\<lfloor>(\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<box>\<^sub>a av A \<^bold>\<and> \<^bold>\<diamond>\<^sub>a av B \<^bold>\<and> \<^bold>\<diamond>\<^sub>a av (\<^bold>\<not>B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>a ob av B\<rfloor>"  using ax_5e by blast
+lemma C_15_b: "\<lfloor>(\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<box>\<^sub>p pv A \<^bold>\<and> \<^bold>\<diamond>\<^sub>p pv B \<^bold>\<and> \<^bold>\<diamond>\<^sub>p pv (\<^bold>\<not>B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>p ob pv B\<rfloor>"  using ax_5e by blast
 
 (* Soundness and consistency *)
 lemma II_3_1: "((\<lfloor>\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle>\<rfloor>) \<and> (\<exists>x. Z(x) \<and> A(x) \<and> B(x))) \<longrightarrow> ob(Z)(A \<^bold>\<rightarrow> B)" 
@@ -71,25 +71,25 @@ lemma obs_II_4_1_c_2: "\<lfloor>\<^bold>\<diamond>(\<^bold>\<box>(\<^bold>O ob \
 lemma obs_II_4_1_c_3: "\<lfloor>\<^bold>\<diamond>(\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle>) \<^bold>\<rightarrow> \<^bold>\<box>(\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle>)\<rfloor>"  by blast
 lemma obs_II_4_1_c_4: "\<lfloor>\<^bold>\<diamond>(\<^bold>\<not>(\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle>)) \<^bold>\<rightarrow> \<^bold>\<box>(\<^bold>\<not>(\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle>))\<rfloor>"  by blast
 lemma res_II_4_1_a_1: "\<lfloor>\<^bold>\<not>(\<^bold>O ob \<^bold>\<langle>\<^bold>\<bottom>\<^bold>|A\<^bold>\<rangle>)\<rfloor>"  by (simp add: ax_5a)  
-lemma res_II_4_1_a_2: "\<lfloor>(\<^bold>\<diamond>\<^sub>p(A \<^bold>\<and> B \<^bold>\<and> C) \<^bold>\<and> \<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>O ob \<^bold>\<langle>C\<^bold>|A\<^bold>\<rangle>) \<^bold>\<rightarrow> \<^bold>O ob \<^bold>\<langle>(B \<^bold>\<and> C)\<^bold>|A\<^bold>\<rangle>\<rfloor>"  using C_3  by auto
+lemma res_II_4_1_a_2: "\<lfloor>(\<^bold>\<diamond>\<^sub>p pv (A \<^bold>\<and> B \<^bold>\<and> C) \<^bold>\<and> \<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>O ob \<^bold>\<langle>C\<^bold>|A\<^bold>\<rangle>) \<^bold>\<rightarrow> \<^bold>O ob \<^bold>\<langle>(B \<^bold>\<and> C)\<^bold>|A\<^bold>\<rangle>\<rfloor>"  using C_3  by auto
 lemma res_II_4_1_a_3: "\<lfloor>\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<rightarrow> \<^bold>O ob \<^bold>\<langle>B\<^bold>|(A \<^bold>\<and> B)\<^bold>\<rangle>\<rfloor>"  by (smt ax_5a ax_5b ax_5e)
-lemma res_II_4_1_a_4: "\<lfloor>\<^bold>\<diamond>\<^sub>p(\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle>) \<^bold>\<rightarrow> \<^bold>\<box>\<^sub>p(\<^bold>O ob \<^bold>\<langle>B\<^bold>|(A \<^bold>\<and> B)\<^bold>\<rangle>)\<rfloor>"  by (smt ax_5a ax_5b ax_5e)
-lemma res_II_4_1_a_5: "\<lfloor>(\<^bold>\<diamond>\<^sub>p(A \<^bold>\<and> B \<^bold>\<and> C) \<^bold>\<and> \<^bold>O ob \<^bold>\<langle>C\<^bold>|A\<^bold>\<rangle>) \<^bold>\<rightarrow> \<^bold>O ob \<^bold>\<langle>C\<^bold>|(A \<^bold>\<and> B)\<^bold>\<rangle>\<rfloor>"  by (smt ax_5a ax_5b ax_5e)
+lemma res_II_4_1_a_4: "\<lfloor>\<^bold>\<diamond>\<^sub>p pv (\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle>) \<^bold>\<rightarrow> \<^bold>\<box>\<^sub>p pv (\<^bold>O ob \<^bold>\<langle>B\<^bold>|(A \<^bold>\<and> B)\<^bold>\<rangle>)\<rfloor>"  by (smt ax_5a ax_5b ax_5e)
+lemma res_II_4_1_a_5: "\<lfloor>(\<^bold>\<diamond>\<^sub>p pv (A \<^bold>\<and> B \<^bold>\<and> C) \<^bold>\<and> \<^bold>O ob \<^bold>\<langle>C\<^bold>|A\<^bold>\<rangle>) \<^bold>\<rightarrow> \<^bold>O ob \<^bold>\<langle>C\<^bold>|(A \<^bold>\<and> B)\<^bold>\<rangle>\<rfloor>"  by (smt ax_5a ax_5b ax_5e)
 lemma res_II_4_1_b_1:  "\<lfloor>A \<^bold>\<leftrightarrow> B\<rfloor> \<Longrightarrow> \<lfloor>\<^bold>O ob \<^bold>\<langle>C\<^bold>|A\<^bold>\<rangle> \<^bold>\<leftrightarrow> \<^bold>O ob \<^bold>\<langle>C\<^bold>|B\<^bold>\<rangle>\<rfloor>"  by (smt ax_5a ax_5b ax_5e)
 lemma res_II_4_1_b_2:  "\<lfloor>C \<^bold>\<rightarrow> (A \<^bold>\<leftrightarrow> B)\<rfloor> \<Longrightarrow> \<lfloor>\<^bold>O ob \<^bold>\<langle>A\<^bold>|C\<^bold>\<rangle> \<^bold>\<leftrightarrow> \<^bold>O ob \<^bold>\<langle>B\<^bold>|C\<^bold>\<rangle>\<rfloor>"  by (smt ax_5b)
-lemma obs_II_4_2_1: "\<lfloor>(\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>a(A \<^bold>\<and> B) \<^bold>\<and> \<^bold>\<diamond>\<^sub>a(A \<^bold>\<and> \<^bold>\<not>B)) \<^bold>\<rightarrow> (\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>a(A \<^bold>\<rightarrow> B) \<^bold>\<and> \<^bold>\<diamond>\<^sub>a(\<^bold>\<not>(A \<^bold>\<rightarrow> B)))\<rfloor>"  by blast
+lemma obs_II_4_2_1: "\<lfloor>(\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>a av (A \<^bold>\<and> B) \<^bold>\<and> \<^bold>\<diamond>\<^sub>a av (A \<^bold>\<and> \<^bold>\<not>B)) \<^bold>\<rightarrow> (\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>a av (A \<^bold>\<rightarrow> B) \<^bold>\<and> \<^bold>\<diamond>\<^sub>a av (\<^bold>\<not>(A \<^bold>\<rightarrow> B)))\<rfloor>"  by blast
 lemma obs_II_4_2_2: "\<lfloor>\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<rightarrow> \<^bold>O ob \<^bold>\<langle>(A \<^bold>\<rightarrow> B)\<^bold>|\<^bold>\<top>\<^bold>\<rangle>\<rfloor>" by (simp add: C_8)
-lemma obs_II_4_2_3: "\<lfloor>(\<^bold>O ob \<^bold>\<langle>(A \<^bold>\<rightarrow> B)\<^bold>|\<^bold>\<top>\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<box>\<^sub>a\<^bold>\<top> \<^bold>\<and> \<^bold>\<diamond>\<^sub>a(A \<^bold>\<rightarrow> B) \<^bold>\<and> \<^bold>\<diamond>\<^sub>a(\<^bold>\<not>(A \<^bold>\<rightarrow> B))) \<^bold>\<rightarrow> \<^bold>O\<^sub>a ob av (A \<^bold>\<rightarrow> B)\<rfloor>"  by (smt ax_5e)
-lemma obs_II_4_2_4: "\<lfloor>\<^bold>\<box>\<^sub>a\<^bold>\<top>\<rfloor>"  by simp
-lemma obs_II_4_2_5: "\<lfloor>(\<^bold>O ob \<^bold>\<langle>(A \<^bold>\<rightarrow> B)\<^bold>|\<^bold>\<top>\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>a(A \<^bold>\<rightarrow> B) \<^bold>\<and> \<^bold>\<diamond>\<^sub>a(\<^bold>\<not>(A \<^bold>\<rightarrow> B))) \<^bold>\<rightarrow> \<^bold>O\<^sub>a ob av (A \<^bold>\<rightarrow> B)\<rfloor>"  by (smt ax_5e)
-lemma obs_II_4_2_6: "\<lfloor>(\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>a(A \<^bold>\<and> B) \<^bold>\<and> \<^bold>\<diamond>\<^sub>a(A \<^bold>\<and> \<^bold>\<not>B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>a ob av (A \<^bold>\<rightarrow> B)\<rfloor>"   by (simp add: II_3_1)  
-lemma obs_II_4_2_6_p: "\<lfloor>(\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>p(A \<^bold>\<and> B) \<^bold>\<and> \<^bold>\<diamond>\<^sub>p(A \<^bold>\<and> \<^bold>\<not>B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>p ob pv (A \<^bold>\<rightarrow> B)\<rfloor>"   by (simp add: II_3_1)  
+lemma obs_II_4_2_3: "\<lfloor>(\<^bold>O ob \<^bold>\<langle>(A \<^bold>\<rightarrow> B)\<^bold>|\<^bold>\<top>\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<box>\<^sub>a av \<^bold>\<top> \<^bold>\<and> \<^bold>\<diamond>\<^sub>a av (A \<^bold>\<rightarrow> B) \<^bold>\<and> \<^bold>\<diamond>\<^sub>a av (\<^bold>\<not>(A \<^bold>\<rightarrow> B))) \<^bold>\<rightarrow> \<^bold>O\<^sub>a ob av (A \<^bold>\<rightarrow> B)\<rfloor>"  by (smt ax_5e)
+lemma obs_II_4_2_4: "\<lfloor>\<^bold>\<box>\<^sub>a av \<^bold>\<top>\<rfloor>"  by simp
+lemma obs_II_4_2_5: "\<lfloor>(\<^bold>O ob \<^bold>\<langle>(A \<^bold>\<rightarrow> B)\<^bold>|\<^bold>\<top>\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>a av (A \<^bold>\<rightarrow> B) \<^bold>\<and> \<^bold>\<diamond>\<^sub>a av (\<^bold>\<not>(A \<^bold>\<rightarrow> B))) \<^bold>\<rightarrow> \<^bold>O\<^sub>a ob av (A \<^bold>\<rightarrow> B)\<rfloor>"  by (smt ax_5e)
+lemma obs_II_4_2_6: "\<lfloor>(\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>a av (A \<^bold>\<and> B) \<^bold>\<and> \<^bold>\<diamond>\<^sub>a av (A \<^bold>\<and> \<^bold>\<not>B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>a ob av (A \<^bold>\<rightarrow> B)\<rfloor>"   by (simp add: II_3_1)  
+lemma obs_II_4_2_6_p: "\<lfloor>(\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>p pv (A \<^bold>\<and> B) \<^bold>\<and> \<^bold>\<diamond>\<^sub>p pv (A \<^bold>\<and> \<^bold>\<not>B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>p ob pv (A \<^bold>\<rightarrow> B)\<rfloor>"   by (simp add: II_3_1)  
 
-lemma Oa_C: "\<lfloor>\<^bold>\<diamond>\<^sub>a(A \<^bold>\<and> B) \<^bold>\<and> \<^bold>O\<^sub>a ob av A \<^bold>\<and> \<^bold>O\<^sub>a ob av B \<^bold>\<rightarrow>  \<^bold>O\<^sub>a ob av (A \<^bold>\<and> B)\<rfloor>" using ax_5c by auto
-lemma Op_C: "\<lfloor>\<^bold>\<diamond>\<^sub>p(A \<^bold>\<and> B) \<^bold>\<and> \<^bold>O\<^sub>p ob pv A \<^bold>\<and> \<^bold>O\<^sub>p ob pv B \<^bold>\<rightarrow>  \<^bold>O\<^sub>p ob pv (A \<^bold>\<and> B)\<rfloor>" using ax_5c by auto
-lemma Oa_DD: "\<lfloor>(\<^bold>O\<^sub>a ob av A \<^bold>\<and> \<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>a(A \<^bold>\<and> B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>a ob av (A \<^bold>\<and> B)\<rfloor>" using ax_5b ax_5c obs_II_4_2_6 by smt 
+lemma Oa_C: "\<lfloor>\<^bold>\<diamond>\<^sub>a av (A \<^bold>\<and> B) \<^bold>\<and> \<^bold>O\<^sub>a ob av A \<^bold>\<and> \<^bold>O\<^sub>a ob av B \<^bold>\<rightarrow>  \<^bold>O\<^sub>a ob av (A \<^bold>\<and> B)\<rfloor>" using ax_5c by auto
+lemma Op_C: "\<lfloor>\<^bold>\<diamond>\<^sub>p pv (A \<^bold>\<and> B) \<^bold>\<and> \<^bold>O\<^sub>p ob pv A \<^bold>\<and> \<^bold>O\<^sub>p ob pv B \<^bold>\<rightarrow>  \<^bold>O\<^sub>p ob pv (A \<^bold>\<and> B)\<rfloor>" using ax_5c by auto
+lemma Oa_DD: "\<lfloor>(\<^bold>O\<^sub>a ob av A \<^bold>\<and> \<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>a av (A \<^bold>\<and> B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>a ob av (A \<^bold>\<and> B)\<rfloor>" using ax_5b ax_5c obs_II_4_2_6 by smt 
 declare [[smt_timeout=300]]
-lemma Op_DD: "\<lfloor>(\<^bold>O\<^sub>p ob pv A \<^bold>\<and> \<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>p(A \<^bold>\<and> B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>p ob pv (A \<^bold>\<and> B)\<rfloor>" using ax_5b ax_5c obs_II_4_2_6_p by smt
+lemma Op_DD: "\<lfloor>(\<^bold>O\<^sub>p ob pv A \<^bold>\<and> \<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>p pv (A \<^bold>\<and> B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>p ob pv (A \<^bold>\<and> B)\<rfloor>" using ax_5b ax_5c obs_II_4_2_6_p by smt
 
 (*Tests for agent d*)
 (* Observation II-2-1 *)

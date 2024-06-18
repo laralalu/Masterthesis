@@ -63,4 +63,17 @@ typedecl qualManSys (*quality management system*)
 datatype standard = harm_stand_art_40 (*standards that must be considered*)
 datatype size = small | medium | large (*size of provider's organisation*)
 
+(*Article 32: mult_AgTests_2*)
+typedecl notification (*notification of a conformity assessment body*)
+
+consts
+    (*identify agents:*)
+    eu_comm::ag
+    provider::"ag\<Rightarrow>\<sigma>"
+    importer::"ag\<Rightarrow>\<sigma>"
+    notif_authority::"ag\<Rightarrow>\<sigma>" 
+    member_state::"ag\<Rightarrow>\<sigma>"  
+    conf_ass_body::"ag\<Rightarrow>\<sigma>" 
+
+   
 end
