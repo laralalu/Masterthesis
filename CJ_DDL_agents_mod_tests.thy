@@ -1,4 +1,4 @@
-theory CJ_DDL_agents_mod_tests imports DDL_agents_2           (* Christoph Benzmüller, Ali Farjami, Xavier Parent, 2020  *)
+theory CJ_DDL_agents_mod_tests imports DDL_agents_mod           (* Christoph Benzmüller, Ali Farjami, Xavier Parent, 2020  *)
 begin (* Some Tests on the Meta-Theory of DDL*)
 lemma True nitpick [satisfy,user_axioms,expect=genuine] oops  (* Consistency confirmed by Nitpick *)  
 
@@ -32,8 +32,8 @@ lemma dC_15_b: "\<lfloor>(\<^bold>O a \<^bold>\<langle>B\<^bold>|A\<^bold>\<rang
 lemma dII_3_1: "((\<lfloor>\<^bold>O a \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle>\<rfloor>) \<and> (\<exists>x. Z(x) \<and> A(x) \<and> B(x))) \<longrightarrow> ob_g a (Z)(A \<^bold>\<rightarrow> B)" 
   proof 
     assume "(\<lfloor>\<^bold>O a \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle>\<rfloor>) \<and> (\<exists>x. Z(x) \<and> A(x) \<and> B(x))"
-     hence "ob_g a (\<lambda>z. A z \<and> Z z) (\<lambda>z. A z \<and> Z z \<and> B z)" using axg_5e axg_5b axg_5b axg_5d by smt
-     hence "ob_g a (\<lambda>z. Z z \<and> A z) (\<lambda>z. Z z \<and> A z \<and> B z)" using axg_5e axg_5b axg_5b axg_5d by smt
+     hence "ob_g a (\<lambda>z. A z \<and> Z z) (\<lambda>z. A z \<and> Z z \<and> B z)" using axg_5e  axg_5b axg_5b axg_5d by smt
+     hence "ob_g a (\<lambda>z. Z z \<and> A z) (\<lambda>z. Z z \<and> A z \<and> B z)" using axg_5e  axg_5b axg_5b axg_5d by smt
      hence "ob_g a Z (\<lambda>w. (Z w \<and> \<not>(Z w \<and> A w)) \<or> (Z w \<and> A w \<and> B w))" by (metis (mono_tags) axg_5d) 
      from this show  L19: "ob_g a(Z)(A \<^bold>\<rightarrow> B)" by (smt axg_5b) qed
 
@@ -65,4 +65,5 @@ lemma dOp_C: "\<lfloor>\<^bold>\<diamond>\<^sub>p a (A \<^bold>\<and> B) \<^bold
 lemma dOa_DD: "\<lfloor>(\<^bold>O\<^sub>a a A \<^bold>\<and> \<^bold>O a \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>a a (A \<^bold>\<and> B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>a a (A \<^bold>\<and> B)\<rfloor>" using axg_5b axg_5c dobs_II_4_2_6 by smt 
 declare [[smt_timeout=300]]
 lemma dOp_DD: "\<lfloor>(\<^bold>O\<^sub>p a A \<^bold>\<and> \<^bold>O a \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>p a (A \<^bold>\<and> B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>p a (A \<^bold>\<and> B)\<rfloor>" using axg_5b axg_5c dobs_II_4_2_6_p by smt
+
 end

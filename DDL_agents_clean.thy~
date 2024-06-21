@@ -87,7 +87,7 @@ axiomatization where
  abbreviation ddloblb::\<gamma> ("\<^bold>\<circle>b<_>") where "\<^bold>\<circle>b<A> \<equiv>  \<^bold>O obb \<^bold>\<langle>A\<^bold>|\<^bold>\<top>\<^bold>\<rangle>"  (*New syntax: A is obligatory for agent b.*)
 
 (* Consistency *) 
-lemma True nitpick [satisfy,user_axioms,show_all, card i = 2] oops 
+lemma True nitpick [satisfy,user_axioms,show_all, card i = 2] oops
 
 
 consts 

@@ -34,14 +34,15 @@ lemma ax_5b'': "ob X Y \<longleftrightarrow> ob X (\<lambda>z. Y z \<and> X z)" 
 (* Characterisation of "\<^bold>O" *)
 lemma C_2: "\<lfloor>\<^bold>O ob \<^bold>\<langle>A\<^bold>|B\<^bold>\<rangle> \<^bold>\<rightarrow> \<^bold>\<diamond>(B \<^bold>\<and> A)\<rfloor>" by (metis ax_5a ax_5b)  
 lemma C_3: "\<lfloor>(\<^bold>\<diamond>(A \<^bold>\<and> B \<^bold>\<and> C) \<^bold>\<and> \<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>O ob \<^bold>\<langle>C\<^bold>|A\<^bold>\<rangle> ) \<^bold>\<rightarrow> \<^bold>O ob\<^bold>\<langle>(B \<^bold>\<and> C)\<^bold>|A\<^bold>\<rangle>\<rfloor>" using ax_5c by auto 
-lemma C_4: "\<lfloor>(\<^bold>\<box>(A \<^bold>\<rightarrow> B) \<^bold>\<and> (\<^bold>\<diamond>(A \<^bold>\<and> C)) \<^bold>\<and> \<^bold>O ob \<^bold>\<langle>C\<^bold>|B\<^bold>\<rangle>) \<^bold>\<rightarrow> \<^bold>O ob \<^bold>\<langle>C\<^bold>|A\<^bold>\<rangle>\<rfloor>"   using ax_5e by blast
+lemma C_4: "\<lfloor>(\<^bold>\<box>(A \<^bold>\<rightarrow> B) \<^bold>\<and> (\<^bold>\<diamond>(A \<^bold>\<and> C)) \<^bold>\<and> \<^bold>O ob \<^bold>\<langle>C\<^bold>|B\<^bold>\<rangle>) \<^bold>\<rightarrow> \<^bold>O ob \<^bold>\<langle>C\<^bold>|A\<^bold>\<rangle>\<rfloor>"  using ax_5e by blast
 lemma C_5: "\<lfloor>\<^bold>\<box>(A \<^bold>\<leftrightarrow> B) \<^bold>\<rightarrow> (\<^bold>O ob \<^bold>\<langle>C\<^bold>|A\<^bold>\<rangle> \<^bold>\<leftrightarrow> \<^bold>O ob \<^bold>\<langle>C\<^bold>|B\<^bold>\<rangle>)\<rfloor>"  by presburger 
-lemma C_6: "\<lfloor>\<^bold>\<box>(C \<^bold>\<rightarrow> (A \<^bold>\<leftrightarrow> B)) \<^bold>\<rightarrow> (\<^bold>O ob \<^bold>\<langle>A\<^bold>|C\<^bold>\<rangle> \<^bold>\<leftrightarrow> \<^bold>O ob \<^bold>\<langle>B\<^bold>|C\<^bold>\<rangle>)\<rfloor>"  by (smt ax_5b) 
+lemma C_6: "\<lfloor>\<^bold>\<box>(C \<^bold>\<rightarrow> (A \<^bold>\<leftrightarrow> B)) \<^bold>\<rightarrow> (\<^bold>O ob \<^bold>\<langle>A\<^bold>|C\<^bold>\<rangle> \<^bold>\<leftrightarrow> \<^bold>O ob \<^bold>\<langle>B\<^bold>|C\<^bold>\<rangle>)\<rfloor>"  by (metis ax_5b) 
 lemma C_7: "\<lfloor>\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<rightarrow> \<^bold>\<box>(\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle>)\<rfloor>"  by blast 
 lemma C_8: "\<lfloor>\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<rightarrow> \<^bold>O ob \<^bold>\<langle>(A \<^bold>\<rightarrow> B)\<^bold>|\<^bold>\<top>\<^bold>\<rangle>\<rfloor>"  
  proof -   
-  have  "\<forall>X Y Z. (ob X Y \<and> (\<forall>w. X w  \<longrightarrow> Z w)) \<longrightarrow> ob Z (\<lambda>w. (Z w \<and> \<not>X w) \<or> Y w)" by  (smt ax_5d  ax_5b ax_5b'')
-  thus ?thesis using ax_5b by fastforce qed
+   have  "\<forall>X Y Z. (ob X Y \<and> (\<forall>w. X w  \<longrightarrow> Z w)) \<longrightarrow> ob Z (\<lambda>w. (Z w \<and> \<not>X w) \<or> Y w)" 
+     by  (smt ax_5d  ax_5b ax_5b'')
+     thus ?thesis using ax_5b by fastforce qed
 
 (* Relationship between "\<^bold>O\<^sub>a,\<^bold>O\<^sub>p,\<^bold>\<box>\<^sub>a,\<^bold>\<box>\<^sub>p" *)
 lemma C_13_a: "\<lfloor>\<^bold>\<box>\<^sub>a av A \<^bold>\<rightarrow> (\<^bold>\<not>\<^bold>O\<^sub>a ob av A \<^bold>\<and> \<^bold>\<not>\<^bold>O\<^sub>a ob av (\<^bold>\<not>A))\<rfloor>"  by (metis (full_types) ax_5a ax_5b)
@@ -83,7 +84,7 @@ lemma obs_II_4_2_3: "\<lfloor>(\<^bold>O ob \<^bold>\<langle>(A \<^bold>\<righta
 lemma obs_II_4_2_4: "\<lfloor>\<^bold>\<box>\<^sub>a av \<^bold>\<top>\<rfloor>"  by simp
 lemma obs_II_4_2_5: "\<lfloor>(\<^bold>O ob \<^bold>\<langle>(A \<^bold>\<rightarrow> B)\<^bold>|\<^bold>\<top>\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>a av (A \<^bold>\<rightarrow> B) \<^bold>\<and> \<^bold>\<diamond>\<^sub>a av (\<^bold>\<not>(A \<^bold>\<rightarrow> B))) \<^bold>\<rightarrow> \<^bold>O\<^sub>a ob av (A \<^bold>\<rightarrow> B)\<rfloor>"  by (smt ax_5e)
 lemma obs_II_4_2_6: "\<lfloor>(\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>a av (A \<^bold>\<and> B) \<^bold>\<and> \<^bold>\<diamond>\<^sub>a av (A \<^bold>\<and> \<^bold>\<not>B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>a ob av (A \<^bold>\<rightarrow> B)\<rfloor>"   by (simp add: II_3_1)  
-lemma obs_II_4_2_6_p: "\<lfloor>(\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>p pv (A \<^bold>\<and> B) \<^bold>\<and> \<^bold>\<diamond>\<^sub>p pv (A \<^bold>\<and> \<^bold>\<not>B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>p ob pv (A \<^bold>\<rightarrow> B)\<rfloor>"   by (simp add: II_3_1)  
+lemma obs_II_4_2_6_p: "\<lfloor>(\<^bold>O ob \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>p pv (A \<^bold>\<and> B) \<^bold>\<and> \<^bold>\<diamond>\<^sub>p pv (A \<^bold>\<and> \<^bold>\<not>B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>p ob pv (A \<^bold>\<rightarrow> B)\<rfloor>"  by (simp add: II_3_1)  
 
 lemma Oa_C: "\<lfloor>\<^bold>\<diamond>\<^sub>a av (A \<^bold>\<and> B) \<^bold>\<and> \<^bold>O\<^sub>a ob av A \<^bold>\<and> \<^bold>O\<^sub>a ob av B \<^bold>\<rightarrow>  \<^bold>O\<^sub>a ob av (A \<^bold>\<and> B)\<rfloor>" using ax_5c by auto
 lemma Op_C: "\<lfloor>\<^bold>\<diamond>\<^sub>p pv (A \<^bold>\<and> B) \<^bold>\<and> \<^bold>O\<^sub>p ob pv A \<^bold>\<and> \<^bold>O\<^sub>p ob pv B \<^bold>\<rightarrow>  \<^bold>O\<^sub>p ob pv (A \<^bold>\<and> B)\<rfloor>" using ax_5c by auto
@@ -105,8 +106,8 @@ lemma dC_6: "\<lfloor>\<^bold>\<box>(C \<^bold>\<rightarrow> (A \<^bold>\<leftri
 lemma dC_7: "\<lfloor>\<^bold>O obd \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<rightarrow> \<^bold>\<box>(\<^bold>O obd \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle>)\<rfloor>" by simp 
 (*lemma dC_8: "\<lfloor>\<^bold>O obd \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<rightarrow> \<^bold>O obd \<^bold>\<langle>(A \<^bold>\<rightarrow> B)\<^bold>|\<^bold>\<top>\<^bold>\<rangle>\<rfloor>" 
  proof -   
-  have  "\<forall>X Y Z. (obd X Y \<and> (\<forall>w. X w  \<longrightarrow> Z w)) \<longrightarrow> obd Z (\<lambda>w. (Z w \<and> \<not>X w) \<or> Y w)" 
-  thus ?thesis using axd_5b try*)
+   have  "\<forall>X Y Z. (obd X Y \<and> (\<forall>w. X w  \<longrightarrow> Z w)) \<longrightarrow> obd Z (\<lambda>w. (Z w \<and> \<not>X w) \<or> Y w)" by (smt axd_5d  axd_5b axd_5b)
+     thus ?thesis using axd_5b by fastforce qed*)
 
 (* Relationship between "\<^bold>O\<^sub>a,\<^bold>O\<^sub>p,\<^bold>\<box>\<^sub>a,\<^bold>\<box>\<^sub>p" *)
 lemma dC_13_a: "\<lfloor>\<^bold>\<box>\<^sub>a avd A \<^bold>\<rightarrow> (\<^bold>\<not>\<^bold>O\<^sub>a obd avd A \<^bold>\<and> \<^bold>\<not>\<^bold>O\<^sub>a obd avd (\<^bold>\<not>A))\<rfloor>" using dC_2 by auto
@@ -119,13 +120,13 @@ lemma dC_15_a: "\<lfloor>(\<^bold>O obd \<^bold>\<langle>B\<^bold>|A\<^bold>\<ra
 lemma dC_15_b: "\<lfloor>(\<^bold>O obd \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<box>\<^sub>p pvd A \<^bold>\<and> \<^bold>\<diamond>\<^sub>p pvd B \<^bold>\<and> \<^bold>\<diamond>\<^sub>p pvd (\<^bold>\<not>B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>p obd pvd B\<rfloor>" using dC_4 by blast
 
 (* Soundness and consistency *)
-(*lemma dII_3_1: "((\<lfloor>\<^bold>O obd \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle>\<rfloor>) \<and> (\<exists>x. Z(x) \<and> A(x) \<and> B(x))) \<longrightarrow> obd (Z)(A \<^bold>\<rightarrow> B)" 
+lemma dII_3_1: "((\<lfloor>\<^bold>O obd \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle>\<rfloor>) \<and> (\<exists>x. Z(x) \<and> A(x) \<and> B(x))) \<longrightarrow> obd (Z)(A \<^bold>\<rightarrow> B)" 
   proof 
     assume "(\<lfloor>\<^bold>O obd \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle>\<rfloor>) \<and> (\<exists>x. Z(x) \<and> A(x) \<and> B(x))"
-     hence "obd (\<lambda>z. A z \<and> Z z) (\<lambda>z. A z \<and> Z z \<and> B z)" 
-     hence "obd (\<lambda>z. Z z \<and> A z) (\<lambda>z. Z z \<and> A z \<and> B z)" 
-     hence "obd Z (\<lambda>w. (Z w \<and> \<not>(Z w \<and> A w)) \<or> (Z w \<and> A w \<and> B w))" 
-     from this show  L19: "obd (Z)(A \<^bold>\<rightarrow> B)" by (smt axd_5b) qed*)
+     hence "obd (\<lambda>z. A z \<and> Z z) (\<lambda>z. A z \<and> Z z \<and> B z)" using axd_5e axd_5b axd_5b axd_5d by smt
+     hence "obd (\<lambda>z. Z z \<and> A z) (\<lambda>z. Z z \<and> A z \<and> B z)" using axd_5e axd_5b axd_5b axd_5d by smt
+     hence "obd Z (\<lambda>w. (Z w \<and> \<not>(Z w \<and> A w)) \<or> (Z w \<and> A w \<and> B w))" by (metis (mono_tags) axd_5d) 
+     from this show  L19: "obd(Z)(A \<^bold>\<rightarrow> B)" by (smt axd_5b) qed
 
 (* Some theorems and derived (proof) rules *)
 lemma dII_4_1: "\<lfloor>\<^bold>\<box>(A \<^bold>\<leftrightarrow> B) \<^bold>\<rightarrow> (C(A) \<^bold>\<leftrightarrow> C(B))\<rfloor>"  using ext by blast
@@ -147,12 +148,12 @@ lemma dobs_II_4_2_1: "\<lfloor>(\<^bold>O obd \<^bold>\<langle>B\<^bold>|A\<^bol
 lemma dobs_II_4_2_3: "\<lfloor>(\<^bold>O obd \<^bold>\<langle>(A \<^bold>\<rightarrow> B)\<^bold>|\<^bold>\<top>\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<box>\<^sub>a avd \<^bold>\<top> \<^bold>\<and> \<^bold>\<diamond>\<^sub>a avd (A \<^bold>\<rightarrow> B) \<^bold>\<and> \<^bold>\<diamond>\<^sub>a avd (\<^bold>\<not>(A \<^bold>\<rightarrow> B))) \<^bold>\<rightarrow> \<^bold>O\<^sub>a obd avd (A \<^bold>\<rightarrow> B)\<rfloor>" solve_direct oops
 lemma dobs_II_4_2_4: "\<lfloor>\<^bold>\<box>\<^sub>a avd \<^bold>\<top>\<rfloor>" by simp
 lemma dobs_II_4_2_5: "\<lfloor>(\<^bold>O obd \<^bold>\<langle>(A \<^bold>\<rightarrow> B)\<^bold>|\<^bold>\<top>\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>a avd (A \<^bold>\<rightarrow> B) \<^bold>\<and> \<^bold>\<diamond>\<^sub>a avd (\<^bold>\<not>(A \<^bold>\<rightarrow> B))) \<^bold>\<rightarrow> \<^bold>O\<^sub>a obd avd (A \<^bold>\<rightarrow> B)\<rfloor>" by (smt (verit, best) dC_4) 
-(*lemma dobs_II_4_2_6: "\<lfloor>(\<^bold>O obd \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>a avd (A \<^bold>\<and> B) \<^bold>\<and> \<^bold>\<diamond>\<^sub>a avd (A \<^bold>\<and> \<^bold>\<not>B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>a obd avd (A \<^bold>\<rightarrow> B)\<rfloor>" II_3_1
-lemma dobs_II_4_2_6_p: "\<lfloor>(\<^bold>O obd \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>p pvd (A \<^bold>\<and> B) \<^bold>\<and> \<^bold>\<diamond>\<^sub>p pvd (A \<^bold>\<and> \<^bold>\<not>B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>p obd pvd (A \<^bold>\<rightarrow> B)\<rfloor>"  II_3_1*)
+lemma dobs_II_4_2_6: "\<lfloor>(\<^bold>O obd \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>a avd (A \<^bold>\<and> B) \<^bold>\<and> \<^bold>\<diamond>\<^sub>a avd (A \<^bold>\<and> \<^bold>\<not>B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>a obd avd (A \<^bold>\<rightarrow> B)\<rfloor>" by (simp add: dII_3_1)
+lemma dobs_II_4_2_6_p: "\<lfloor>(\<^bold>O obd \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>p pvd (A \<^bold>\<and> B) \<^bold>\<and> \<^bold>\<diamond>\<^sub>p pvd (A \<^bold>\<and> \<^bold>\<not>B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>p obd pvd (A \<^bold>\<rightarrow> B)\<rfloor>" by (simp add: dII_3_1)
 
 lemma dOa_C: "\<lfloor>\<^bold>\<diamond>\<^sub>a avd (A \<^bold>\<and> B) \<^bold>\<and> \<^bold>O\<^sub>a obd avd A \<^bold>\<and> \<^bold>O\<^sub>a obd avd B \<^bold>\<rightarrow>  \<^bold>O\<^sub>a obd avd (A \<^bold>\<and> B)\<rfloor>" by (metis (full_types) dC_3)
 lemma dOp_C: "\<lfloor>\<^bold>\<diamond>\<^sub>p pvd (A \<^bold>\<and> B) \<^bold>\<and> \<^bold>O\<^sub>p obd pvd A \<^bold>\<and> \<^bold>O\<^sub>p obd pvd B \<^bold>\<rightarrow>  \<^bold>O\<^sub>p obd pvd (A \<^bold>\<and> B)\<rfloor>" by (metis (full_types) dC_3)
-(*lemma dOa_DD: "\<lfloor>(\<^bold>O\<^sub>a obd avd A \<^bold>\<and> \<^bold>O obd \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>a avd (A \<^bold>\<and> B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>a obd avd (A \<^bold>\<and> B)\<rfloor>" II_4_2_6
+lemma dOa_DD: "\<lfloor>(\<^bold>O\<^sub>a obd avd A \<^bold>\<and> \<^bold>O obd \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>a avd (A \<^bold>\<and> B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>a obd avd (A \<^bold>\<and> B)\<rfloor>" using axd_5b axd_5c dobs_II_4_2_6 by smt 
 declare [[smt_timeout=300]]
-lemma dOp_DD: "\<lfloor>(\<^bold>O\<^sub>p obd pvd A \<^bold>\<and> \<^bold>O obd \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>p pvd(A \<^bold>\<and> B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>p obd pvd (A \<^bold>\<and> B)\<rfloor>" II_4_2_6*)
+lemma dOp_DD: "\<lfloor>(\<^bold>O\<^sub>p obd pvd A \<^bold>\<and> \<^bold>O obd \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>p pvd (A \<^bold>\<and> B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>p obd pvd (A \<^bold>\<and> B)\<rfloor>" using axd_5b axd_5c dobs_II_4_2_6_p by smt
 end

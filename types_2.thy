@@ -2,11 +2,11 @@ theory types_2
   imports Main 
 begin
 
-(*SDL types*)
 typedecl i (*Type for possible worlds.*) 
 type_synonym \<sigma> = "(i\<Rightarrow>bool)"
 type_synonym \<gamma> = "\<sigma>\<Rightarrow>\<sigma>" 
 type_synonym \<rho> = "\<sigma>\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>"
+
 (*SDL_agents/ Dstit_Deontic types*)
 typedecl ag (*Type for agents*)
 type_synonym \<tau> = "(i\<Rightarrow>i\<Rightarrow>bool)\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" 
@@ -18,7 +18,9 @@ type_synonym \<zeta> = "(i\<Rightarrow>\<sigma>)\<Rightarrow>\<sigma>\<Rightarro
 
 type_synonym \<delta> = "i\<Rightarrow>i\<Rightarrow>bool" (* type of accessibility relations between worlds Dstit_Deontic*)
 
-(*Other types needed for tiles & articles*)
+type_synonym \<chi> = "ag\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>"
+type_synonym \<eta> = "ag\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" 
+
 (*prohibited*)
 typedecl aiSys (*Type for AI-systems*)
 datatype quality_person = age | physcial_disability | mental_disability (*quality of a person*)
@@ -63,8 +65,6 @@ typedecl qualManSys (*quality management system*)
 datatype standard = harm_stand_art_40 (*standards that must be considered*)
 datatype size = small | medium | large (*size of provider's organisation*)
 
-(*Article 32: mult_AgTests_2*)
-typedecl notification (*notification of a conformity assessment body*)
 
 consts
     (*identify agents:*)
@@ -74,6 +74,9 @@ consts
     notif_authority::"ag\<Rightarrow>\<sigma>" 
     member_state::"ag\<Rightarrow>\<sigma>"  
     conf_ass_body::"ag\<Rightarrow>\<sigma>" 
+
+(*Article 32: mult_AgTests_2*)
+typedecl notification (*notification of a conformity assessment body*)
 
    
 end

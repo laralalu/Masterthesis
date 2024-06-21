@@ -114,7 +114,7 @@ axiomatization where
   abbreviation tdsValidLocal :: "(i\<Rightarrow>bool) \<Rightarrow> bool" ("\<Turnstile> _") where "\<Turnstile> A \<equiv> A cw"
   abbreviation tdsValidGlobal :: "(i \<Rightarrow> bool) \<Rightarrow> bool" ("\<lfloor>_\<rfloor>") where "\<lfloor>A\<rfloor> \<equiv> \<forall>w. A w" 
 
-lemma True nitpick [satisfy, user_axioms, show_all] oops
+lemma True nitpick [satisfy, user_axioms, show_all, finitize] oops
 
 end
 

@@ -89,7 +89,6 @@ axiomatization where
 (* Consistency *) 
 lemma True nitpick [satisfy,user_axioms,show_all, card i = 2] oops
 
-
 consts 
   l::aiSys
   compliance_req_chap2::"aiSys\<Rightarrow>\<sigma>"
@@ -110,6 +109,8 @@ lemma assumes
 shows "\<lfloor>conf_ass_proc_done x\<rfloor>" try oops
 
 end
+
+
 
 
 
