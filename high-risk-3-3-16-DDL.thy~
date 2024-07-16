@@ -51,11 +51,12 @@ theorem Result2: "a_theory \<longrightarrow> \<lfloor>(F0 \<^bold>\<and> F1) \<^
   by auto 
 
 
+
 (*-------------------------------------------------------------------*)
 (*CTD example Extended DDL:*)
 consts 
   l::aiSys
-  provider_of::"aiSys\<Rightarrow>ag\<Rightarrow>\<sigma>" 
+
 
 (*interesting part: CTD; Trying to create the typical structure*)
 axiomatization where
@@ -71,7 +72,7 @@ Situation: "\<lfloor>\<^bold>\<not> (compliance_req_chap2 l)\<rfloor>\<^sub>l"
 lemma True nitpick [satisfy, user_axioms, show_all] oops (*Consistency-check: Nitpick finds a model.*)
 
 lemma "\<lfloor>\<^bold>\<circle>d<stit d (inform_com_auth l)>\<rfloor>\<^sub>l" using A8 F1 Situation by auto
-lemma "\<lfloor>\<^bold>\<circle>d<\<^bold>\<not>(stit d (inform_com_auth l))>\<rfloor>\<^sub>l" nitpick [user_axioms, show_all] (*counterexample found*)
+lemma "\<lfloor>\<^bold>\<circle>d<\<^bold>\<not>(stit d (inform_com_auth l))>\<rfloor>\<^sub>l" nitpick [user_axioms, show_all] oops (*counterexample found*)
 
 
 end

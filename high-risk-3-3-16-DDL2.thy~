@@ -1,36 +1,39 @@
 theory "high-risk-3-3-16-DDL2"
-  imports types
-  DDL_agents_2
+  imports
+  DDL_agents_mod
 begin
 
 
 (*-------------------------------------------------------------------*)
 (*CTD example extended DDL2:*)
 consts 
-  d::ag (*type for provider*)
-  ms::ag
-  compliance_req_chap2::"aiSys\<Rightarrow>\<sigma>"
-  competent_auth_member_state::"ag\<Rightarrow>ag"
-  is_provider_of::"aiSys\<Rightarrow>ag\<Rightarrow>\<sigma>"
-  inform::"aiSys\<Rightarrow>ag\<Rightarrow>\<sigma>" 
+  d::ag 
   l::aiSys
-  provider_of::"aiSys\<Rightarrow>ag\<Rightarrow>\<sigma>" 
+  provider_of::"ag\<Rightarrow>aiSys\<Rightarrow>\<sigma>"
+  compliance_req_chap2::"aiSys\<Rightarrow>\<sigma>"
+  inform_authorities::"aiSys\<Rightarrow>\<sigma>" 
 
 (*interesting part: CTD; Trying to create the typical structure*)
 axiomatization where
-F1: "\<lfloor>(high_risk l) \<^bold>\<and> (is_provider_of l d)\<rfloor>" and 
-A1: "\<lfloor>\<^bold>\<forall>x p. (high_risk x) \<^bold>\<and> (is_provider_of l p) \<^bold>\<rightarrow> \<^bold>\<circle>p<stit p (compliance_req_chap2 x)>\<rfloor>" and
-A8: "\<lfloor>\<^bold>\<forall>x p. \<^bold>\<not>(compliance_req_chap2 x) \<^bold>\<and> (high_risk x) \<^bold>\<rightarrow> \<^bold>\<circle>p<(stit p (inform x (competent_auth_member_state ms)))>\<rfloor>" and
+(*rules, e.g. CTD*)
+A1: "\<lfloor>\<^bold>\<forall>x p. (high_risk x \<^bold>\<and> provider p \<^bold>\<and> provider_of p x) \<^bold>\<rightarrow> \<^bold>\<circle>p<stit p (compliance_req_chap2 x)>\<rfloor>" and
+A8: "\<lfloor>\<^bold>\<forall>x p. (high_risk x \<^bold>\<and> provider p \<^bold>\<and> provider_of p x) \<^bold>\<rightarrow> (\<^bold>\<not> (compliance_req_chap2 x) \<^bold>\<rightarrow> \<^bold>\<circle>p<(stit p (inform_authorities x))>)\<rfloor>" and
 (*implicit: If the compliance with the requirements is a given, the provider is obligated to not inform authorities 
 of non-compliance (since that would make no sense*)
-AX: "\<lfloor>\<^bold>\<forall>x p. \<^bold>\<circle>p<(compliance_req_chap2 x \<^bold>\<and> high_risk x) \<^bold>\<rightarrow> \<^bold>\<not> stit p (inform x (competent_auth_member_state ms))>\<rfloor>"and
+AX: "\<lfloor>\<^bold>\<forall>x p. (high_risk x \<^bold>\<and> provider p \<^bold>\<and> provider_of p x) \<^bold>\<rightarrow> (\<^bold>\<circle>p<(compliance_req_chap2 x) \<^bold>\<rightarrow> \<^bold>\<not> stit p (inform_authorities x)>)\<rfloor>" and
+
+(*facts*)
+F0: "\<lfloor>(\<^bold>\<not> provider eu_comm)\<rfloor>\<^sub>l" and
+F1: "\<lfloor>(high_risk l)\<rfloor>\<^sub>l" and 
+F2: "\<lfloor>(provider d)\<rfloor>\<^sub>l" and  
+F3: "\<lfloor>(provider_of d l)\<rfloor>\<^sub>l" and
 Situation: "\<lfloor>\<^bold>\<not> (compliance_req_chap2 l)\<rfloor>\<^sub>l"
 
 (***Some Experiments***) 
-lemma True nitpick [satisfy, user_axioms, show_all] oops (*ran out of time*)
+lemma True nitpick [satisfy, user_axioms, show_all, card i=1] oops (*ran out of time*)
 
-lemma "\<lfloor>\<^bold>\<circle>d<stit d (inform l (competent_auth_member_state ms))>\<rfloor>\<^sub>l" using A8 F1 Situation by auto
-lemma "\<lfloor>\<^bold>\<circle>d<\<^bold>\<not>(stit d (inform l (competent_auth_member_state ms)))>\<rfloor>\<^sub>l" nitpick [user_axioms, show_all] oops (*ran out of time*)
+lemma "\<lfloor>\<^bold>\<circle>d<stit d (inform_authorities l)>\<rfloor>\<^sub>l" using A8 F1 F2 F3 Situation by blast
+lemma "\<lfloor>\<^bold>\<circle>d<\<^bold>\<not> stit d (inform_authorities l)>\<rfloor>\<^sub>l" nitpick [user_axioms, show_all, card i=1] oops (*ran out of time*)
 
 
 end

@@ -4,7 +4,6 @@ theory DDL_agents_mod  (*DDL including STIT operator and agentive obligations*)
     types_2
 begin 
 
-(*General version, agent as parameter, used to better show interaction of agents and relations between agent and AI system, eg. provider OF an AI system*)
 consts
  cw::i (*current world*)
  av::"i\<Rightarrow>\<sigma>" pv::"i\<Rightarrow>\<sigma>" ob::"\<sigma>\<Rightarrow>(\<sigma>\<Rightarrow>bool)" (*general accessibility relations*)
@@ -46,18 +45,6 @@ axiomatization where
  abbreviation ddlbox::\<gamma> ("\<^bold>\<box>") where "\<^bold>\<box>A \<equiv> \<lambda>w.\<forall>v. A(v)" 
  abbreviation ddldia::\<gamma>  ("\<^bold>\<diamond>") where "\<^bold>\<diamond> A \<equiv> \<^bold>\<not>\<^bold>\<box>(\<^bold>\<not>A)"
 
- (*non-agentive necessity, possibility and obligation operators*)
- abbreviation ddlboxa::\<gamma> ("\<^bold>\<box>\<^sub>a") where "\<^bold>\<box>\<^sub>aA \<equiv> \<lambda>w. (\<forall>x. av(w)(x) \<longrightarrow> A(x))"  (*in all actual worlds*)
- abbreviation ddlboxp::\<gamma> ("\<^bold>\<box>\<^sub>p") where "\<^bold>\<box>\<^sub>pA \<equiv> \<lambda>w. (\<forall>x. pv(w)(x) \<longrightarrow> A(x))" (*in all potential worlds*)
- abbreviation ddldiaa::\<gamma> ("\<^bold>\<diamond>\<^sub>a") where "\<^bold>\<diamond>\<^sub>aA \<equiv> \<^bold>\<not>\<^bold>\<box>\<^sub>a(\<^bold>\<not>A)"
- abbreviation ddldiap::\<gamma> ("\<^bold>\<diamond>\<^sub>p") where "\<^bold>\<diamond>\<^sub>pA \<equiv> \<^bold>\<not>\<^bold>\<box>\<^sub>p(\<^bold>\<not>A)" 
- abbreviation ddlo::\<rho> ("\<^bold>O\<^bold>\<langle>_\<^bold>|_\<^bold>\<rangle>"[52]53) where "\<^bold>O\<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<equiv> \<lambda>w. ob(A)(B)"  (*it ought to be \<psi>, given \<phi> *)
- abbreviation ddloa::\<gamma>  ("\<^bold>O\<^sub>a") where "\<^bold>O\<^sub>aA \<equiv> \<lambda>w. ob(av(w))(A) \<and> (\<exists>x. av(w)(x) \<and> \<not>A(x))" (*actual obligation*)
- abbreviation ddlop::\<gamma>  ("\<^bold>O\<^sub>p") where "\<^bold>O\<^sub>pA \<equiv> \<lambda>w. ob(pv(w))(A) \<and> (\<exists>x. pv(w)(x) \<and> \<not>A(x))"  (*primary obligation*)
-
- type_synonym \<chi> = "ag\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>"
- type_synonym \<eta> = "ag\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" 
-
  (*Necessity/possibility for agents*)
  abbreviation ddlboxa_g::\<eta> ("\<^bold>\<box>\<^sub>a") where "\<^bold>\<box>\<^sub>a i A \<equiv> \<lambda>w. (\<forall>x. av_g i (w)(x) \<longrightarrow> A(x))"  (*in all actual worlds*)
  abbreviation ddlboxp_g::\<eta> ("\<^bold>\<box>\<^sub>p") where "\<^bold>\<box>\<^sub>p i A \<equiv> \<lambda>w. (\<forall>x. pv_g i (w)(x) \<longrightarrow> A(x))" (*in all potential worlds*)
@@ -67,6 +54,15 @@ axiomatization where
  abbreviation ddlo_g::\<chi> ("\<^bold>O _ \<^bold>\<langle>_\<^bold>|_\<^bold>\<rangle>") where "\<^bold>O i \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<equiv> \<lambda>w. ob_g i A B"  (*Agent i ought to A, given B *)
  abbreviation ddloa_g::\<eta>  ("\<^bold>O\<^sub>a _ ") where "\<^bold>O\<^sub>a i A \<equiv> \<lambda>w. ob_g i (av_g i (w))(A) \<and> (\<exists>x. av_g i (w)(x) \<and> \<not>A(x))" (*actual obligation*)
  abbreviation ddlop_g::\<eta>  ("\<^bold>O\<^sub>p _") where "\<^bold>O\<^sub>p i A \<equiv> \<lambda>w. ob_g i (pv_g i (w))(A) \<and> (\<exists>x. pv_g i (w)(x) \<and> \<not>A(x))"  (*primary obligation*)
+
+ (*non-agentive necessity, possibility and obligation operators*)
+ abbreviation ddlboxa::\<gamma> ("\<^bold>\<box>\<^sub>a") where "\<^bold>\<box>\<^sub>aA \<equiv> \<lambda>w. (\<forall>x. av(w)(x) \<longrightarrow> A(x))"  (*in all actual worlds*)
+ abbreviation ddlboxp::\<gamma> ("\<^bold>\<box>\<^sub>p") where "\<^bold>\<box>\<^sub>pA \<equiv> \<lambda>w. (\<forall>x. pv(w)(x) \<longrightarrow> A(x))" (*in all potential worlds*)
+ abbreviation ddldiaa::\<gamma> ("\<^bold>\<diamond>\<^sub>a") where "\<^bold>\<diamond>\<^sub>aA \<equiv> \<^bold>\<not>\<^bold>\<box>\<^sub>a(\<^bold>\<not>A)"
+ abbreviation ddldiap::\<gamma> ("\<^bold>\<diamond>\<^sub>p") where "\<^bold>\<diamond>\<^sub>pA \<equiv> \<^bold>\<not>\<^bold>\<box>\<^sub>p(\<^bold>\<not>A)" 
+ abbreviation ddlo::\<rho> ("\<^bold>O\<^bold>\<langle>_\<^bold>|_\<^bold>\<rangle>"[52]53) where "\<^bold>O\<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<equiv> \<lambda>w. ob(A)(B)"  (*it ought to be \<psi>, given \<phi> *)
+ abbreviation ddloa::\<gamma>  ("\<^bold>O\<^sub>a") where "\<^bold>O\<^sub>aA \<equiv> \<lambda>w. ob(av(w))(A) \<and> (\<exists>x. av(w)(x) \<and> \<not>A(x))" (*actual obligation*)
+ abbreviation ddlop::\<gamma>  ("\<^bold>O\<^sub>p") where "\<^bold>O\<^sub>pA \<equiv> \<lambda>w. ob(pv(w))(A) \<and> (\<exists>x. pv(w)(x) \<and> \<not>A(x))"  (*primary obligation*)
  
  abbreviation ddltop::\<sigma> ("\<^bold>\<top>") where "\<^bold>\<top> \<equiv> \<lambda>w. True"
  abbreviation ddlbot::\<sigma> ("\<^bold>\<bottom>") where "\<^bold>\<bottom> \<equiv> \<lambda>w. False"
@@ -82,7 +78,7 @@ axiomatization where
 
  (*New syntax *)
  abbreviation ddlobl::\<gamma> ("\<^bold>\<circle><_>") where "\<^bold>\<circle><A> \<equiv>  \<^bold>O\<^bold>\<langle>A\<^bold>|\<^bold>\<top>\<^bold>\<rangle>" 
- abbreviation ddlobl_g::\<eta> ("\<^bold>\<circle>_<_>") where "\<^bold>\<circle> i <A> \<equiv>  \<^bold>O i \<^bold>\<langle>A\<^bold>|\<^bold>\<top>\<^bold>\<rangle>"  
+ abbreviation ddlobl_g::\<eta> ("\<^bold>\<circle>_<_>") where "\<^bold>\<circle> i <A> \<equiv>  \<^bold>O i \<^bold>\<langle>A\<^bold>|\<^bold>\<top>\<^bold>\<rangle>"
 
  (* Consistency *) 
  lemma True nitpick [satisfy,user_axioms,show_all,card i=1] (*no model for i>1*) oops

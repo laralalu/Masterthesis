@@ -3,18 +3,9 @@ theory SDL_agents
 begin
 
 consts 
-  Rela::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Ra" 70) (*Accessibility relation agent a, Judicial authority or independent administrative authority of Member State.*)  
+  Rel::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "R" 70) (*Accessibility relation non-agentive*)
   Relb::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rb" 70) (*Accessibility relation agent b, Importer.*) 
-  Relc::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rc" 70) (*Accessibility relation agent c, EU commission.*) 
   Reld::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rd" 70) (*Accessibility relation agent d, Provider.*) 
-  Rele::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Re" 70) (*Accessibility relation agent e, Conformity assessment body.*) 
-  Relf::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rf" 70) (*Accessibility relation agent f, Notifying authority.*) 
-  Relg::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rg" 70) (*Accessibility relation agent g, Notified body.*) 
-  Relh::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rh" 70) (*Accessibility relation agent h, Member state.*) 
-  Relj::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rj" 70) (*Accessibility relation agent j, national competent authorities.*) 
-  Relk::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rk" 70) (*Accessibility relation agent k, credit institutions.*) 
-  Rell::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "Rl" 70) (*Accessibility relation agent l, distributor.*) 
-  Rel::"i\<Rightarrow>i\<Rightarrow>bool" (infixr "R" 70) (*General accessibility relation, not related to an agent.*)
  
   aw::i (*Actual world.*)
 
@@ -43,29 +34,19 @@ consts
  abbreviation (input) SDLexistsB (binder"\<^bold>\<exists>"[8]9) where "\<^bold>\<exists>x. \<phi>(x) \<equiv> \<^bold>\<exists>\<phi>"
 
  abbreviation (input) SDLvalid::"\<sigma>\<Rightarrow>bool" ("\<lfloor>_\<rfloor>"[7]105)  where "\<lfloor>\<phi>\<rfloor> \<equiv> \<forall>w. \<phi> w"      (*Global validity.*)
- abbreviation (input) SDLvalidcw::"\<sigma>\<Rightarrow>bool" ("\<lfloor>_\<rfloor>\<^sub>l"[7]105)    where "\<lfloor>\<phi>\<rfloor>\<^sub>l \<equiv> \<phi> aw"   (*Validity in actual world.*)
+ abbreviation (input) SDLvalidcw::"\<sigma>\<Rightarrow>bool" ("\<lfloor>_\<rfloor>\<^sub>l"[7]105)   where "\<lfloor>\<phi>\<rfloor>\<^sub>l \<equiv> \<phi> aw"   (*Validity in actual world.*)
 
  (* New syntax *)
-abbreviation (input) SDLobl::\<gamma> ("\<^bold>\<circle><_>") where "\<^bold>\<circle><\<phi>> \<equiv>  OBg Rel \<phi>"  (*New syntax: A is obligatory*)
-
- abbreviation (input) SDLobla::\<gamma> ("\<^bold>\<circle>a<_>") where "\<^bold>\<circle>a<\<phi>> \<equiv>  OBg Rela \<phi>" (*A is obligatory for a*)
+ abbreviation (input) SDLobl::\<gamma> ("\<^bold>\<circle><_>") where "\<^bold>\<circle><\<phi>> \<equiv>  OBg Rel \<phi>"  (*New syntax: A is obligatory*)
  abbreviation (input) SDLoblb::\<gamma> ("\<^bold>\<circle>b<_>") where "\<^bold>\<circle>b<\<phi>> \<equiv>  OBg Relb \<phi>" (*A is obligatory for b*)
- abbreviation (input) SDLoblc::\<gamma> ("\<^bold>\<circle>c<_>") where "\<^bold>\<circle>c<\<phi>> \<equiv>  OBg Relc \<phi>" (*A is obligatory for c*)
  abbreviation (input) SDLobld::\<gamma> ("\<^bold>\<circle>d<_>") where "\<^bold>\<circle>d<\<phi>> \<equiv>  OBg Reld \<phi>" (*A is obligatory for d*)
- abbreviation (input) SDLoble::\<gamma> ("\<^bold>\<circle>e<_>") where "\<^bold>\<circle>e<\<phi>> \<equiv>  OBg Rele \<phi>" (*A is obligatory for e*)
- abbreviation (input) SDLoblf::\<gamma> ("\<^bold>\<circle>f<_>") where "\<^bold>\<circle>f<\<phi>> \<equiv>  OBg Relf \<phi>" (*A is obligatory for f*)
- abbreviation (input) SDLoblg::\<gamma> ("\<^bold>\<circle>g<_>") where "\<^bold>\<circle>g<\<phi>> \<equiv>  OBg Relg \<phi>" (*A is obligatory for g*)
- abbreviation (input) SDLoblh::\<gamma> ("\<^bold>\<circle>h<_>") where "\<^bold>\<circle>h<\<phi>> \<equiv>  OBg Relh \<phi>" (*A is obligatory for h*)
- abbreviation (input) SDLoblj::\<gamma> ("\<^bold>\<circle>j<_>") where "\<^bold>\<circle>j<\<phi>> \<equiv>  OBg Relj \<phi>" (*A is obligatory for j*)
- abbreviation (input) SDLoblk::\<gamma> ("\<^bold>\<circle>k<_>") where "\<^bold>\<circle>k<\<phi>> \<equiv>  OBg Relk \<phi>" (*A is obligatory for k*)
- abbreviation (input) SDLobll::\<gamma> ("\<^bold>\<circle>l<_>") where "\<^bold>\<circle>l<\<phi>> \<equiv>  OBg Rell \<phi>" (*A is obligatory for l*)
 
 (* Corrspondence, generic *)
 lemma "\<lfloor>\<^bold>\<not>(OBg rel \<phi> \<^bold>\<and> OBg rel (\<^bold>\<not>\<phi>))\<rfloor> \<longleftrightarrow> (\<forall>w. \<exists>v. rel w v)"  by auto 
 
 (* Corrspondences *)
 lemma "\<lfloor>\<^bold>\<not> (\<^bold>\<circle><\<phi>> \<^bold>\<and> \<^bold>\<circle><\<^bold>\<not>\<phi>>)\<rfloor> \<longleftrightarrow> (\<forall>w. \<exists>v. w R v)" by blast
-lemma "\<lfloor>\<^bold>\<not> (\<^bold>\<circle>a<\<phi>> \<^bold>\<and> \<^bold>\<circle>a<\<^bold>\<not>\<phi>>)\<rfloor> \<longleftrightarrow> (\<forall>w. \<exists>v. w Ra v)" by blast
+lemma "\<lfloor>\<^bold>\<not> (\<^bold>\<circle>d<\<phi>> \<^bold>\<and> \<^bold>\<circle>d<\<^bold>\<not>\<phi>>)\<rfloor> \<longleftrightarrow> (\<forall>w. \<exists>v. w Rd v)" by blast
 lemma "\<lfloor>\<^bold>\<not> (\<^bold>\<circle>b<\<phi>> \<^bold>\<and> \<^bold>\<circle>b<\<^bold>\<not>\<phi>>)\<rfloor> \<longleftrightarrow> (\<forall>w. \<exists>v. w Rb v)" by blast
 
 (* We postulate these axioms, they are computationally better suited; the other way around is 
@@ -73,11 +54,11 @@ lemma "\<lfloor>\<^bold>\<not> (\<^bold>\<circle>b<\<phi>> \<^bold>\<and> \<^bol
 
 axiomatization where 
   seriality: "(\<forall>w. \<exists>v. w R v)" and
-  serialitya: "(\<forall>w. \<exists>v. w Ra v)" and
+  serialityd: "(\<forall>w. \<exists>v. w Rd v)" and
   serialityb: "(\<forall>w. \<exists>v. w Rb v)" 
 
 lemma "\<lfloor>\<^bold>\<not> (\<^bold>\<circle><\<phi>> \<^bold>\<and> \<^bold>\<circle><\<^bold>\<not>\<phi>>)\<rfloor>" using seriality by blast
-lemma "\<lfloor>\<^bold>\<not> (\<^bold>\<circle>a<\<phi>> \<^bold>\<and> \<^bold>\<circle>a<\<^bold>\<not>\<phi>>)\<rfloor>" using serialitya by blast
+lemma "\<lfloor>\<^bold>\<not> (\<^bold>\<circle>d<\<phi>> \<^bold>\<and> \<^bold>\<circle>d<\<^bold>\<not>\<phi>>)\<rfloor>" using serialitya by blast
 lemma "\<lfloor>\<^bold>\<not> (\<^bold>\<circle>b<\<phi>> \<^bold>\<and> \<^bold>\<circle>b<\<^bold>\<not>\<phi>>)\<rfloor>" using serialityb by blast
 
 (*Consistency confirmed by model finder Nitpick.*) 
@@ -92,8 +73,8 @@ lemma Barcan:         "\<lfloor>(\<^bold>\<forall>d. \<^bold>\<circle><\<phi>(d)
 lemma ConverseBarcan: "\<lfloor>(\<^bold>\<circle><\<^bold>\<forall>d. \<phi>(d)>) \<^bold>\<rightarrow> (\<^bold>\<forall>d. \<^bold>\<circle><\<phi>(d)>)\<rfloor>" by simp 
 
 (*Barcan formulas a (same would hold for b)*) 
-lemma Barcana:         "\<lfloor>(\<^bold>\<forall>d. \<^bold>\<circle>a<\<phi>(d)>) \<^bold>\<rightarrow> (\<^bold>\<circle>a<\<^bold>\<forall>d. \<phi>(d)>)\<rfloor>" by simp  
-lemma ConverseBarcaan: "\<lfloor>(\<^bold>\<circle>a<\<^bold>\<forall>d. \<phi>(d)>) \<^bold>\<rightarrow> (\<^bold>\<forall>d. \<^bold>\<circle>a<\<phi>(d)>)\<rfloor>" by simp 
+lemma Barcana:         "\<lfloor>(\<^bold>\<forall>d. \<^bold>\<circle>d<\<phi>(d)>) \<^bold>\<rightarrow> (\<^bold>\<circle>d<\<^bold>\<forall>d. \<phi>(d)>)\<rfloor>" by simp  
+lemma ConverseBarcaan: "\<lfloor>(\<^bold>\<circle>d<\<^bold>\<forall>d. \<phi>(d)>) \<^bold>\<rightarrow> (\<^bold>\<forall>d. \<^bold>\<circle>d<\<phi>(d)>)\<rfloor>" by simp 
 
 (*axioms test*)
 lemma OBK: "\<lfloor>\<^bold>\<circle><(p \<^bold>\<rightarrow> q)> \<^bold>\<rightarrow> (\<^bold>\<circle><p> \<^bold>\<rightarrow> \<^bold>\<circle><q> )\<rfloor>" by simp
@@ -101,17 +82,17 @@ lemma OBNC: "\<lfloor>(\<^bold>\<circle><p> \<^bold>\<rightarrow> \<^bold>\<not>
 lemma OBMP: "\<lbrakk>\<lfloor>\<^bold>\<circle><A>\<rfloor>; \<lfloor>\<^bold>\<circle><A> \<^bold>\<rightarrow> B\<rfloor>\<rbrakk> \<Longrightarrow> \<lfloor>B\<rfloor>" by simp
 lemma OBNEC: "\<lfloor>A\<rfloor> \<Longrightarrow> \<lfloor>\<^bold>\<circle><A>\<rfloor>" by simp
 
-lemma OBaK: "\<lfloor>\<^bold>\<circle>a<(p \<^bold>\<rightarrow> q)> \<^bold>\<rightarrow> (\<^bold>\<circle>a<p> \<^bold>\<rightarrow> \<^bold>\<circle>a<q> )\<rfloor>" by simp
-lemma OBaNC: "\<lfloor>(\<^bold>\<circle>a<p> \<^bold>\<rightarrow> \<^bold>\<not>\<^bold>\<circle>a<\<^bold>\<not>p>)\<rfloor>" by (simp add: serialitya)
-lemma OBaMP: "\<lbrakk>\<lfloor>\<^bold>\<circle>a<A>\<rfloor>; \<lfloor>\<^bold>\<circle>a<A> \<^bold>\<rightarrow> B\<rfloor>\<rbrakk> \<Longrightarrow> \<lfloor>B\<rfloor>" by simp
-lemma OBaNEC: "\<lfloor>A\<rfloor> \<Longrightarrow> \<lfloor>\<^bold>\<circle>a<A>\<rfloor>" by simp
+lemma OBaK: "\<lfloor>\<^bold>\<circle>d<(p \<^bold>\<rightarrow> q)> \<^bold>\<rightarrow> (\<^bold>\<circle>d<p> \<^bold>\<rightarrow> \<^bold>\<circle>d<q> )\<rfloor>" by simp
+lemma OBaNC: "\<lfloor>(\<^bold>\<circle>d<p> \<^bold>\<rightarrow> \<^bold>\<not>\<^bold>\<circle>d<\<^bold>\<not>p>)\<rfloor>" by (simp add: serialitya)
+lemma OBaMP: "\<lbrakk>\<lfloor>\<^bold>\<circle>d<A>\<rfloor>; \<lfloor>\<^bold>\<circle>d<A> \<^bold>\<rightarrow> B\<rfloor>\<rbrakk> \<Longrightarrow> \<lfloor>B\<rfloor>" by simp
+lemma OBaNEC: "\<lfloor>A\<rfloor> \<Longrightarrow> \<lfloor>\<^bold>\<circle>d<A>\<rfloor>" by simp
 
 lemma OBbK: "\<lfloor>\<^bold>\<circle>b<(p \<^bold>\<rightarrow> q)> \<^bold>\<rightarrow> (\<^bold>\<circle>b<p> \<^bold>\<rightarrow> \<^bold>\<circle>b<q> )\<rfloor>" by simp
 lemma OBbNC: "\<lfloor>(\<^bold>\<circle>b<p> \<^bold>\<rightarrow> \<^bold>\<not>\<^bold>\<circle>b<\<^bold>\<not>p>)\<rfloor>" by (simp add: serialityb)
 lemma OBbMP: "\<lbrakk>\<lfloor>\<^bold>\<circle>b<A>\<rfloor>; \<lfloor>\<^bold>\<circle>b<A> \<^bold>\<rightarrow> B\<rfloor>\<rbrakk> \<Longrightarrow> \<lfloor>B\<rfloor>" by simp
 lemma OBbNEC: "\<lfloor>A\<rfloor> \<Longrightarrow> \<lfloor>\<^bold>\<circle>b<A>\<rfloor>" by simp
 
-lemma "\<lfloor>\<^bold>\<circle>a<\<phi>> \<^bold>\<rightarrow> \<^bold>\<circle>a<\<^bold>\<circle>a<\<phi>>>\<rfloor>"
+lemma "\<lfloor>\<^bold>\<circle>d<\<phi>> \<^bold>\<rightarrow> \<^bold>\<circle>d<\<^bold>\<circle>d<\<phi>>>\<rfloor>"
   nitpick[falsify,user_axioms,expect=genuine] oops
 
 lemma True nitpick [satisfy, user_axioms, show_all] oops

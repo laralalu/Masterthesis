@@ -1,6 +1,5 @@
 theory "high-risk-3-3-26-SDL"
   imports 
-  types
   SDL_agents
 begin
 
@@ -21,8 +20,8 @@ A2: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle>b<(stit b (system_in_c
 Situation: "\<lfloor>\<^bold>\<not>(stit b (system_in_conformity l))\<rfloor>\<^sub>l"
 
 (***Some Experiments***) 
-lemma True nitpick [satisfy, user_axioms] oops (*Consistency-check: Nitpick finds no model, WTF ?.*)
-(*Falsity beweisen gut! \<rightarrow> Inkonsistenz bewiesen!*)
+lemma True nitpick [satisfy, user_axioms] oops (*Consistency-check: Nitpick finds no model*)
+lemma False using A1 A2 F1 Situation serialityb by blast 
 
 (*both can be proven \<rightarrow> contradiction*)
 lemma "\<lfloor>\<^bold>\<circle>b<(stit b (not_on_market l))>\<rfloor>\<^sub>l" using A1 Situation by auto

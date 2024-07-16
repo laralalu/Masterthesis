@@ -1,5 +1,5 @@
 theory "16_SDLonly"
-  imports types
+  imports
   SDL
 begin
 
@@ -24,11 +24,11 @@ Situation: "\<lfloor>\<^bold>\<not> (compliance_req_chap2 l)\<rfloor>\<^sub>l"
 
 (***Some Experiments***) 
 lemma True nitpick [satisfy, user_axioms] oops (*Consistency-check: Nitpick finds no model!*)
-lemma False sledgehammer oops
+lemma False by (meson A0 A1 A2 A3 Situation seriality) 
 
 
 lemma "\<lfloor>\<^bold>\<circle><(inform_com_auth l)>\<rfloor>\<^sub>l" using A0 A2 Situation by auto
 lemma "\<lfloor>\<^bold>\<circle><\<^bold>\<not>(inform_com_auth l)>\<rfloor>\<^sub>l" by (simp add: A0 A1 A3)
-lemma "\<lfloor>\<^bold>\<circle><(kill_everyone l)>\<rfloor>\<^sub>l" try
+lemma "\<lfloor>\<^bold>\<circle><(kill_everyone l)>\<rfloor>\<^sub>l" by (metis A0 A1 A2 A3 Situation) 
 
 end

@@ -21,7 +21,8 @@ A3: "\<lfloor>\<^bold>\<forall>x::aiSys. \<^bold>\<circle><(system_in_conformity
 Situation: "\<lfloor>\<^bold>\<not> (system_in_conformity l)\<rfloor>\<^sub>l"
 
 (***Some Experiments***) 
-lemma True nitpick [satisfy, user_axioms, show_all] oops (*Consistency-check: Nitpick finds no model!*)
+lemma True nitpick [satisfy, user_axioms, show_all] oops (*Consistency-check: Nitpick finds no model*)
+lemma False by (meson A0 A1 A2 A3 Situation seriality)
 
 (*Should the system by on the market? We find a proof for both \<rightarrow> contradiction*)
 (*We must try this in DDL*)
