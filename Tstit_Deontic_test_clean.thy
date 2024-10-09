@@ -23,7 +23,7 @@ lemma A7: "\<lfloor>([Ag](A \<^bold>\<rightarrow> B)) \<^bold>\<rightarrow> (([A
 lemma A8: "\<lfloor>([Ag] A) \<^bold>\<rightarrow> A\<rfloor>" by (simp add: accReR_set)
 lemma A9: "\<lfloor>(<Ag> A) \<^bold>\<rightarrow> [Ag] (<Ag> A)\<rfloor>" using accSymR_set accTraR_set by blast
 lemma A10: "\<lfloor>((\<^bold>\<diamond> ([a1] A)) \<^bold>\<and> (\<^bold>\<diamond> ([a2] B))) \<^bold>\<rightarrow> (\<^bold>\<diamond>(([a1] A) \<^bold>\<and> ([a2] B)))\<rfloor>" nitpick [user_axioms] oops (*ran out of time*)
-lemma A11: "\<lfloor>(([a1] A) \<^bold>\<and> ([a2] B)) \<^bold>\<rightarrow> ([Ag](A \<^bold>\<and> B))\<rfloor>" nitpick [user_axioms] oops (*ran out of time*)
+lemma A11: "\<lfloor>(([a1] A) \<^bold>\<and> ([a2] B)) \<^bold>\<rightarrow> ([Ag](A \<^bold>\<and> B))\<rfloor>" using C3 a1Set a2Set by auto (*nitpick [user_axioms] oops (*ran out of time*)*)
 lemma A12: "\<lfloor>(\<^bold>\<otimes> a1 (A \<^bold>\<rightarrow> B)) \<^bold>\<rightarrow> ((\<^bold>\<otimes> a1 A) \<^bold>\<rightarrow> (\<^bold>\<otimes> a1 B))\<rfloor>" by simp
 lemma A13: "\<lfloor>(\<^bold>\<box> A) \<^bold>\<rightarrow> (([a1] A) \<^bold>\<and> (\<^bold>\<otimes> a1 A))\<rfloor>" by simp
 lemma A14: "\<lfloor>(\<^bold>\<otimes> a1 A) \<^bold>\<rightarrow> (\<^bold>\<diamond> ([a1] A))\<rfloor>" using D9 by blast
@@ -37,7 +37,7 @@ lemma A21: "\<lfloor>A \<^bold>\<rightarrow> (G (P A))\<rfloor>" by (metis Inv I
 lemma A22: "\<lfloor>A \<^bold>\<rightarrow> (H (F A))\<rfloor>" by (metis Inv Inv_def)
 lemma A23: "\<lfloor>(F (P A)) \<^bold>\<rightarrow> (((P A) \<^bold>\<or> A) \<^bold>\<or> (F A))\<rfloor>" by (metis T5 Inv Inv_def)
 lemma A24: "\<lfloor>(P (F A)) \<^bold>\<rightarrow> (((P A) \<^bold>\<or> A) \<^bold>\<or> (F A))\<rfloor>" by (metis T4 Inv Inv_def)
-lemma A25: "\<lfloor>(F (\<^bold>\<diamond> A)) \<^bold>\<rightarrow> (<Ag> (F A))\<rfloor>"  nitpick [user_axioms] oops (*ran out of time*)
+lemma A25: "\<lfloor>(F (\<^bold>\<diamond> A)) \<^bold>\<rightarrow> (<Ag> (F A))\<rfloor>" nitpick [user_axioms] oops (*ran out of time*)
 lemma R0: "\<lbrakk>\<lfloor>A\<rfloor>; \<lfloor>A \<^bold>\<rightarrow> B\<rfloor>\<rbrakk> \<Longrightarrow> \<lfloor>B\<rfloor>" by simp
 lemma R1a: "\<lfloor>A\<rfloor> \<Longrightarrow> \<lfloor>\<^bold>\<box> A\<rfloor>" by simp
 lemma R1b: "\<lfloor>A\<rfloor> \<Longrightarrow> \<lfloor>G A\<rfloor>" by simp

@@ -23,12 +23,12 @@ lemma A6: "\<lfloor>(<a1> A) \<^bold>\<rightarrow> [a1](<a1>A)\<rfloor>" using a
 lemma A7: "\<lfloor>([Ag](A \<^bold>\<rightarrow> B)) \<^bold>\<rightarrow> (([Ag]A) \<^bold>\<rightarrow> ([Ag]B))\<rfloor>" by simp
 lemma A8: "\<lfloor>([Ag] A) \<^bold>\<rightarrow> A\<rfloor>" by (simp add: accReR_set)
 lemma A9: "\<lfloor>(<Ag> A) \<^bold>\<rightarrow> [Ag] (<Ag> A)\<rfloor>" using accSymR_set accTraR_set by blast
-lemma A10: "\<lfloor>((\<^bold>\<diamond> ([a1] A)) \<^bold>\<and> (\<^bold>\<diamond> ([a2] B))) \<^bold>\<rightarrow> (\<^bold>\<diamond>(([a1] A) \<^bold>\<and> ([a2] B)))\<rfloor>" sledgehammer] oops (*no counterexample found*)
-lemma A11: "\<lfloor>(([a1] A) \<^bold>\<and> ([a2] B)) \<^bold>\<rightarrow> ([Ag](A \<^bold>\<and> B))\<rfloor>" nitpick [user_axioms, card i=3] oops (*no counterexample found*)
+lemma A10: "\<lfloor>((\<^bold>\<diamond> ([a1] A)) \<^bold>\<and> (\<^bold>\<diamond> ([a2] B))) \<^bold>\<rightarrow> (\<^bold>\<diamond>(([a1] A) \<^bold>\<and> ([a2] B)))\<rfloor>" nitpick[user_axioms, card i=3] oops (*no counterexample found*)
+lemma A11: "\<lfloor>(([a1] A) \<^bold>\<and> ([a2] B)) \<^bold>\<rightarrow> ([Ag](A \<^bold>\<and> B))\<rfloor>" by (simp add: C3 a1Set a2Set)
 lemma A12: "\<lfloor>(\<^bold>\<otimes> a1 (A \<^bold>\<rightarrow> B)) \<^bold>\<rightarrow> ((\<^bold>\<otimes> a1 A) \<^bold>\<rightarrow> (\<^bold>\<otimes> a1 B))\<rfloor>" by simp
 lemma A13: "\<lfloor>(\<^bold>\<box> A) \<^bold>\<rightarrow> (([a1] A) \<^bold>\<and> (\<^bold>\<otimes> a1 A))\<rfloor>" by simp
 lemma A14: "\<lfloor>(\<^bold>\<otimes> a1 A) \<^bold>\<rightarrow> (\<^bold>\<diamond> ([a1] A))\<rfloor>" using D9 by blast
-lemma A15: "\<lfloor>(\<^bold>\<diamond> (\<^bold>\<otimes> a1 A)) \<^bold>\<rightarrow> (\<^bold>\<box> (\<^bold>\<otimes> a1 A))\<rfloor>" nitpick [user_axioms, card i=3] oops (*no counterexample found*)
+lemma A15: "\<lfloor>(\<^bold>\<diamond> (\<^bold>\<otimes> a1 A)) \<^bold>\<rightarrow> (\<^bold>\<box> (\<^bold>\<otimes> a1 A))\<rfloor>" nitpick[user_axioms, card i=3] oops (*no counterexample found*)
 lemma A16: "\<lfloor>(\<^bold>\<box> (([a1] A) \<^bold>\<rightarrow> ([a1] B))) \<^bold>\<rightarrow> ((\<^bold>\<otimes> a1 A) \<^bold>\<rightarrow> (\<^bold>\<otimes> a1 B))\<rfloor>" by (meson D11)
 lemma A17: "\<lfloor>(G (A \<^bold>\<rightarrow> B)) \<^bold>\<rightarrow> ((G A) \<^bold>\<rightarrow> (G B))\<rfloor>" by simp
 lemma A18: "\<lfloor>(G A ) \<^bold>\<rightarrow> (G (G A))\<rfloor>" using RG_trans by blast
@@ -38,12 +38,12 @@ lemma A21: "\<lfloor>A \<^bold>\<rightarrow> (G (P A))\<rfloor>" by (metis Inv I
 lemma A22: "\<lfloor>A \<^bold>\<rightarrow> (H (F A))\<rfloor>" by (metis Inv Inv_def)
 lemma A23: "\<lfloor>(F (P A)) \<^bold>\<rightarrow> (((P A) \<^bold>\<or> A) \<^bold>\<or> (F A))\<rfloor>" by (metis T5 Inv Inv_def)
 lemma A24: "\<lfloor>(P (F A)) \<^bold>\<rightarrow> (((P A) \<^bold>\<or> A) \<^bold>\<or> (F A))\<rfloor>" by (metis T4 Inv Inv_def)
-lemma A25: "\<lfloor>(F (\<^bold>\<diamond> A)) \<^bold>\<rightarrow> (<Ag>gr (F A))\<rfloor>" nitpick [user_axioms, card i=3] oops (*no counterexample found*)
+lemma A25: "\<lfloor>(F (\<^bold>\<diamond> A)) \<^bold>\<rightarrow> (<Ag>gr (F A))\<rfloor>" nitpick[user_axioms, card i=3] oops (*no counterexample found*)
 lemma R0: "\<lbrakk>\<lfloor>A\<rfloor>; \<lfloor>A \<^bold>\<rightarrow> B\<rfloor>\<rbrakk> \<Longrightarrow> \<lfloor>B\<rfloor>" by simp
 lemma R1a: "\<lfloor>A\<rfloor> \<Longrightarrow> \<lfloor>\<^bold>\<box> A\<rfloor>" by simp
 lemma R1b: "\<lfloor>A\<rfloor> \<Longrightarrow> \<lfloor>G A\<rfloor>" by simp
 lemma R1c: "\<lfloor>A\<rfloor> \<Longrightarrow> \<lfloor>H A\<rfloor>" by simp
-lemma R2: "\<lfloor>((\<^bold>\<box>(\<^bold>\<not> A)) \<^bold>\<and> (\<^bold>\<box>((G A) \<^bold>\<and> (H A)))) \<^bold>\<rightarrow> B\<rfloor> \<Longrightarrow> \<lfloor>B\<rfloor>" nitpick [user_axioms] oops (*no counterexample found*)
+lemma R2: "\<lfloor>((\<^bold>\<box>(\<^bold>\<not> A)) \<^bold>\<and> (\<^bold>\<box>((G A) \<^bold>\<and> (H A)))) \<^bold>\<rightarrow> B\<rfloor> \<Longrightarrow> \<lfloor>B\<rfloor>" nitpick[user_axioms] oops (*no counterexample found*)
 
 (*[ag]d (dstit) tests  \<rightarrow> HortyBelnap1995 Chapter 3.1*) 
 lemma REDstit: "\<lbrakk>\<lfloor>A \<^bold>\<leftrightarrow> B\<rfloor>; \<lfloor>[a1]d A\<rfloor>\<rbrakk>  \<Longrightarrow> \<lfloor>[a1]d B\<rfloor>" by simp

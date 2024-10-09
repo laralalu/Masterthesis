@@ -43,7 +43,7 @@ lemma R0: "\<lbrakk>\<lfloor>A\<rfloor>; \<lfloor>A \<^bold>\<rightarrow> B\<rfl
 lemma R1a: "\<lfloor>A\<rfloor> \<Longrightarrow> \<lfloor>\<^bold>\<box> A\<rfloor>" by simp
 lemma R1b: "\<lfloor>A\<rfloor> \<Longrightarrow> \<lfloor>G A\<rfloor>" by simp
 lemma R1c: "\<lfloor>A\<rfloor> \<Longrightarrow> \<lfloor>H A\<rfloor>" by simp
-lemma R2: "\<lfloor>((\<^bold>\<box>(\<^bold>\<not> A)) \<^bold>\<and> (\<^bold>\<box>((G A) \<^bold>\<and> (H A)))) \<^bold>\<rightarrow> B\<rfloor> \<Longrightarrow> \<lfloor>B\<rfloor>" nitpick [user_axioms, card i=3] oops (*no counterexample found*)
+lemma R2: "\<lfloor>((\<^bold>\<box>(\<^bold>\<not> A)) \<^bold>\<and> (\<^bold>\<box>((G A) \<^bold>\<and> (H A)))) \<^bold>\<rightarrow> B\<rfloor> \<Longrightarrow> \<lfloor>B\<rfloor>" nitpick [user_axioms] oops (*no counterexample found*)
 
 (*[ag]d (dstit) tests  \<rightarrow> HortyBelnap1995 Chapter 3.1*) 
 lemma REDstit: "\<lbrakk>\<lfloor>A \<^bold>\<leftrightarrow> B\<rfloor>; \<lfloor>[a1]d A\<rfloor>\<rbrakk>  \<Longrightarrow> \<lfloor>[a1]d B\<rfloor>" by simp
