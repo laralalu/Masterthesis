@@ -1,6 +1,6 @@
 theory prohibited
   imports 
-    SDL (*DDL*)
+    DDL
    types
 begin
 
