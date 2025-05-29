@@ -3,60 +3,13 @@ theory "high-risk-3-3-16-DDL"
   DDL_agents_clean
 begin
 
-(*agent d: providers, uses stit d and \<^bold>\<circle>d<>*)
-consts
-  compliance_req_chap2::"aiSys\<Rightarrow>\<sigma>"
-  quality_man_sys_complies_art_17::"aiSys\<Rightarrow>\<sigma>"
-  technical_doc_drawn_up::"aiSys\<Rightarrow>\<sigma>"
-  logs_under_control_provider::"aiSys\<Rightarrow>\<sigma>" 
-  auto_logs_kept::"aiSys\<Rightarrow>\<sigma>"
-  rel_conformity_assessment_procedure_undergone_prior::"aiSys\<Rightarrow>\<sigma>" 
-  registration_obligations_art_51_complied::"aiSys\<Rightarrow>\<sigma>"
-  corrective_action_taken::"aiSys\<Rightarrow>\<sigma>"
-  inform_com_auth::"aiSys\<Rightarrow>\<sigma>" (*inform the competent authority of the Member States where the system
-  is available of non-compliance and corrective actions taken*)
-  nat_body_involved::\<sigma> (*involvement of national body*)
-  inform_nat_body::"aiSys\<Rightarrow>\<sigma>" (*inform national body of the Member States where the system
-  is available of non-compliance and corrective actions taken*)
-  CE_marking_art_49_affixed::"aiSys\<Rightarrow>\<sigma>" (*CE marking in conformance with Article 49 is affixed*)
-  demo_requested::"ag\<Rightarrow>aiSys\<Rightarrow>\<sigma>" (*request for demonstration*)
-  conformance_art_2_demonstrated::"aiSys\<Rightarrow>\<sigma>" 
-  on_market::"aiSys\<Rightarrow>\<sigma>"
-
-consts x::"aiSys" (*aiSystem*)
-
-(*theory, tile 3, chapter 3, article 16*)
-abbreviation "A1 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. (high_risk x) \<^bold>\<rightarrow> \<^bold>\<circle>d<stit d (compliance_req_chap2 x)>\<rfloor>"  
-abbreviation "A2 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. (high_risk x) \<^bold>\<rightarrow> \<^bold>\<circle>d<stit d (technical_doc_drawn_up x)>\<rfloor>" 
-abbreviation "A3 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. (high_risk x) \<^bold>\<rightarrow>\<^bold>\<circle>d<stit d (quality_man_sys_complies_art_17 x)>\<rfloor>" 
-abbreviation "A4 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. (high_risk x) \<^bold>\<rightarrow> ((logs_under_control_provider x) \<^bold>\<rightarrow> \<^bold>\<circle>d<stit d (auto_logs_kept x)>)\<rfloor>" 
-abbreviation "A5 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. (high_risk x) \<^bold>\<rightarrow> \<^bold>\<circle>d<stit d (rel_conformity_assessment_procedure_undergone_prior x)>\<rfloor>" 
-abbreviation "A6 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. (high_risk x) \<^bold>\<rightarrow> \<^bold>\<circle>d<stit d (registration_obligations_art_51_complied x)>\<rfloor>" 
-abbreviation "A7 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. (high_risk x) \<^bold>\<rightarrow> (\<^bold>\<not>(compliance_req_chap2 x) \<^bold>\<rightarrow> \<^bold>\<circle>d<stit d (corrective_action_taken x)>)\<rfloor>"
-abbreviation "A8 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. (high_risk x) \<^bold>\<rightarrow> (\<^bold>\<not>(compliance_req_chap2 x) \<^bold>\<rightarrow> \<^bold>\<circle>d<stit d (inform_com_auth x)>)\<rfloor>" 
-abbreviation "A9 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys. (high_risk x) \<^bold>\<rightarrow> ((\<^bold>\<not>(compliance_req_chap2 x) \<^bold>\<and> nat_body_involved) \<^bold>\<rightarrow> \<^bold>\<circle>d<stit d (inform_nat_body x)>)\<rfloor>"
-abbreviation "A10 \<equiv> \<lfloor>\<^bold>\<forall>x::aiSys.(high_risk x) \<^bold>\<rightarrow> \<^bold>\<circle>d<stit d (CE_marking_art_49_affixed x)>\<rfloor>"
-abbreviation "a_theory \<equiv> A1 \<and> A2 \<and> A3 \<and> A4 \<and> A5 \<and> A6 \<and> A7 \<and> A8 \<and> A9 \<and> A10"
-
-(*Facts*)
-abbreviation "F0 w \<equiv> (high_risk x) w"
-abbreviation "F1 w \<equiv> (logs_under_control_provider x) w"
-abbreviation "F2 w \<equiv> (\<not> (stit d (compliance_req_chap2 x)) w)"
-abbreviation "a_facts \<equiv> F0 \<^bold>\<and> F1 \<^bold>\<and> F2"
-
-theorem Result1: "a_theory \<longrightarrow> \<lfloor>F0 \<^bold>\<rightarrow> \<^bold>\<circle>d<stit d (technical_doc_drawn_up x)>\<rfloor>"  
-  by auto
-
-theorem Result2: "a_theory \<longrightarrow> \<lfloor>(F0 \<^bold>\<and> F1) \<^bold>\<rightarrow> \<^bold>\<circle>d<stit d (auto_logs_kept x)>\<rfloor>"  
-  by auto 
-
-
-
 (*-------------------------------------------------------------------*)
 (*CTD example Extended DDL:*)
+(*d = provider \<rightarrow> types file*)
 consts 
   l::aiSys
-
+  compliance_req_chap2::"aiSys\<Rightarrow>\<sigma>"
+  inform_com_auth::"aiSys\<Rightarrow>\<sigma>"
 
 (*interesting part: CTD; Trying to create the typical structure*)
 axiomatization where

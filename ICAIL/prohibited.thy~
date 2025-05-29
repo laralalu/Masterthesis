@@ -1,4 +1,4 @@
-theory "Art-5"
+theory prohibited
   imports 
     DDL
    types

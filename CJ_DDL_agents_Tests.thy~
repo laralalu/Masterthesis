@@ -156,4 +156,5 @@ lemma dOp_C: "\<lfloor>\<^bold>\<diamond>\<^sub>p pvd (A \<^bold>\<and> B) \<^bo
 lemma dOa_DD: "\<lfloor>(\<^bold>O\<^sub>a obd avd A \<^bold>\<and> \<^bold>O obd \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>a avd (A \<^bold>\<and> B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>a obd avd (A \<^bold>\<and> B)\<rfloor>" using axd_5b axd_5c dobs_II_4_2_6 by smt 
 declare [[smt_timeout=300]]
 lemma dOp_DD: "\<lfloor>(\<^bold>O\<^sub>p obd pvd A \<^bold>\<and> \<^bold>O obd \<^bold>\<langle>B\<^bold>|A\<^bold>\<rangle> \<^bold>\<and> \<^bold>\<diamond>\<^sub>p pvd (A \<^bold>\<and> B)) \<^bold>\<rightarrow> \<^bold>O\<^sub>p obd pvd (A \<^bold>\<and> B)\<rfloor>" using axd_5b axd_5c dobs_II_4_2_6_p by smt
+
 end

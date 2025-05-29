@@ -1,6 +1,6 @@
 theory prohibited
   imports 
-   DDL
+    DDL
    types
 begin
 
@@ -81,10 +81,10 @@ abbreviation "F9 w \<equiv> (strictly_necessary_for z targeted_search) w"
 theorem Result2a: "D1 \<and> D1b \<and> A2a \<and> A2b \<and> A2c \<longrightarrow> \<lfloor>F4 \<^bold>\<and> F5 \<^bold>\<and> F6 \<^bold>\<and> F7 \<^bold>\<and> F8 \<^bold>\<rightarrow> (\<^bold>\<circle><prohibited z>)\<rfloor>"
   by meson
 
-theorem Result2b: "D1 \<and> D1b \<and> A2a \<and> A2b \<and> A2c \<longrightarrow> \<lfloor>F4 \<^bold>\<and> F5 \<^bold>\<and> F6 \<^bold>\<and> F7 \<^bold>\<and> F9 \<^bold>\<rightarrow> (\<^bold>\<circle><prohibited z>)\<rfloor>"
-  nitpick [user_axioms, card i = 2] oops (*found counterexample*) 
+theorem Result2b: "D1 \<and> D1b \<and> A2a \<and> A2b \<and> A2c \<longrightarrow> \<lfloor>F4 \<^bold>\<and> F5 \<^bold>\<and> F6 \<^bold>\<and> F7 \<^bold>\<and> F9 \<^bold>\<rightarrow> \<^bold>\<not>(\<^bold>\<circle><prohibited z>)\<rfloor>"
+  by blast 
 
-lemma True nitpick [satisfy, user_axioms, show_all] oops
+lemma True nitpick [satisfy, user_axioms, show_all] oops (*model found*)
 
 end
 

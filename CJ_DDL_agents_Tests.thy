@@ -1,5 +1,5 @@
 theory CJ_DDL_agents_Tests imports DDL_agents_clean           (* Christoph Benzmüller, Ali Farjami, Xavier Parent, 2020  *)
-begin (* Some Tests on the Meta-Theory of DDL*)
+begin 
 lemma True nitpick [satisfy,user_axioms,expect=genuine] oops  (* Consistency confirmed by Nitpick *)  
  
 lemma MP: "\<lbrakk>\<lfloor>A\<rfloor>; \<lfloor>A \<^bold>\<rightarrow> B\<rfloor>\<rbrakk> \<Longrightarrow> \<lfloor>B\<rfloor>" by simp

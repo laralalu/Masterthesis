@@ -1,7 +1,7 @@
 theory prohibited
   imports 
     DDL
-   types
+    types
 begin
 
 consts (*Predicates/relations*)
